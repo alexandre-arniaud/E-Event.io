@@ -9,11 +9,11 @@ function start_page($title)
     <?php
     if ($title == 'E-event.io | Connexion')
     {
-      print ('<link rel="stylesheet" type="text/css" href="login.css">');
+      print ('<link rel="stylesheet" type="text/css" href="css/login.css">');
     }
     else if ($title == 'E-event.io | Inscription')
     {
-      print ('<link rel="stylesheet" type="text/css" href="signup.css">');
+      print ('<link rel="stylesheet" type="text/css" href="css/signup.css">');
     }?>
 </head>
 <body>
