@@ -4,18 +4,15 @@
 
 :root {
     --primary-text-color: #ffffff;
-    --primary-color-100: #010400;
-    --primary-color-200: #070A06;
-    --primary-color-300: #0D100C;
-    --primary-color-400: #131612;
-    --primary-color-500: #191C17;
-    --primary-color-600: #252823;
-    --primary-color-700: #30332E;
+    --primary-color-100: #0F0C29;
+    --primary-color-200: #181438;
+    --primary-color-300: #201C46;
+    --primary-color-400: #302B63;
     --primary-color-accent: #fd4d4d;
 }
 
 body {
-    background: linear-gradient(-45deg, var(--primary-color-100), var(--primary-color-200), var(--primary-color-300), var(--primary-color-400), var(--primary-color-500), var(--primary-color-600), var(--primary-color-700));
+    background: linear-gradient(-45deg, var(--primary-color-100), var(--primary-color-200), var(--primary-color-300), var(--primary-color-400));
     background-size: 400% 400%;
     animation: gradient 12s ease infinite;
 }
@@ -46,16 +43,39 @@ body {
     padding: 1em 0 0 2em;
 }
 
+.navbar-infos {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    margin-left: auto;
+    padding-right: 3em;
+    gap: 4em;
+
+    font-family: Poppins, sans-serif;
+
+}
+
+.navbar-infos > a {
+    text-decoration: none;
+    color: white;
+}
+
+.navbar-infos-items:hover {
+    cursor: pointer;
+    color: gold;
+    transition: color 275ms ease;
+}
+
 .login {
     display: flex;
     flex-direction: column;
     align-items: center;
 
     white-space: nowrap;
-    overflow: hidden;
-
+    max-width: max-content;
     margin: auto;
-    margin-top: 10vh;
+    padding-top: 10vh;
     color: var(--primary-text-color);
 
     transform: scale(1.1);
@@ -67,7 +87,6 @@ body {
     font-size: 2rem;
     margin: 0 0 3em 0;
 }
-
 
 .form-group > label {
     font-family: Poppins;
@@ -102,7 +121,7 @@ body {
 
 }
 
-.form-button > button{
+.form-button > a{
     cursor: pointer;
 
     font-family: Poppins, sans-serif;
@@ -113,16 +132,19 @@ body {
 
     border: none;
     border-radius: 0.25rem;
+    text-decoration: none;
+
+    padding: 0.1em;
 
     transition: transform .2s;
 }
 
-.form-button > button:first-child {
+.form-button > a:first-child {
     color: #000000;
     background-color: var(--primary-text-color);
 }
 
-.form-button > button:hover {
+.form-button > a:hover {
     transform: scale(1.1);
 }
 

@@ -1,6 +1,8 @@
 <?php
-function getEvents()
+
+class models
 {
+    protected static $db = null;
     try
     {
         $dbLink = mysqli_connect(mysql-aarniaud.alwaysdata.net, aarniaud, Alphakiller04380)

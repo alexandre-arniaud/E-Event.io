@@ -2,10 +2,6 @@
 include 'template.php';
 start_page('E-event.io | Connexion');
 ?>
-    <header class="header">
-        <img src="./assets/img/logo.png" alt="Logo de E-event.io">
-    </header>
-
 
     <form class="login">
         <span class="login-title">Connexion</span>
@@ -22,8 +18,8 @@ start_page('E-event.io | Connexion');
             <label class="rememberMe"><input type="checkbox">Se souvenir de moi</label>
         </div>
         <div class="form-button">
-            <button href="[PAGE CONNECTE]">CONNEXION</button>
-            <button href="signup.php">INSCRIPTION</button>
+            <a href="[PAGE CONNECTE]">CONNEXION</a>
+            <a href="signup.php">INSCRIPTION</a>
         </div>
 
         <span class="button_forgot" href="[PAGE POUR CHANGER MDP]">Mot de passe oublié</span>

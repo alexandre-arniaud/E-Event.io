@@ -6,8 +6,8 @@ $action = $_POST['action'];
 $nom = $_POST['nom'];
 $prenom = $_POST['prenom'];
 $email = $_POST['mail'];
-$password = hash('MD5',$_POST['password']);
-$confirm_password = hash('MD5',$_POST['confirm_password']);
+$password = crypt($_POST['password']);
+$confirm_password = crypt($_POST['confirm_password']);
 $today = date('Y-m-d');
 
 if($action == 'send' && $password == $confirm_password)
@@ -18,10 +18,6 @@ if($action == 'send' && $password == $confirm_password)
     $message .= 'Email : ' . $email . PHP_EOL; '<br/>';
     $message .= 'Mot de passe : ' . $password . PHP_EOL;
     echo $message;
-}
-else
-{
-    echo '<br/><strong>Bouton non géré !</strong><br/>';
 }
 
 $dbLink = mysqli_connect('mysql-aarniaud.alwaysdata.net', 'aarniaud', 'Alphakiller04380$$')

@@ -2,9 +2,6 @@
 include 'template.php';
 start_page('E-event.io | Inscription');
 ?>
-    <div class="signup_img">
-        <img src="./assets/img/logo.png" alt="Logo de E-event.io">
-    </div>
 
     <form class="signup" action="data-processing.php" method="post">
         <span class="signup-title">Inscription</span>
@@ -35,7 +32,7 @@ start_page('E-event.io | Inscription');
         </div>
 
         <div class="form-button">
-            <button type="submit" name="action" value="send" href="./login.php">VALIDER L'INSCRIPTION</button>
+            <button type="submit" name="action" value="send" href="login.php">VALIDER L'INSCRIPTION</button>
         </div>
 
     </form>
