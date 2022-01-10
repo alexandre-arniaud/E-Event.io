@@ -21,16 +21,6 @@ start_page('E-event.io | Inscription');
             <input type="email" class="form-control" name="mail" placeholder="Email" spellcheck="false" required>
         </div>
 
-        <div class="form-group">
-            <label for="inputMDP">Mot de passe</label>
-            <input type="password" class="form-control" name="password" placeholder="Mot de passe" spellcheck="false" required>
-        </div>
-
-        <div class="form-group">
-            <label for="inputMDP">Confirmation Mot de passe</label>
-            <input type="password" class="form-control" name="confirm_password" placeholder="Confirmez votre mot de passe" spellcheck="false" required>
-        </div>
-
         <div class="form-button">
             <button type="submit" name="action" value="send" href="login.php">VALIDER L'INSCRIPTION</button>
         </div>
