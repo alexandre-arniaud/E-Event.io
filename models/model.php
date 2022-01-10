@@ -2,11 +2,15 @@
 
 require('./config/config.php');
 
-class model
+class Model
 {
     protected static $dbLink = null;
 
-
+    /**
+     * Permet de créer une instance de la base de données
+     * author Alexandre Arniaud
+     * return mysqliconnect
+     */
     public function __construct()
     {
         return self::getDb();
@@ -35,7 +39,7 @@ class model
 
     public function __destruct()
     {
-        self::$dbLink == null;
+        self::$dbLink = null;
     }
 }
 ?>
