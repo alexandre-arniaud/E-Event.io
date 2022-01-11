@@ -1,5 +1,5 @@
 <?php
-include '../data-processing.php';
+require_once (File::build_path(array("data-processing.php")));
 
 final class signupController
 {

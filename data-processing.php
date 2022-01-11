@@ -1,8 +1,9 @@
 <?php
 
-include_once 'models/Model.php';
-include_once 'controllers/signup_controller.php';
-include_once 'models/Member.php';
+require_once ('lib/File.php');
+require_once (File::build_path(array("models","Model.php")));
+require_once (File::build_path(array("controllers","signup_controller.php")));
+require_once (File::build_path(array("models","Member.php")));
 
 
 $action = $_POST['action'];
@@ -18,7 +19,7 @@ if($action == 'send')
     $inscription->sendEmail($membre);
 }
 
-$db = Model::getDb();
+$db = Model::getPDO();
 
 $inscription_query = 'INSERT INTO members (login, mail, lastname, firstname, password) VALUES (\''. $membre -> getLogin() . '\', \'' . $membre -> getEmail() . '\', \'' . $membre -> getNom() . '\', \'' . $membre -> getPrenom() .'\', \'' . $encrypt_pass . '\')';
 

@@ -10,7 +10,6 @@ final class Member extends Model
 
     public function __construct($id, $nom, $prenom, $email, $login)
     {
-        parent::__construct();
         if (!is_null($id)) { $this->id = $id ; }
         if (!is_null($nom)) { $this->nom = $nom; }
         if (!is_null($prenom)) { $this->prenom = $prenom; }
@@ -93,7 +92,7 @@ final class Member extends Model
     /**
      * @param $login
      */
-    public function setLogin($email)
+    public function setLogin($login)
     {
         $this->login = $login;
     }
