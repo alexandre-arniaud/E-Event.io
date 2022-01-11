@@ -1,6 +1,5 @@
 <?php
-require_once ('lib/File.php');
-require_once (File::build_path(array("config","config.php")));
+require_once ('../config/config.php');
 
 class Model {
     private static $pdo = NULL;

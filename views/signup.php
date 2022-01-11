@@ -1,9 +1,10 @@
 <?php
 include 'template.php';
+require_once ('../controllers/routeur.php');
 start_page('E-event.io | Inscription');
 ?>
 
-    <form class="signup" action="../data-processing.php" method="post">
+    <form class="signup" action="?controllers=ControllerSignup&action=readSignup" method="post">
         <span class="signup-title">Inscription</span>
 
         <div class="form-group">
@@ -22,7 +23,7 @@ start_page('E-event.io | Inscription');
         </div>
 
         <div class="form-button">
-            <button type="submit" name="action" value="send">VALIDER L'INSCRIPTION</button>
+            <button type="submit" name="action">VALIDER L'INSCRIPTION</button>
         </div>
 
     </form>
