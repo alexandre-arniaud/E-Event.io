@@ -6,14 +6,16 @@ final class Member extends Model
     private $nom;
     private $prenom;
     private $email;
+    private $login;
 
-    public function __construct($id, $nom, $prenom, $email)
+    public function __construct($id, $nom, $prenom, $email, $login)
     {
         parent::__construct();
-        $this->id = $id;
-        $this->nom = $nom;
-        $this->prenom = $prenom;
-        $this->email = $email;
+        if (!is_null($id)) { $this->id = $id ; }
+        if (!is_null($nom)) { $this->nom = $nom; }
+        if (!is_null($prenom)) { $this->prenom = $prenom; }
+        if (!is_null($email)) { $this->email = $email; }
+        if (!is_null($login)) { $this->login = $login; }
     }
 
 
@@ -86,6 +88,23 @@ final class Member extends Model
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * @param $login
+     */
+    public function setLogin($email)
+    {
+        $this->login = $login;
+    }
+
+
+    /**
+     * @return mixed $login
+     */
+    public function getLogin()
+    {
+        return $this->login;
     }
 
 

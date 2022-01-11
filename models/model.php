@@ -1,6 +1,6 @@
 <?php
 
-require('./config/config.php');
+include_once '../config/config.php';
 
 class Model
 {
@@ -16,11 +16,6 @@ class Model
         return self::getDb();
     }
 
-
-    public function connexion()
-    {
-        return self::$dbLink;
-    }
 
 
     public static function getDb()

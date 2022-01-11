@@ -1,5 +1,5 @@
 <?php
-require('./models/Member.php');
+include '../data-processing.php';
 
 final class signupController
 {
@@ -37,13 +37,15 @@ final class signupController
      * Envoi le mot de passe généré par mail a l'utilisateur pour la connexion
      * author Alexandre Arniaud
      */
-    public function sendEmail()
+    public function sendEmail($membre)
     {
-        $emailMessage = 'Bienvenue sur E-event.io' . (new Member) -> getPrenom() .' ! <br/>';
-        $emailMessage .= 'Voici ton mot de passe afin de te connecter sur le site : ' . $this->generateRandomPass() . '<br/>';
-        $emailMessage .= 'Tu pourras le modifier directement sur le site, dans l\'onglet Paramètres mais attention, ne le divulge à personne';
+        $emailMessage = 'Bienvenue sur E-event.io, ' . $membre->getPrenom() . ' ! ' . "\n";
+        $emailMessage .= 'Voici tes identifiants afin de te connecter sur le site : ' . "\n";
+        $emailMessage .= 'Identifiant : ' . $membre->getLogin() . "\n";
+        $emailMessage .= 'Mot de passe : ' . $this->generateRandomPass() . "\n";
+        $emailMessage .= 'Le mot de passe sera modifiable directement depuis le site, dans les paramètres de ton compte mais attention, ne le divulge à personne';
 
         $object = "E-Event.io: Confirmation d'inscription";
-        mail((new Member) -> getEmail(), $object, $emailMessage);
+        mail($membre->getEmail(), $object, utf8_decode($emailMessage));
     }
 }

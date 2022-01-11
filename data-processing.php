@@ -1,32 +1,26 @@
 <?php
 
-include 'template.php';
-include './models/Model.php';
-include './controllers/signup.php';
+include_once 'models/Model.php';
+include_once 'controllers/signup_controller.php';
+include_once 'models/Member.php';
 
-start_page("Data processing");
 
 $action = $_POST['action'];
-$membre = new Member();
-$membre -> setNom($_POST['nom']);
-$membre -> setPrenom($_POST['prenom']);
-$membre -> setEmail($_POST['mail']);
+global $membre;
+$membre = new Member(null, $_POST['nom'], $_POST['prenom'], $_POST['mail'], strtolower($_POST['prenom']) . '.' . strtolower($_POST['nom']));
 $encrypt_pass = (new signupController()) -> encryptPass();
 $today = date('Y-m-d');
 
 
 if($action == 'send')
 {
-    $message = 'Voici vos informations :' . PHP_EOL; '<br/>';
-    $message .= 'Nom : ' . $membre -> getNom() . PHP_EOL; '<br/>';
-    $message .= 'Prénom : ' . $membre -> getPrenom() . PHP_EOL; '<br/>';
-    $message .= 'Email : ' . $membre -> getEmail() . PHP_EOL; '<br/>';
-    signupController::sendEmail();
+    $inscription = new signupController;
+    $inscription->sendEmail($membre);
 }
 
 $db = Model::getDb();
 
-$inscription_query = 'INSERT INTO members (mail, lastname, firstname, password) VALUES (\'' . $membre -> getEmail() . '\', \'' . $membre -> getNom() . '\', \'' . $membre -> getPrenom() .'\', \'' . $encrypt_pass . '\')';
+$inscription_query = 'INSERT INTO members (login, mail, lastname, firstname, password) VALUES (\''. $membre -> getLogin() . '\', \'' . $membre -> getEmail() . '\', \'' . $membre -> getNom() . '\', \'' . $membre -> getPrenom() .'\', \'' . $encrypt_pass . '\')';
 
 if(!($dbResult = mysqli_query($db, $inscription_query)))
 {
@@ -37,8 +31,8 @@ if(!($dbResult = mysqli_query($db, $inscription_query)))
     echo 'Requête : ' . $inscription_query . '<br/>';
     exit();
 } else {
-    echo 'Requête bien envoyée <br/>';
+    header('Location: /views/login.php');
+    echo "<script type='text/javascript'>alert('Inscription réalisée avec succès !');</script>";
 }
 
-end_page();
 ?>

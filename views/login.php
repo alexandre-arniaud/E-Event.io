@@ -18,7 +18,7 @@ start_page('E-event.io | Connexion');
             <label class="rememberMe"><input type="checkbox">Se souvenir de moi</label>
         </div>
         <div class="form-button">
-            <a href="[PAGE CONNECTE]">CONNEXION</a>
+            <a href="dashboard/index.php">CONNEXION</a>
             <a href="signup.php">INSCRIPTION</a>
         </div>
 
