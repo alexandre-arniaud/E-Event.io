@@ -37,11 +37,11 @@ class ControllerSignup
 
         if ($login == false)
         {
-            echo "Erreur dans le processus de connexion";
+            echo "Vos identifiants sont incorrects";
         }
         else
         {
-            echo "Vous êtes connecté !";
+            header("Location: ../views/signup.php");
         }
     }
 

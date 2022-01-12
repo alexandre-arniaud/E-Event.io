@@ -42,17 +42,14 @@ final class Member
             );
             $req_prep->execute($values);
 
-
             if(password_verify($password, $cryptpass))
             {
-                echo password_verify($password, $cryptpass);
                 $membre = new Member(null, ucfirst(strtolower($_POST['nom'])), ucfirst(strtolower($_POST['prenom'])), $_POST['mail'], strtolower($_POST['prenom']) . '.' . strtolower($_POST['nom']), $password);
                 $inscription = new ControllerSignup();
                 $inscription->sendEmail($membre); // Envoi du mail a l'utilisateur avec ses identifiants de connexion
                 return true;
             }
             else {
-                echo password_verify($password, $cryptpass);
                 return false;
             }
         }
@@ -106,12 +103,12 @@ final class Member
                 $req->execute(array(
                     'login' => $login));
                 $resultat = $req->fetch();
-                echo $resultat . "</br>" . $resultat['password'] . "</br>" . (password_verify($_POST['password'], $resultat['password']) . "</br>");
+                echo $_POST['password'] . "</br>" . $resultat['password'] . "</br>" . (password_verify($_POST['password'], $resultat['password']) . "</br>");
 
-                if (!$resultat['password'] or !password_verify($_POST['password'], $resultat['password'])) {
-                    return false;
-                } else {
+                if (password_verify($_POST['password'], $resultat['password'])) {
                     return true;
+                } else {
+                    return false;
                 }
             }
         }
