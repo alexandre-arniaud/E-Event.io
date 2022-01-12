@@ -1,25 +1,38 @@
 <?php
-require_once ('../views/signup.php');
-require_once ('ControllerSignup.php');
+require_once(dirname(__FILE__) . '/ControllerSignup.php');
+require_once(dirname(__FILE__) . '/ControllerLogin.php');
+
+$action = NULL;
+$controller = NULL;
 
 // On recupère l'action passée dans l'URL
 if (isset($_GET['action'])){
-    $action = $_GET["action"];
+    if ($_GET['action'] == 'readSignup') {
+        $action = 'readSignup';
+    }
+    else if ($_GET['action'] == 'readResetPassword') {
+        $action = 'readResetPassword';
+    }
+    else if ($_GET['action'] == 'readLogin') {
+        $action = 'readLogin';
+    }
 } else {
-    echo " Erreur dans la récupération de l'action passée en paramètre !";
+    $action = 'index';
 }
 
-echo "Action : " . $action;
-
-if(isset($_GET['controllers'])){ // On recupère le controleur dans l'URL
-    $controller = $_GET['controllers'];
+// On recupère le controleur dans l'URL
+if(isset($_GET['controllers'])){
+    if ($_GET['controllers'] == 'ControllerSignup') {
+        $controller = 'ControllerSignup';
+    }
 }else {
-    echo " Erreur dans la récupération du controlleur passée en paramètre !";
+    $controller = 'ControllerLogin';
 }
-
-echo "Controleur : " . $controller;
 
 // Appel de la méthode statique $action du controlleur récupéré dans l'URL
-$controller::$action();
+if ($action != NULL && $controller != NULL) {
+    $controller::$action();
+}
+
 
 ?>

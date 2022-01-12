@@ -11,7 +11,7 @@ function start_page($title)
         {
             print ('<link rel="stylesheet" type="text/css" href="../assets/css/login.css">');
         }
-        else if ($title == 'E-event.io | Inscription')
+        else if ($title == 'E-event.io | Inscription' || $title == 'E-event.io | Modification du mot de passe')
         {
             print ('<link rel="stylesheet" type="text/css" href="../assets/css/signup.css">');
         }
@@ -24,7 +24,7 @@ function start_page($title)
     <header class="header">
         <img src="../assets/img/logo.png" alt="Logo de E-event.io">
         <div class="navbar-infos">
-            <a class="navbar-infos-items" href="/index.php">Accueil</a>
+            <a class="navbar-infos-items" href="./index.php">Accueil</a>
             <a class="navbar-infos-items">Évènements</a>
             <a class="navbar-infos-items">En savoir plus</a>
             <a class="navbar-infos-items" href="/views/login.php">Se connecter</a>

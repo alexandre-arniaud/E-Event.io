@@ -1,10 +1,9 @@
 <?php
 include 'template.php';
-require_once ('../controllers/routeur.php');
 start_page('E-event.io | Inscription');
 ?>
 
-    <form class="signup" action="?controllers=ControllerSignup&action=readSignup" method="post">
+    <form class="signup" action="/index.php?controllers=ControllerSignup&action=readSignup" method="post">
         <span class="signup-title">Inscription</span>
 
         <div class="form-group">

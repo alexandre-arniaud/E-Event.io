@@ -81,6 +81,13 @@ body {
     transform: scale(1.1);
 }
 
+.login > p {
+    font-family: Poppins, sans-serif;
+    font-weight: bold;
+    font-size: 0.75rem;
+
+}
+
 .login-title {
     font-family: Poppins;
     font-weight: bold;
@@ -121,7 +128,7 @@ body {
 
 }
 
-.form-button > a{
+.form-button > a, button {
     cursor: pointer;
 
     font-family: Poppins, sans-serif;
@@ -134,12 +141,12 @@ body {
     border-radius: 0.25rem;
     text-decoration: none;
 
-    padding: 0.1em;
+    padding: 0 0.725em 0 0.725em;
 
     transition: transform .2s;
 }
 
-.form-button > a:first-child {
+.button {
     color: #000000;
     background-color: var(--primary-text-color);
 }
@@ -152,11 +159,14 @@ body {
     font-family: Poppins, sans-serif;
     font-size: small;
     font-weight: bold;
-    color: var(--primary-text-color);
+    color: var(--primary-color-accent);
 
     cursor: pointer;
+    padding-left: 0.5em;
+    text-decoration: none;
 }
 
 .button_forgot:hover {
-    color: var(--primary-color-accent);
+    text-decoration: underline;
 }
+

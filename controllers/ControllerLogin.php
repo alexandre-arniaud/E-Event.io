@@ -1,37 +1,15 @@
 <?php
 
-final class LoginController {
+final class ControllerLogin {
 
-    function __construct()
-    {
-
-        parent::__construct();
-            Session::init();
-
-    }
 
     function index()
     {
 
-        $this->view-render('login');
+        header('Location: ./index.php');
 
     }
 
-    function run()
-    {
 
-        $this->model->run();
-
-    }
-
-    /* logout the user */
-    function logout()
-    {
-
-        Session::destroy();
-        header('location: index');
-        exit;
-
-    }
 
 }

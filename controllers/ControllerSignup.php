@@ -1,6 +1,6 @@
 <?php
-require_once ('../models/Member.php');
-require_once ('../controllers/routeur.php');
+require_once(dirname(__FILE__) . '/../models/Member.php');
+require_once(dirname(__FILE__) . '/../controllers/routeur.php');
 
 class ControllerSignup
 {
@@ -15,8 +15,33 @@ class ControllerSignup
         else
         {
             header("Location: ../views/login.php");
-            $controller = "ControllerSignup";
-            $view = "login";
+        }
+    }
+
+
+    public function readResetPassword() {
+        $reset = Member::resetPass();
+
+        if ($reset == false)
+        {
+            require_once ('../views/error.php'); // fichier error.php a créer pour répertorier toutes les erreurs
+        }
+        else
+        {
+            header("Location: ../views/login.php");
+        }
+    }
+
+    public function readLogin() {
+        $login = Member::loginMember();
+
+        if ($login == false)
+        {
+            echo "Erreur dans le processus de connexion";
+        }
+        else
+        {
+            echo "Vous êtes connecté !";
         }
     }
 
@@ -28,20 +53,21 @@ class ControllerSignup
      */
     public function generateRandomPass()
     {
-        $bytes = openssl_random_pseudo_bytes(8);
-        $pass = bin2hex($bytes);
+        $combinaisons = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        $melange = str_shuffle($combinaisons);
+        $pass = substr($melange,0,8);
         return $pass;
     }
 
 
     /**
      * Encrpyte le mot de passe généré aléatoirement
-     * @return string Mot de passe alétoire encrypté prêt a être ajouté dans la base de données
+     * @return string Mot de passe alétoire encrypté prêt à être ajouté dans la base de données
      * author Alexandre Arniaud
      */
-    public function encryptPass()
+    public function encryptPass($password)
     {
-        $encrypt_pass = crypt((new ControllerSignup()) -> generateRandomPass());
+        $encrypt_pass = password_hash($password, PASSWORD_DEFAULT);
         return $encrypt_pass;
     }
 
@@ -55,10 +81,22 @@ class ControllerSignup
         $emailMessage = 'Bienvenue sur E-event.io, ' . $membre->getPrenom() . ' ! ' . "\n";
         $emailMessage .= 'Voici tes identifiants afin de te connecter sur le site : ' . "\n";
         $emailMessage .= 'Identifiant : ' . $membre->getLogin() . "\n";
-        $emailMessage .= 'Mot de passe : ' . $this->generateRandomPass() . "\n";
+        $emailMessage .= 'Mot de passe : ' . $membre->getPass() . "\n";
         $emailMessage .= 'Le mot de passe sera modifiable directement depuis le site, dans les paramètres de ton compte mais attention, ne le divulge à personne';
 
         $object = "E-Event.io: Confirmation d'inscription";
         mail($membre->getEmail(), $object, utf8_decode($emailMessage));
+    }
+
+    public function sendEmailReset($mail, $password_n)
+    {
+        $emailMessage = 'Bonjour,' . "\n";
+        $emailMessage .= 'Tu as récemment fait une demande de mot de passe sur le compte associé à cette adresse mail.' . "\n";
+        $emailMessage .= 'Voici votre nouveau mot de passe' . "\n";
+        $emailMessage .= 'Mot de passe : ' . $password_n . "\n";
+        $emailMessage .= 'Le mot de passe sera modifiable directement depuis le site, dans les paramètres de ton compte mais attention, ne le divulge à personne';
+
+        $object = "E-Event.io: Confirmation d'inscription";
+        mail($mail, $object, utf8_decode($emailMessage));
     }
 }

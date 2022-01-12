@@ -1,5 +1,5 @@
 <?php
-require_once ('../config/config.php');
+require_once(dirname(__FILE__) . '/../config/config.php');
 
 class Model {
     private static $pdo = NULL;
@@ -16,7 +16,7 @@ class Model {
             if (Conf :: getDebug()) {
                 echo $erreur->getMessage(); //affiche un message d'erreur
             } else {
-                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+                echo 'Une erreur est survenue <a href="../index.php"> retour a la page d\'accueil </a>';
         }
 
       die();
