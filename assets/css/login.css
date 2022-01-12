@@ -129,8 +129,6 @@ body {
 }
 
 .form-button > a, button {
-    cursor: pointer;
-
     font-family: Poppins, sans-serif;
     font-weight: bold;
     text-align: center;
@@ -146,12 +144,16 @@ body {
     transition: transform .2s;
 }
 
-.button {
-    color: #000000;
+.form-button > button {
+    font-size: inherit;
+    color: black;
     background-color: var(--primary-text-color);
+
 }
 
-.form-button > a:hover {
+
+.form-button > a:hover, button:hover {
+    cursor: pointer;
     transform: scale(1.1);
 }
 
