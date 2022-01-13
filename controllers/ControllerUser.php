@@ -1,6 +1,7 @@
 <?php
 require_once(dirname(__FILE__) . '/../models/Member.php');
 require_once(dirname(__FILE__) . '/../controllers/routeur.php');
+require_once(dirname(__FILE__) . '/../controllers/ControllerSession.php');
 
 class ControllerUser
 {
@@ -55,7 +56,9 @@ class ControllerUser
         }
         else
         {
+            ControllerSession::OpenSession();
             header("Location: ../views/newEvent.php");
+
         }
     }
 

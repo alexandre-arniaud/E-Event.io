@@ -1,5 +1,7 @@
 <?php
 include 'template.php';
+require_once(dirname(__FILE__) . '/../controllers/ControllerSession.php');
+ControllerSession::OpenSession();
 start_page('E-event.io | Connexion');
 ?>
 

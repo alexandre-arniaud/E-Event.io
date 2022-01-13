@@ -1,6 +1,7 @@
 <?php
 
 require_once dirname(__FILE__) . '/Model.php';
+require_once './views/admin_validation.php';
 
 final class Member
 {
@@ -26,18 +27,21 @@ final class Member
      * @author Alexandre Arniaud
      */
     public function signup() {
+        $validation =
         $contr = new ControllerUser();
         $password = $contr->generateRandomPass();
         $cryptpass = $contr->encryptPass($password);
 
-        $reqI = "INSERT INTO members (login, mail, lastname, firstname, password) VALUES (:nL, :nM, :nN, :nP, :nU)";
+        $reqI = "INSERT INTO members (login, mail, lastname, firstname, password) VALUES (:nL, :nM, :nN, :nP, :nU)
+                 DELETE FROM validation WHERE mail = :nM; ";
+
         try {
             $req_prep = Model::getPDO()->prepare($reqI);
             $values = array(
-                "nL" => (strtolower($_POST['prenom']) . '.' . strtolower($_POST['nom'])),
-                "nM" => $_POST['mail'],
-                "nN" => (ucfirst(strtolower($_POST['nom']))),
-                "nP" => (ucfirst(strtolower($_POST['prenom']))),
+                "nL" => (strtolower($validation['prenom']) . '.' . strtolower($validation['nom'])),
+                "nM" => strtolower($validation['mail']),
+                "nN" => (ucfirst(strtolower($validation['nom']))),
+                "nP" => (ucfirst(strtolower($validation['prenom']))),
                 "nU" => $cryptpass
             );
             $req_prep->execute($values);
@@ -65,21 +69,28 @@ final class Member
      * @author Alexandre Arniaud
      */
     public function validation() {
+        $mail = strtolower($_POST['mail']);
+        $reqV = "SELECT * FROM validation, members WHERE validation.mail = '" . $mail . "' OR members.mail = '" . $mail . "'";
+        $req_v= Model::getPDO()->query($reqV);
 
         $reqI = "INSERT INTO validation (nom, prenom, mail) VALUES (:nL, :nM, :nN)";
-        try {
-            $req_prep = Model::getPDO()->prepare($reqI);
-            $values = array(
-                "nL" => (ucfirst(strtolower($_POST['nom']))),
-                "nM" => (ucfirst(strtolower($_POST['prenom']))),
-                "nN" => $_POST['mail']
-            );
-            $req_prep->execute($values);
-            return true;
 
+        try {
+            if (!$req_v->fetch())
+            {
+                $req_prepare = Model::getPDO()->prepare($reqI);
+                $values = array(
+                    "nL" => (ucfirst(strtolower($_POST['nom']))),
+                    "nM" => (ucfirst(strtolower($_POST['prenom']))),
+                    "nN" => strtolower($_POST['mail'])
+                );
+                $req_prepare->execute($values);
+                return true;
+            } else {
+                return false;
+            }
         }
         catch (PDOException $e) {
-            require_once ('../views/error.php'); // fichier error.php a créer pour répertorier toutes les erreurs
             return false;
         }
     }
@@ -140,6 +151,7 @@ final class Member
             }
         }
     }
+
 
 
     /**

@@ -13,6 +13,7 @@ function start_page($title)
         }
         else if ($title == 'E-event.io | Inscription' || $title == 'E-event.io | Modification du mot de passe' || 'E-event.io | Ajouter un évènement')
         {
+            print ('<link rel="stylesheet" type="text/css" href="../assets/css/validation.css">');
             print ('<link rel="stylesheet" type="text/css" href="../assets/css/signup.css">');
         }
         else
@@ -28,11 +29,11 @@ function start_page($title)
             <a class="navbar-infos-items" href="newEvent.php">Évènements</a>
             <a class="navbar-infos-items">En savoir plus</a>
 
-            <?php echo $_SESSION['var']; if($_SESSION['var'] == true) { ?>
+            <?php if(session_status() == PHP_SESSION_ACTIVE) { ?>
                 <a class="navbar-infos-items" href="/views/login.php">Se déconnecter</a>
             <?php }
 
-            else { ?>
+            else if(session_status() == PHP_SESSION_NONE) { ?>
                     <a class="navbar-infos-items" href="/views/login.php">Se connecter</a>
             <?php } ?>
         </div>
