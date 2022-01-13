@@ -3,7 +3,7 @@ include 'template.php';
 start_page('E-event.io | Inscription');
 ?>
 
-    <form class="signup" action="/index.php?controllers=ControllerSignup&action=readSignup" method="post">
+    <form class="signup" action="/index.php" method="post">
         <span class="signup-title">Inscription</span>
 
         <div class="form-group">
@@ -23,6 +23,9 @@ start_page('E-event.io | Inscription');
 
         <div class="form-button">
             <button type="submit" name="action">VALIDER L'INSCRIPTION</button>
+            <input type="hidden" name="controllers" value="ControllerUser">
+            <input type="hidden" name="action" value="readValidation">
+
         </div>
 
     </form>

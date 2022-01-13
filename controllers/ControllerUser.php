@@ -2,7 +2,7 @@
 require_once(dirname(__FILE__) . '/../models/Member.php');
 require_once(dirname(__FILE__) . '/../controllers/routeur.php');
 
-class ControllerSignup
+class ControllerUser
 {
 
     public function readSignup() {
@@ -10,10 +10,24 @@ class ControllerSignup
 
         if ($signup == false)
         {
-            require_once ('../views/error.php'); // fichier error.php a créer pour répertorier toutes les erreurs
+            header("Location: ../views/error.php");
         }
         else
         {
+            header("Location: ../views/login.php");
+        }
+    }
+
+    public function readValidation() {
+        $validation = Member::validation();
+
+        if ($validation == false)
+        {
+            header("Location: ../views/error.php");
+        }
+        else
+        {
+            echo "Votre inscription a bien été prise en compte, vous recevrez prochainement un mail de confirmation";
             header("Location: ../views/login.php");
         }
     }
@@ -24,7 +38,7 @@ class ControllerSignup
 
         if ($reset == false)
         {
-            require_once ('../views/error.php'); // fichier error.php a créer pour répertorier toutes les erreurs
+            header("Location: ../views/error.php");
         }
         else
         {
@@ -37,11 +51,11 @@ class ControllerSignup
 
         if ($login == false)
         {
-            echo "Vos identifiants sont incorrects";
+            header("Location: ../views/error.php");
         }
         else
         {
-            header("Location: ../views/signup.php");
+            header("Location: ../views/newEvent.php");
         }
     }
 

@@ -12,9 +12,12 @@
 }
 
 body {
-    background: linear-gradient(-45deg, var(--primary-color-100), var(--primary-color-200), var(--primary-color-300), var(--primary-color-400));
-    background-size: 400% 400%;
-    animation: gradient 12s ease infinite;
+    /*background: linear-gradient(-45deg, var(--primary-color-100), var(--primary-color-200), var(--primary-color-300), var(--primary-color-400));*/
+    /*background-size: 400% 400%;*/
+    /*animation: gradient 12s ease infinite;*/
+    background-image: url(../img/Moon.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 @keyframes gradient {
@@ -93,18 +96,23 @@ body {
     font-weight: bold;
 }
 
-.form-group > input {
+.form-control {
     border: none;
     display: block;
 
     font-family: Poppins, sans-serif;
-    color: #dbdbdb;
+    color: var(--primary-text-color);
     background: transparent;
     width: 25em;
     height: 3em;
-    margin-bottom: 1.5em;
+    margin-bottom: 2em;
 
     border-bottom: 2px solid #dbdbdb;
+}
+
+.form-control::placeholder {
+    color: lightgrey;
+    font-family: Poppins, sans-serif;
 }
 
 .form-button {
@@ -139,4 +147,48 @@ body {
 
 .form-button > button:hover {
     transform: scale(1.1);
+}
+
+
+.newProj {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    white-space: nowrap;
+    max-width: 80%;
+    margin: auto;
+    margin-top: 8vh;
+    width: 60%;
+    padding-top: 10vh;
+    border-radius: 3em;
+
+    color: var(--primary-text-color);
+    backdrop-filter: blur(5px) drop-shadow(4px 4px 10px black) brightness(85%);;
+
+
+    transform: scale(1.1);
+}
+
+.proj-title {
+    font-family: Poppins;
+    font-weight: bold;
+    font-size: 2rem;
+    margin: 0 0 2em 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.form-group > textarea{
+    resize: none;
+    width: 31em;
+    height: 16em;
+}
+
+.container-child-1 {
+    padding-right: 15em;
 }

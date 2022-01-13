@@ -12,9 +12,12 @@
 }
 
 body {
-    background: linear-gradient(-45deg, var(--primary-color-100), var(--primary-color-200), var(--primary-color-300), var(--primary-color-400));
-    background-size: 400% 400%;
-    animation: gradient 12s ease infinite;
+    /*background: linear-gradient(-45deg, var(--primary-color-100), var(--primary-color-200), var(--primary-color-300), var(--primary-color-400));*/
+    /*background-size: 400% 400%;*/
+    /*animation: gradient 12s ease infinite;*/
+    background-image: url(../img/Moon.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 @keyframes gradient {

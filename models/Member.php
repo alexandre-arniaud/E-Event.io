@@ -1,6 +1,6 @@
 <?php
 
-require_once(dirname(__FILE__) . '/Model.php');
+require_once dirname(__FILE__) . '/Model.php';
 
 final class Member
 {
@@ -26,7 +26,7 @@ final class Member
      * @author Alexandre Arniaud
      */
     public function signup() {
-        $contr = new ControllerSignup();
+        $contr = new ControllerUser();
         $password = $contr->generateRandomPass();
         $cryptpass = $contr->encryptPass($password);
 
@@ -45,7 +45,7 @@ final class Member
             if(password_verify($password, $cryptpass))
             {
                 $membre = new Member(null, ucfirst(strtolower($_POST['nom'])), ucfirst(strtolower($_POST['prenom'])), $_POST['mail'], strtolower($_POST['prenom']) . '.' . strtolower($_POST['nom']), $password);
-                $inscription = new ControllerSignup();
+                $inscription = new ControllerUser();
                 $inscription->sendEmail($membre); // Envoi du mail a l'utilisateur avec ses identifiants de connexion
                 return true;
             }
@@ -64,12 +64,37 @@ final class Member
      * @return bool
      * @author Alexandre Arniaud
      */
+    public function validation() {
+
+        $reqI = "INSERT INTO validation (nom, prenom, mail) VALUES (:nL, :nM, :nN)";
+        try {
+            $req_prep = Model::getPDO()->prepare($reqI);
+            $values = array(
+                "nL" => (ucfirst(strtolower($_POST['nom']))),
+                "nM" => (ucfirst(strtolower($_POST['prenom']))),
+                "nN" => $_POST['mail']
+            );
+            $req_prep->execute($values);
+            return true;
+
+        }
+        catch (PDOException $e) {
+            require_once ('../views/error.php'); // fichier error.php a créer pour répertorier toutes les erreurs
+            return false;
+        }
+    }
+
+
+    /**
+     * @return bool
+     * @author Alexandre Arniaud
+     */
     public function resetPass() {
         $reqR = "UPDATE members SET password = :nP WHERE mail = :nM";
         try {
             $req_prep = Model::getPDO()->prepare($reqR);
-            $password = (new ControllerSignup)->generateRandomPass();
-            $encrypt_pass = (new ControllerSignup()) -> encryptPass($password);
+            $password = (new ControllerUser)->generateRandomPass();
+            $encrypt_pass = (new ControllerUser()) -> encryptPass($password);
             $values = array(
                 "nP" => $encrypt_pass,
                 "nM" => $_POST['mail']
@@ -77,7 +102,7 @@ final class Member
             $req_prep->execute($values);
             if(password_verify($password, $encrypt_pass))
             {
-                $inscription = new ControllerSignup();
+                $inscription = new ControllerUser();
                 $inscription->sendEmailReset($_POST['mail'], $password); // Envoi du mail a l'utilisateur avec son nouveau mot de passe
                 return true;
             }
@@ -99,13 +124,15 @@ final class Member
         if (isset($_POST['login']) AND isset($_POST['password'])) {
             if (!empty($_POST['login']) and !empty($_POST['password'])) {
                 $login = $_POST['login'];
-                $req = Model::getPDO()->prepare('SELECT DISTINCT password FROM members WHERE login = :login');
+                $req = Model::getPDO()->prepare('SELECT * FROM members WHERE login = :login');
                 $req->execute(array(
                     'login' => $login));
                 $resultat = $req->fetch();
-                echo $_POST['password'] . "</br>" . $resultat['password'] . "</br>" . (password_verify($_POST['password'], $resultat['password']) . "</br>");
 
                 if (password_verify($_POST['password'], $resultat['password'])) {
+                    $_SESSION['nom'] = $resultat['nom'];
+                    $_SESSION['prenom'] = $resultat['prenom'];
+                    $_SESSION['var'] = true;
                     return true;
                 } else {
                     return false;
