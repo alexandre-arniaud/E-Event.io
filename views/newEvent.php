@@ -1,6 +1,7 @@
 <?php
 include 'template.php';
-ControllerSession::OpenSession();
+//ControllerSession::OpenSession();
+session_start();
 start_page('E-event.io | Ajouter un évènement');
 echo 'Ouesh ' . $_SESSION['prenom'] . ', ça va le couz ?';
 ?>

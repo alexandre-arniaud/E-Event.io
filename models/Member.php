@@ -167,11 +167,13 @@ final class Member
                 $resultat = $req->fetch();
 
                 if (password_verify($_POST['password'], $resultat['password'])) {
-                    ControllerSession::OpenSession();
+//                    ControllerSession::OpenSession();
+                    session_start();
 
                     $_SESSION['nom'] = $resultat['lastname'];
                     $_SESSION['prenom'] = $resultat['firstname'];
-                    $_SESSION['is_login'] = true;
+                    $_SESSION['role'] = $resultat['role'];
+
                     return true;
                 } else {
                     return false;
@@ -186,6 +188,12 @@ final class Member
         $tab = $rep->fetchAll();
         return $tab;
     }
+    public function getAllMembers(){
+        $rep = Model::getPDO()->query("SELECT * FROM members ");
+        $tab = $rep->fetchAll();
+        return $tab;
+    }
+
 
     public function getNameValidation(){
         $nom = $_POST['nom'];
@@ -201,6 +209,18 @@ final class Member
         $mail = $_POST['mail'];
         return $mail;
     }
+
+    public function updateRole(){
+        $sql = 'UPDATE members SET role = :ro WHERE mail = :m';
+        $rep = Model::getPDO()->prepare($sql);
+        $values = array("ro" => $_POST['update'],
+            "m" => $_POST['mail']);
+        echo $_POST['update'];
+        $rep-> execute($values);
+        return true;
+
+    }
+
 
 
     /**

@@ -33,6 +33,7 @@ class ControllerUser
         }
     }
 
+
     public function readRefuseSignup() {
         $refus = Member::refuse_signup();
 
@@ -70,6 +71,27 @@ class ControllerUser
         else
         {
             header("Location: ../views/newEvent.php");
+        }
+    }
+
+    public function deleteSession(){
+        session_unset();
+        session_destroy();
+        setcookie(session_name(),'',time()-1);
+        header("Location: ../views/login.php");
+
+    }
+
+    public function ReadupdateRole(){
+        $update = Member::updateRole();
+
+        if ($update == false)
+        {
+            header("Location: ../views/error.php");
+        }
+        else
+        {
+            header("Location: ../views/gestionnaire_role.php");
         }
     }
 

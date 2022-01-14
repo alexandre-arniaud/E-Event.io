@@ -1,6 +1,6 @@
 <?php
 require_once dirname(__FILE__) . '/../controllers/ControllerSession.php';
-ControllerSession::OpenSession();
+session_start();
 function start_page($title)
 {
     ?> <!DOCTYPE html>
@@ -24,25 +24,99 @@ function start_page($title)
         }?>
     </head>
     <body>
-    <header class="header">
+    <?php
+    if (ControllerSession::is_admin()){
+        echo '<header class="header">
         <img src="../assets/img/logo.png" alt="Logo de E-event.io">
         <div class="navbar-infos">
             <a class="navbar-infos-items" href="./index.php">Accueil</a>
             <a class="navbar-infos-items" href="newEvent.php">Évènements</a>
-            <a class="navbar-infos-items">En savoir plus</a>
+            <a class="navbar-infos-items" href="admin_validation.php">Validation</a>
+            <a class="navbar-infos-items" href="gestionnaire_role.php">Gestion des roles</a>
+            <a class="navbar-infos-items">En savoir plus</a>';
 
-            <?php if(session_status() == PHP_SESSION_ACTIVE) { ?>
-                <a class="navbar-infos-items" href="/views/login.php">Se déconnecter</a>
-            <?php }
+        if(isset($_SESSION['nom'])) {
+            echo '<a class="navbar-infos-items" href="../index.php?controllers=ControllerUser&action=deleteSession">Se déconnecter</a>';
+        }
+        else {
+            echo '<a class="navbar-infos-items" href="/views/login.php">Se connecter</a>';
+        }
+        echo '</div>
+    </header>';
+    }
+    elseif (ControllerSession::is_jury()){
+        echo '<header class="header">
+        <img src="../assets/img/logo.png" alt="Logo de E-event.io">
+        <div class="navbar-infos">
+            <a class="navbar-infos-items" href="./index.php">Accueil</a>
+            <a class="navbar-infos-items" href="newEvent.php">Évènements</a>
+            <a class="navbar-infos-items">En savoir plus</a>';
 
-            else if(session_status() == PHP_SESSION_NONE) { ?>
-                    <a class="navbar-infos-items" href="/views/login.php">Se connecter</a>
-            <?php } ?>
-        </div>
-    </header>
-    <?php
+        if(isset($_SESSION['nom'])) {
+            echo '<a class="navbar-infos-items" href="../index.php?controllers=ControllerUser&action=deleteSession">Se déconnecter</a>';
+        }
+        else {
+            echo '<a class="navbar-infos-items" href="/views/login.php">Se connecter</a>';
+        }
+        echo '</div>
+    </header>';
+    }
+    elseif (ControllerSession::is_organisateur()){
+        echo '<header class="header">
+        <img src="../assets/img/logo.png" alt="Logo de E-event.io">
+        <div class="navbar-infos">
+            <a class="navbar-infos-items" href="./index.php">Accueil</a>
+            <a class="navbar-infos-items" href="newEvent.php">Évènements</a>
+            <a class="navbar-infos-items">En savoir plus</a>';
+
+        if(isset($_SESSION['nom'])) {
+            echo '<a class="navbar-infos-items" href="../index.php?controllers=ControllerUser&action=deleteSession">Se déconnecter</a>';
+        }
+        else {
+            echo '<a class="navbar-infos-items" href="/views/login.php">Se connecter</a>';
+        }
+        echo '</div>
+    </header>';
+    }
+    elseif (ControllerSession::is_donateur()){
+        echo '<header class="header">
+        <img src="../assets/img/logo.png" alt="Logo de E-event.io">
+        <div class="navbar-infos">
+            <a class="navbar-infos-items" href="./index.php">Accueil</a>
+            <a class="navbar-infos-items" href="newEvent.php">Évènements</a>
+            <a class="navbar-infos-items">En savoir plus</a>';
+
+        if(isset($_SESSION['nom'])) {
+            echo '<a class="navbar-infos-items" href="../index.php?controllers=ControllerUser&action=deleteSession">Se déconnecter</a>';
+        }
+        else {
+            echo '<a class="navbar-infos-items" href="/views/login.php">Se connecter</a>';
+        }
+        echo '</div>
+    </header>';
+    }
+    else {
+        echo '<header class="header">
+        <img src="../assets/img/logo.png" alt="Logo de E-event.io">
+        <div class="navbar-infos">
+            <a class="navbar-infos-items" href="./index.php">Accueil</a>
+            <a class="navbar-infos-items" href="newEvent.php">Évènements</a>
+            <a class="navbar-infos-items">En savoir plus</a>';
+
+        if(isset($_SESSION['nom'])) {
+            echo '<a class="navbar-infos-items" href="../index.php?controllers=ControllerUser&action=deleteSession">Se déconnecter</a>';
+        }
+        else {
+            echo '<a class="navbar-infos-items" href="/views/login.php">Se connecter</a>';
+        }
+        echo '</div>
+    </header>';
+    }
 }
+?>
 
+
+<?php
 function end_page()
 {
     ?> </body>
