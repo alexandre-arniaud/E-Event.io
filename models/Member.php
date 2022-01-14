@@ -171,19 +171,28 @@ final class Member
         if ($pass != $confirm_pass) {
             return false;
         }
-        $encrypt_pass = (new ControllerUser()) -> encryptPass($pass);
-        $reqR = "UPDATE members SET password = :nP AND if_pass_change = :nI WHERE mail = :nM";
+
+        $crypt = new ControllerUser();
+        $encrypt_pass = $crypt->encryptPass($pass);
+
+        $reqA = "UPDATE members SET password = :nP WHERE mail = :nM";
+        $reqB = "UPDATE members SET is_pass_change = :nI WHERE mail = :nM";
 
         try {
-            $req_prep = Model::getPDO()->prepare($reqR);
-            $values = array(
+            $req_prepA = Model::getPDO()->prepare($reqA);
+            $req_prepB = Model::getPDO()->prepare($reqB);
+            $valuesA = array(
                 "nP" => $encrypt_pass,
-                "nM" => $_SESSION['mail'],
-                "nI" => 1
+                "nM" => $_SESSION['mail']
             );
-            $req_prep->execute($values);
+            $valuesB = array(
+                "nI" => '1',
+                "nM" => $_SESSION['mail']
+            );
+            $req_prepA->execute($valuesA);
+            $req_prepB->execute($valuesB);
+            $_SESSION['is_pass_change'] = '1';
             return true;
-
         }
         catch (PDOException $e) {
             return false;
@@ -211,8 +220,7 @@ final class Member
                     $_SESSION['prenom'] = $resultat['firstname'];
                     $_SESSION['mail'] = $resultat['mail'];
                     $_SESSION['role'] = $resultat['role'];
-                    $_SESSION['is_pass_change'] = $resultat['if_pass_change'];
-                    var_dump($_SESSION['is_pass_change']);
+                    $_SESSION['is_pass_change'] = $resultat['is_pass_change'];
                     return true;
                 } else {
                     return false;
@@ -229,7 +237,7 @@ final class Member
         $sql = 'UPDATE members SET role = :ro WHERE mail = :m';
         $rep = Model::getPDO()->prepare($sql);
         $values = array("ro" => $_POST['update'],
-            "m" => $_POST['mail']);
+            "m" => $_SESSION['mail']);
         echo $_POST['update'];
         $rep-> execute($values);
         return true;

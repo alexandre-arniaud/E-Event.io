@@ -10,6 +10,7 @@ class ControllerUser
      * @author Alexandre Arniaud
      */
     public function readSignup() {
+        session_start();
         $signup = Member::signup();
 
         if ($signup == false)
@@ -18,7 +19,14 @@ class ControllerUser
         }
         else
         {
-            header("Location: ../views/admin_validation.php");
+            if ($_SESSION['role'] == 'admin')
+            {
+                header("Location: ../views/admin_validation.php");
+            }
+            else
+            {
+                header("Location: ../views/error.php");
+            }
         }
     }
 
@@ -37,7 +45,7 @@ class ControllerUser
         else
         {
             echo "Votre inscription a bien été prise en compte, vous recevrez prochainement un mail de confirmation"; // A FAIRE !!! Faire en sorte que le echo soit affiché avant la rediretion
-            header("Location: ../views/login.php");
+            header("Location: ../views/accueil.php");
         }
     }
 
@@ -47,6 +55,7 @@ class ControllerUser
      * @author Alexandre Arniaud
      */
     public function readRefuseSignup() {
+        session_start();
         $refus = Member::refuse_signup();
 
         if ($refus == false)
@@ -55,7 +64,14 @@ class ControllerUser
         }
         else
         {
-            header("Location: ../views/admin_validation.php");
+            if ($_SESSION['role'] == 'admin')
+            {
+                header("Location: ../views/admin_validation.php");
+            }
+            else
+            {
+                header("Location: ../views/error.php");
+            }
         }
     }
 
@@ -90,14 +106,13 @@ class ControllerUser
         {
             header("Location: ../views/error.php");
         }
-        elseif ($_SESSION['if_pass_change'] == 0)
+        elseif ($_SESSION['is_pass_change'] == 0)
         {
-            echo 'OUESH LE COUZ C A 0 LA';
-//            header("Location: ../views/force_change_password.php");
+            header("Location: ../views/force_change_password.php");
         }
-        elseif ($_SESSION['if_pass_change'] == 1)
+        elseif ($_SESSION['is_pass_change'] == 1)
         {
-            header("Location: ../views/newEvent.php");
+            header("Location: ../views/accueil.php");
         }
     }
 
@@ -111,6 +126,7 @@ class ControllerUser
 
         if ($change_pass == false)
         {
+
             header("Location: ../views/error.php");
         }
         else
@@ -135,7 +151,7 @@ class ControllerUser
      * @description Methode permettant à l'administrateur de mettre à jour le rôle de l'utilisateur
      * @author Marius Garnier
      */
-    public function ReadupdateRole(){
+    public function readUpdateRole(){
         $update = Member::updateRole();
 
         if ($update == false)

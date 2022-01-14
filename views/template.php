@@ -34,7 +34,7 @@ function start_page($title)
             echo '<header class="header">
         <img src="../assets/img/logo.png" alt="Logo de E-event.io">
         <div class="navbar-infos">
-            <a class="navbar-infos-items" href="./index.php">Accueil</a>
+            <a class="navbar-infos-items" href="./accueil.php">Accueil</a>
             <a class="navbar-infos-items" href="newEvent.php">Évènements</a>
             <a class="navbar-infos-items" href="admin_validation.php">Validation</a>
             <a class="navbar-infos-items" href="gestionnaire_role.php">Gestion des roles</a>
@@ -54,7 +54,7 @@ function start_page($title)
             echo '<header class="header">
                     <img src="../assets/img/logo.png" alt="Logo de E-event.io">
                     <div class="navbar-infos">
-                        <a class="navbar-infos-items" href="./index.php">Accueil</a>
+            <a class="navbar-infos-items" href="./accueil.php">Accueil</a>
                         <a class="navbar-infos-items" href="newEvent.php">Évènements</a>
                         <a class="navbar-infos-items">En savoir plus</a>';
             if (isset($_SESSION['nom'])) {
@@ -71,7 +71,7 @@ function start_page($title)
             echo '<header class="header">
         <img src="../assets/img/logo.png" alt="Logo de E-event.io">
         <div class="navbar-infos">
-            <a class="navbar-infos-items" href="./index.php">Accueil</a>
+            <a class="navbar-infos-items" href="./accueil.php">Accueil</a>
             <a class="navbar-infos-items" href="newEvent.php">Évènements</a>
             <a class="navbar-infos-items">En savoir plus</a>';
 
@@ -89,7 +89,7 @@ function start_page($title)
             echo '<header class="header">
         <img src="../assets/img/logo.png" alt="Logo de E-event.io">
         <div class="navbar-infos">
-            <a class="navbar-infos-items" href="./index.php">Accueil</a>
+            <a class="navbar-infos-items" href="./accueil.php">Accueil</a>
             <a class="navbar-infos-items" href="newEvent.php">Évènements</a>
             <a class="navbar-infos-items">En savoir plus</a>';
 
@@ -107,7 +107,7 @@ function start_page($title)
             echo '<header class="header">
         <img src="../assets/img/logo.png" alt="Logo de E-event.io">
         <div class="navbar-infos">
-            <a class="navbar-infos-items" href="./index.php">Accueil</a>
+            <a class="navbar-infos-items" href="./accueil.php">Accueil</a>
             <a class="navbar-infos-items" href="newEvent.php">Évènements</a>
             <a class="navbar-infos-items">En savoir plus</a>';
 
