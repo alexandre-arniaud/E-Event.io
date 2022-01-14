@@ -74,6 +74,7 @@ body {
     border-radius: 20px 20px 10px 10px;
 
     width: 65%;
+    height: 50vh;
     margin: auto;
     margin-top: 5vh;
 
@@ -84,12 +85,26 @@ body {
 .tableau2{
     background-color: white;
     color: #BCBCBC;
-    overflow: hidden;
+    overflow: hidden scroll;
+    border-radius: 0 0 10px 10px;
+
+    display: grid;
+
+    width: 100%;
+    height: 46vh;
+    margin: auto;
+
+    font-weight: bold;
+}
+
+.tableau3{
+    background-color: white;
+    color: #BCBCBC;
+    overflow: hidden scroll;
     border-radius: 0 0 10px 10px;
 
     width: 100%;
-    height: max-content;
-    max-height: 50vh;
+    height: 46vh;
     margin: auto;
 
     font-weight: bold;

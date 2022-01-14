@@ -44,8 +44,7 @@ class ControllerUser
         }
         else
         {
-            echo "Votre inscription a bien été prise en compte, vous recevrez prochainement un mail de confirmation"; // A FAIRE !!! Faire en sorte que le echo soit affiché avant la rediretion
-            header("Location: ../views/accueil.php");
+            header("Location: ../views/waitValidation.php");
         }
     }
 

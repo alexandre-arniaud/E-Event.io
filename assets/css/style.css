@@ -72,15 +72,14 @@ body {
 }
 
 .container {
-    margin: 11vh 0 0 2em;
+    margin: 28vh 0 0 2em;
     display: grid;
     flex-direction: column;
 }
 
-img {
-    width: 400px;
-    height: 300px;
-    transform-origin: left;
+.container > img {
+    width: 650px;
+    height: 150px;
 }
 
 span {
@@ -97,7 +96,7 @@ span {
     flex-direction: row;
     align-items: center;
 
-    margin-left: 3.5em;
+    margin-left: 8.5em;
     gap: 2em;
 
     height: 13vh;

@@ -3,7 +3,7 @@ include 'template.php';
 start_page('E-event.io | Modification du mot de passe');
 ?>
 
-    <form class="signup" action="/index.php?controllers=ControllerSignup&action=readResetPassword" method="post">
+    <form class="signup" action="/index.php" method="post">
         <span class="signup-title">Modification du mot de passe</span>
 
         <div class="form-group">
@@ -13,6 +13,8 @@ start_page('E-event.io | Modification du mot de passe');
 
         <div class="form-button">
             <button type="submit" name="action">CHANGER MON MOT DE PASSE</button>
+            <input type="hidden" name="controllers" value="ControllerUser">
+            <input type="hidden" name="action" value="readResetPassword">
         </div>
 
     </form>

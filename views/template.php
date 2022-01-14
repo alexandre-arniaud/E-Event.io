@@ -13,7 +13,8 @@ function start_page($title)
         {
             print ('<link rel="stylesheet" type="text/css" href="../assets/css/login.css">');
         }
-        else if ($title == 'E-event.io | Inscription' || $title == 'E-event.io | Modification du mot de passe' || $title == 'E-event.io | Ajouter un évènement')
+        else if ($title == 'E-event.io | Inscription' || $title == 'E-event.io | Modification du mot de passe' || $title == 'E-event.io | Ajouter un évènement'
+        || $title == 'E-event.io | Modifiez votre mot de passe')
         {
             print ('<link rel="stylesheet" type="text/css" href="../assets/css/signup.css">');
         }
@@ -30,7 +31,8 @@ function start_page($title)
     <?php
 
 
-    if (ControllerSession::is_admin()){
+    if ((($_SESSION['is_pass_change'] == 0) && ($title != 'E-event.io | Modifiez votre mot de passe')) ||( $_SESSION['is_pass_change'] == 1 )) {
+        if (ControllerSession::is_admin()) {
             echo '<header class="header">
         <img src="../assets/img/logo.png" alt="Logo de E-event.io">
         <div class="navbar-infos">
@@ -47,10 +49,7 @@ function start_page($title)
             }
             echo '</div>
     </header>';
-    }
-
-
-    elseif (ControllerSession::is_jury()){
+        } elseif (ControllerSession::is_jury()) {
             echo '<header class="header">
                     <img src="../assets/img/logo.png" alt="Logo de E-event.io">
                     <div class="navbar-infos">
@@ -64,10 +63,7 @@ function start_page($title)
             }
             echo '</div>
     </header>';
-    }
-
-
-    elseif (ControllerSession::is_organisateur()){
+        } elseif (ControllerSession::is_organisateur()) {
             echo '<header class="header">
         <img src="../assets/img/logo.png" alt="Logo de E-event.io">
         <div class="navbar-infos">
@@ -82,10 +78,7 @@ function start_page($title)
             }
             echo '</div>
     </header>';
-    }
-
-
-    elseif (ControllerSession::is_donateur()){
+        } elseif (ControllerSession::is_donateur()) {
             echo '<header class="header">
         <img src="../assets/img/logo.png" alt="Logo de E-event.io">
         <div class="navbar-infos">
@@ -100,10 +93,7 @@ function start_page($title)
             }
             echo '</div>
     </header>';
-    }
-
-
-    else {
+        } else {
             echo '<header class="header">
         <img src="../assets/img/logo.png" alt="Logo de E-event.io">
         <div class="navbar-infos">
@@ -119,6 +109,7 @@ function start_page($title)
             echo '</div>
     </header>';
         }
+    }
 }
 ?>
 

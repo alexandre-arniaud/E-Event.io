@@ -19,7 +19,7 @@ echo ' <table>
         </tr>
     </tbody>
 ';
-echo '<table class="tableau2">';
+echo '<table class="tableau3">';
 
 echo '<tbody>';
 echo '<div class="Informations">';
