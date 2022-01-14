@@ -70,3 +70,66 @@ body {
     color: gold;
     transition: color 275ms ease;
 }
+
+.container {
+    margin: 11vh 0 0 2em;
+    display: grid;
+    flex-direction: column;
+}
+
+img {
+    width: 400px;
+    height: 300px;
+    transform-origin: left;
+}
+
+span {
+    font-family: Poppins, sans-serif;
+    color: white;
+    font-size: x-large;
+
+    margin-left: 1.7em;
+
+}
+
+.form-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    margin-left: 3.5em;
+    gap: 2em;
+
+    height: 13vh;
+    cursor: pointer;
+    border: 0;
+
+}
+
+.form-button > a {
+    font-family: Poppins, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    color: var(--primary-text-color);
+    background-color: var(--primary-color-accent);
+
+    border: none;
+    border-radius: 0.25rem;
+    text-decoration: none;
+
+    padding: 0.5em 1.275em 0.5em 1.275em;
+
+    transition: transform .2s;
+}
+
+.form-button > a:first-child {
+    font-size: inherit;
+    color: black;
+    background-color: var(--primary-text-color);
+}
+
+
+.form-button > a:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+}

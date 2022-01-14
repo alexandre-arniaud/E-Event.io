@@ -1,11 +1,14 @@
 <?php
 require_once dirname(__FILE__) . '/../models/Member.php';
 require_once dirname(__FILE__) . '/../controllers/routeur.php';
-require_once dirname(__FILE__) . '/../controllers/ControllerSession.php';
 
 class ControllerUser
 {
 
+    /**
+     * @description Methode permettant de vérifier que la validation de l'inscription faite par l'administrateur a eu lieu et redirige vers la page de connexion
+     * @author Alexandre Arniaud
+     */
     public function readSignup() {
         $signup = Member::signup();
 
@@ -19,6 +22,11 @@ class ControllerUser
         }
     }
 
+
+    /**
+     * @description Methode permettant de vérifier que la pre-validation de l'inscription faite par l'utilisateur a eu lieu et redirige vers la page de connexion
+     * @author Alexandre Arniaud
+     */
     public function readValidation() {
         $validation = Member::validation();
 
@@ -34,6 +42,10 @@ class ControllerUser
     }
 
 
+    /**
+     * @description Methode permettant de vérifier que le refus de l'inscription faite par l'administrateur a eu lieu et redirige vers la page de gestion des inscriptions en attente
+     * @author Alexandre Arniaud
+     */
     public function readRefuseSignup() {
         $refus = Member::refuse_signup();
 
@@ -48,6 +60,10 @@ class ControllerUser
     }
 
 
+    /**
+     * @description Methode permettant de vérifier que le changement de mot de passe (oublié) faite par l'utilisateur a eu lieu et redirige vers la page de connexion
+     * @author Alexandre Arniaud
+     */
     public function readResetPassword() {
         $reset = Member::resetPass();
 
@@ -61,27 +77,64 @@ class ControllerUser
         }
     }
 
+
+    /**
+     * @description Methode permettant de vérifier que la connexion de l'utilisateur a été réalisée redirige vers le tableau de bord
+     * @author Alexandre Arniaud
+     */
     public function readLogin() {
+        session_start();
         $login = Member::loginMember();
 
         if ($login == false)
         {
             header("Location: ../views/error.php");
         }
-        else
+        elseif ($_SESSION['if_pass_change'] == 0)
+        {
+            echo 'OUESH LE COUZ C A 0 LA';
+//            header("Location: ../views/force_change_password.php");
+        }
+        elseif ($_SESSION['if_pass_change'] == 1)
         {
             header("Location: ../views/newEvent.php");
         }
     }
 
+    /**
+     * @description Methode permettant de vérifier que la connexion de l'utilisateur a été réalisée redirige vers le tableau de bord
+     * @author Alexandre Arniaud
+     */
+    public function readChangePass() {
+        session_start();
+        $change_pass = Member::forceChangePass();
+
+        if ($change_pass == false)
+        {
+            header("Location: ../views/error.php");
+        }
+        else
+        {
+            header("Location: ../views/accueil.php");
+        }
+    }
+
+
+    /**
+     * @description Methode permettant de supprimer la session courrante ainsi que ses paramètres
+     * @author Marius Garnier
+     */
     public function deleteSession(){
         session_unset();
         session_destroy();
-        setcookie(session_name(),'',time()-1);
         header("Location: ../views/login.php");
 
     }
 
+    /**
+     * @description Methode permettant à l'administrateur de mettre à jour le rôle de l'utilisateur
+     * @author Marius Garnier
+     */
     public function ReadupdateRole(){
         $update = Member::updateRole();
 
@@ -97,9 +150,9 @@ class ControllerUser
 
 
     /**
-     * Génère un mot de passe aléatoire lors de l'inscription
+     * @description Génère un mot de passe aléatoire lors de l'inscription
      * @return string Mot de passe alétoire non encrpyté
-     * author Alexandre Arniaud
+     * @author Alexandre Arniaud
      */
     public function generateRandomPass()
     {
@@ -111,9 +164,9 @@ class ControllerUser
 
 
     /**
-     * Encrpyte le mot de passe généré aléatoirement
+     * @description Encrpyte le mot de passe généré aléatoirement
      * @return string Mot de passe alétoire encrypté prêt à être ajouté dans la base de données
-     * author Alexandre Arniaud
+     * @author Alexandre Arniaud
      */
     public function encryptPass($password)
     {
@@ -123,8 +176,8 @@ class ControllerUser
 
 
     /**
-     * Envoi le mot de passe généré par mail a l'utilisateur pour la connexion
-     * author Alexandre Arniaud
+     * @description Envoi une confirmation d'inscription ainsi que les identifiants générés par mail a l'utilisateur pour la connexion
+     * @author Alexandre Arniaud
      */
     public function sendEmail($membre)
     {
@@ -138,6 +191,12 @@ class ControllerUser
         mail($membre->getEmail(), $object, utf8_decode($emailMessage));
     }
 
+
+
+    /**
+     * @description Envoi le mot de passe généré par mail a l'utilisateur pour la connexion suite à sa demande de mot de passe oublié
+     * @author Alexandre Arniaud
+     */
     public function sendEmailReset($mail, $password_n)
     {
         $emailMessage = 'Bonjour,' . "\n";
@@ -150,6 +209,11 @@ class ControllerUser
         mail($mail, $object, utf8_decode($emailMessage));
     }
 
+
+    /**
+     * @description Envoi le mot de passe généré par mail a l'utilisateur pour lui informer que son inscription a été refusée
+     * @author Alexandre Arniaud
+     */
     public function sendEmailEchec($mail)
     {
         $emailMessage = 'Bonjour,' . "\n";

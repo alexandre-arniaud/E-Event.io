@@ -3,13 +3,13 @@ class Conf {
 
     static private $databases = array(
         // Le nom d'hote est celui de l'hébergeur utilisé, ici AlwaysData
-        'hostname' => 'mysql-gaarnier.alwaysdata.net',
+        'hostname' => 'mysql-aarniaud.alwaysdata.net',
         // Le nom de la base de données sur phpMyAdmin
-        'database' => 'gaarnier_event_io',
+        'database' => 'aarniaud_e-event-io',
         // Le login du compte phpMyAdmin
-        'login' => 'gaarnier',
+        'login' => 'aarniaud',
         // Le mot de passe du compte phpMyAdmin
-        'password' => '5u1R@malw'
+        'password' => 'Alphakiller04380$$'
     );
 
     static public function getLogin() {

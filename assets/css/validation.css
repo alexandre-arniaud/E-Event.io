@@ -19,6 +19,43 @@ body {
     font-family: Poppins, sans-serif;
 }
 
+.header {
+    height: 10vh;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.header > img {
+    width: 100px;
+    height: 75px;
+    padding: 1em 0 0 2em;
+}
+
+.navbar-infos {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    margin-left: auto;
+    padding-right: 3em;
+    gap: 4em;
+
+    font-family: Poppins, sans-serif;
+
+}
+
+.navbar-infos > a {
+    text-decoration: none;
+    color: white;
+}
+
+.navbar-infos-items:hover {
+    cursor: pointer;
+    color: gold;
+    transition: color 275ms ease;
+}
 
 .adm-title {
     display: table;

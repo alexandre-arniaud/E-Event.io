@@ -78,7 +78,7 @@ body {
     white-space: nowrap;
     max-width: max-content;
     margin: auto;
-    padding-top: 10vh;
+    padding-top: 25vh;
     color: var(--primary-text-color);
 
     transform: scale(1.1);
@@ -88,7 +88,11 @@ body {
     font-family: Poppins;
     font-weight: bold;
     font-size: 2rem;
-    margin: 0 0 2em 0;
+
+}
+
+p {
+    margin: 0 0 5em 0;
 }
 
 .form-group > label {

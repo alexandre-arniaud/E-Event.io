@@ -24,7 +24,7 @@ final class Member
 
     /**
      * @return bool
-     * @description Méthode permettant a l'administrateur de valider l'inscription d'un utilisateur
+     * @description Méthode permettant a l'administrateur de générer un login et un mot de passe valider l'inscription d'un utilisateur
      * @author Alexandre Arniaud
      */
     public function signup() {
@@ -32,7 +32,7 @@ final class Member
         $password = $contr->generateRandomPass();
         $cryptpass = $contr->encryptPass($password);
 
-        $reqI = "INSERT INTO members (login, mail, lastname, firstname, password) VALUES (:nL, :nM, :nN, :nP, :nU);
+        $reqI = "INSERT INTO members (login, mail, lastname, firstname, password, role) VALUES (:nL, :nM, :nN, :nP, :nU, :nR);
                  DELETE FROM validation WHERE mail = :nM; ";
 
         try {
@@ -42,7 +42,8 @@ final class Member
                 "nM" => strtolower(self::getMailValidation()),
                 "nN" => (ucfirst(strtolower(self::getNameValidation()))),
                 "nP" => (ucfirst(strtolower(self::getFirstNameValidation()))),
-                "nU" => $cryptpass
+                "nU" => $cryptpass,
+                "nR" => 'donateur'
             );
             $req_prep->execute($values);
 
@@ -65,7 +66,7 @@ final class Member
 
     /**
      * @return bool
-     * @description Méthode permettant a l'administrateur de refuser l'inscription d'un utilisateur
+     * @description Méthode permettant a l'administrateur de refuser l'inscription d'un utilisateur avec l'envoi d'un mail le lui indiquant
      * @author Alexandre Arniaud
      */
     public function refuse_signup() {
@@ -90,6 +91,7 @@ final class Member
 
     /**
      * @return bool
+     * @description Méthode permettant a l'utilisateur de valider son inscription et de la mettre en liste d'attente chez l'administrateur
      * @author Alexandre Arniaud
      */
     public function validation() {
@@ -124,6 +126,7 @@ final class Member
 
     /**
      * @return bool
+     * @description Méthode permettant a de générer un nouveau mot de passe alétoire pour l'utilisateur si celui-ci l'a oublié ( envoi par mail )
      * @author Alexandre Arniaud
      */
     public function resetPass() {
@@ -153,8 +156,43 @@ final class Member
         }
     }
 
+
     /**
      * @return bool
+     * @description Méthode permettant de forcer le changement de mot de passe a la première connexion
+     * @author Alexandre Arniaud
+     */
+    public function forceChangePass() {
+        session_start();
+
+        $pass = $_POST['mdp'];
+        $confirm_pass = $_POST['mdp2'];
+
+        if ($pass != $confirm_pass) {
+            return false;
+        }
+        $encrypt_pass = (new ControllerUser()) -> encryptPass($pass);
+        $reqR = "UPDATE members SET password = :nP AND if_pass_change = :nI WHERE mail = :nM";
+
+        try {
+            $req_prep = Model::getPDO()->prepare($reqR);
+            $values = array(
+                "nP" => $encrypt_pass,
+                "nM" => $_SESSION['mail'],
+                "nI" => 1
+            );
+            $req_prep->execute($values);
+            return true;
+
+        }
+        catch (PDOException $e) {
+            return false;
+        }
+    }
+
+
+    /**
+     * @description Méthode permettant de vérifier les identifiants de connexion puis de lancer la connexion et le démarrage de la $_SESSION
      * @author Alexandre Arniaud
      */
     public function loginMember() {
@@ -167,13 +205,14 @@ final class Member
                 $resultat = $req->fetch();
 
                 if (password_verify($_POST['password'], $resultat['password'])) {
-//                    ControllerSession::OpenSession();
                     session_start();
 
                     $_SESSION['nom'] = $resultat['lastname'];
                     $_SESSION['prenom'] = $resultat['firstname'];
+                    $_SESSION['mail'] = $resultat['mail'];
                     $_SESSION['role'] = $resultat['role'];
-
+                    $_SESSION['is_pass_change'] = $resultat['if_pass_change'];
+                    var_dump($_SESSION['is_pass_change']);
                     return true;
                 } else {
                     return false;
@@ -182,34 +221,10 @@ final class Member
         }
     }
 
-
-    public function getAllValidation(){
-        $rep = Model::getPDO()->query("SELECT * FROM validation ");
-        $tab = $rep->fetchAll();
-        return $tab;
-    }
-    public function getAllMembers(){
-        $rep = Model::getPDO()->query("SELECT * FROM members ");
-        $tab = $rep->fetchAll();
-        return $tab;
-    }
-
-
-    public function getNameValidation(){
-        $nom = $_POST['nom'];
-        return $nom;
-    }
-
-    public function  getFirstNameValidation(){
-        $prenom = $_POST['prenom'];
-        return $prenom;
-    }
-
-    public function  getMailValidation(){
-        $mail = $_POST['mail'];
-        return $mail;
-    }
-
+    /**
+     * @description Méthode permettant de mettre à jour le rôle de l'utilisateur
+     * @author Marius Garnier
+     */
     public function updateRole(){
         $sql = 'UPDATE members SET role = :ro WHERE mail = :m';
         $rep = Model::getPDO()->prepare($sql);
@@ -221,6 +236,52 @@ final class Member
 
     }
 
+    /**
+     * @description Méthode permettant de récupérer tous les utilisateurs en attente de leurs inscription
+     * @author Marius Garnier
+     */
+    public function getAllValidation(){
+        $rep = Model::getPDO()->query("SELECT * FROM validation ");
+        $tab = $rep->fetchAll();
+        return $tab;
+    }
+
+    /**
+     * @description Méthode permettant de récupérer tous les utilisateurs
+     * @author Marius Garnier
+     */
+    public function getAllMembers(){
+        $rep = Model::getPDO()->query("SELECT * FROM members ");
+        $tab = $rep->fetchAll();
+        return $tab;
+    }
+
+    /**
+     * @description Méthode permettant de récupérer le nom de l'utilisateur précis en attente de son inscription
+     * @author Marius Garnier
+     */
+    public function getNameValidation(){
+        $nom = $_POST['nom'];
+        return $nom;
+    }
+
+    /**
+     * @description Méthode permettant de récupérer le prénom de l'utilisateur précis en attente de son inscription
+     * @author Marius Garnier
+     */
+    public function  getFirstNameValidation(){
+        $prenom = $_POST['prenom'];
+        return $prenom;
+    }
+
+    /**
+     * @description Méthode permettant de récupérer le mail de l'utilisateur précis en attente de son inscription
+     * @author Marius Garnier
+     */
+    public function  getMailValidation(){
+        $mail = $_POST['mail'];
+        return $mail;
+    }
 
 
     /**
