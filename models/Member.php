@@ -1,10 +1,10 @@
 <?php
 
 require_once dirname(__FILE__) . '/Model.php';
-require_once './views/admin_validation.php';
 
 final class Member
 {
+
     private $id;
     private $nom;
     private $prenom;
@@ -24,31 +24,31 @@ final class Member
 
     /**
      * @return bool
+     * @description Méthode permettant a l'administrateur de valider l'inscription d'un utilisateur
      * @author Alexandre Arniaud
      */
     public function signup() {
-        $validation =
         $contr = new ControllerUser();
         $password = $contr->generateRandomPass();
         $cryptpass = $contr->encryptPass($password);
 
-        $reqI = "INSERT INTO members (login, mail, lastname, firstname, password) VALUES (:nL, :nM, :nN, :nP, :nU)
+        $reqI = "INSERT INTO members (login, mail, lastname, firstname, password) VALUES (:nL, :nM, :nN, :nP, :nU);
                  DELETE FROM validation WHERE mail = :nM; ";
 
         try {
             $req_prep = Model::getPDO()->prepare($reqI);
             $values = array(
-                "nL" => (strtolower($validation['prenom']) . '.' . strtolower($validation['nom'])),
-                "nM" => strtolower($validation['mail']),
-                "nN" => (ucfirst(strtolower($validation['nom']))),
-                "nP" => (ucfirst(strtolower($validation['prenom']))),
+                "nL" => (strtolower(self::getFirstNameValidation()) . '.' . strtolower(self::getNameValidation())),
+                "nM" => strtolower(self::getMailValidation()),
+                "nN" => (ucfirst(strtolower(self::getNameValidation()))),
+                "nP" => (ucfirst(strtolower(self::getFirstNameValidation()))),
                 "nU" => $cryptpass
             );
             $req_prep->execute($values);
 
             if(password_verify($password, $cryptpass))
             {
-                $membre = new Member(null, ucfirst(strtolower($_POST['nom'])), ucfirst(strtolower($_POST['prenom'])), $_POST['mail'], strtolower($_POST['prenom']) . '.' . strtolower($_POST['nom']), $password);
+                $membre = new Member(null, ucfirst(strtolower(self::getNameValidation())), ucfirst(strtolower(self::getFirstNameValidation())), self::getMailValidation(), strtolower(self::getFirstNameValidation()) . '.' . strtolower(self::getNameValidation()), $password);
                 $inscription = new ControllerUser();
                 $inscription->sendEmail($membre); // Envoi du mail a l'utilisateur avec ses identifiants de connexion
                 return true;
@@ -63,6 +63,30 @@ final class Member
         }
     }
 
+    /**
+     * @return bool
+     * @description Méthode permettant a l'administrateur de refuser l'inscription d'un utilisateur
+     * @author Alexandre Arniaud
+     */
+    public function refuse_signup() {
+        $reqI = "DELETE FROM validation WHERE mail = :nM ;";
+
+        try {
+            $req_prep = Model::getPDO()->prepare($reqI);
+            $values = array(
+                "nM" => strtolower(self::getMailValidation())
+            );
+            $req_prep->execute($values);
+            $refus = new ControllerUser();
+            $refus->sendEmailEchec(strtolower(self::getMailValidation())); // Envoi du mail a l'utilisateur lui indiquant que son inscription a été refusée et l'invitant à se ré-inscrire.
+            return true;
+        }
+        catch (PDOException $e) {
+            require_once ('../views/error.php'); // fichier error.php a créer pour répertorier toutes les erreurs
+            return false;
+        }
+    }
+
 
     /**
      * @return bool
@@ -70,13 +94,15 @@ final class Member
      */
     public function validation() {
         $mail = strtolower($_POST['mail']);
-        $reqV = "SELECT * FROM validation, members WHERE validation.mail = '" . $mail . "' OR members.mail = '" . $mail . "'";
-        $req_v= Model::getPDO()->query($reqV);
+        $reqV = "SELECT * FROM validation WHERE validation.mail = '" . $mail . "'";
+        $reqM = "SELECT * FROM members WHERE members.mail = '" . $mail . "'";
+        $req_v = Model::getPDO()->query($reqV);
+        $req_m = Model::getPDO()->query($reqM);
 
         $reqI = "INSERT INTO validation (nom, prenom, mail) VALUES (:nL, :nM, :nN)";
 
         try {
-            if (!$req_v->fetch())
+            if (!$req_v->fetch() AND !$req_m->fetch())
             {
                 $req_prepare = Model::getPDO()->prepare($reqI);
                 $values = array(
@@ -141,9 +167,11 @@ final class Member
                 $resultat = $req->fetch();
 
                 if (password_verify($_POST['password'], $resultat['password'])) {
-                    $_SESSION['nom'] = $resultat['nom'];
-                    $_SESSION['prenom'] = $resultat['prenom'];
-                    $_SESSION['var'] = true;
+                    ControllerSession::OpenSession();
+
+                    $_SESSION['nom'] = $resultat['lastname'];
+                    $_SESSION['prenom'] = $resultat['firstname'];
+                    $_SESSION['is_login'] = true;
                     return true;
                 } else {
                     return false;
@@ -152,6 +180,27 @@ final class Member
         }
     }
 
+
+    public function getAllValidation(){
+        $rep = Model::getPDO()->query("SELECT * FROM validation ");
+        $tab = $rep->fetchAll();
+        return $tab;
+    }
+
+    public function getNameValidation(){
+        $nom = $_POST['nom'];
+        return $nom;
+    }
+
+    public function  getFirstNameValidation(){
+        $prenom = $_POST['prenom'];
+        return $prenom;
+    }
+
+    public function  getMailValidation(){
+        $mail = $_POST['mail'];
+        return $mail;
+    }
 
 
     /**

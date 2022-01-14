@@ -1,11 +1,9 @@
 <?php
 include 'template.php';
-require_once(dirname(__FILE__) . '/../controllers/ControllerSession.php');
-ControllerSession::OpenSession();
 start_page('E-event.io | Connexion');
 ?>
 
-    <form class="login" action="/index.php?controllers=ControllerSignup&action=readLogin" method="post">
+    <form class="login" action="/index.php" method="post">
         <span class="login-title">Connexion</span>
 
         <div class="form-group">
@@ -21,6 +19,8 @@ start_page('E-event.io | Connexion');
         </div>
         <div class="form-button">
             <button type="submit" name="action" >SE CONNECTER</button>
+            <input type="hidden" name="controllers" value="ControllerUser">
+            <input type="hidden" name="action" value="readLogin">
             <a href="forgot_password.php">MOT DE PASSE OUBLIÉ</a>
         </div>
 

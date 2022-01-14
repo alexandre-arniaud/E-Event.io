@@ -1,4 +1,6 @@
 <?php
+require_once dirname(__FILE__) . '/../controllers/ControllerSession.php';
+ControllerSession::OpenSession();
 function start_page($title)
 {
     ?> <!DOCTYPE html>

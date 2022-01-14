@@ -25,7 +25,6 @@ start_page('E-event.io | Inscription');
             <button type="submit" name="action">VALIDER L'INSCRIPTION</button>
             <input type="hidden" name="controllers" value="ControllerUser">
             <input type="hidden" name="action" value="readValidation">
-
         </div>
 
     </form>

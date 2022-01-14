@@ -1,10 +1,9 @@
 <?php
 include 'template.php';
 require_once '../models/Model.php';
+require_once '../models/Member.php';
 start_page('Admin');
 
-$reqV = "SELECT * FROM validation";
-$req_prep = Model::getPDO()->query($reqV);
 
 echo '<span class="adm-title">Inscriptions en attente</span>';
 
@@ -21,33 +20,41 @@ echo ' <table>
     </tbody>
 ';
 echo '<table class="tableau2">';
+
 echo '<tbody>';
 echo '<div class="Informations">';
-while($validation = $req_prep->fetch())
-{
 
+$allValidation = Member::getAllValidation();
+for ($i = 0; $i <= count($allValidation) - 1; $i++)
+{
     echo '<div class="personne">';
     echo '<tr>';
     echo '<td>';
-    echo $validation['nom'];
+    echo $allValidation[$i]['nom'];
     echo '</td>';
     echo '<td>';
-    echo $validation['prenom'];
+    echo $allValidation[$i]['prenom'];
     echo '</td>';
     echo '<td>';
-    echo $validation['mail'];
+    echo $allValidation[$i]['mail'];
     echo '</td>';
 
     echo '<td>';
-    echo '<form method="post" action="/index.php">
-            <button type="submit" name="action">ACCEPTER</button>
-            <input type="hidden" name="controllers" value="ControllerUser">
-            <input type="hidden" name="action" value="readSignup"></form>
-          <form method="post" action="/index.php"><button type="submit" name="action" >REFUSER</button>
-            <input type="hidden" name="controllers" value="ControllerUser">
-            <input type="hidden" name="action" value="readValidation"></form>
-            
-    ';
+    echo '<form method="post" action="/index.php">';
+    echo '<button type="submit" name="action">ACCEPTER</button>';
+    echo '<input type="hidden" name="controllers" value="ControllerUser">';
+    echo '<input type="hidden" name="action" value="readSignup">';
+    echo '<input type="hidden" name="nom" value="' . $allValidation[$i]['nom'] . '">';
+    echo '<input type="hidden" name="prenom" value="' . $allValidation[$i]['prenom'] .'">';
+    echo '<input type="hidden" name="mail" value="'. $allValidation[$i]['mail'] . '">';
+    echo '</form>';
+    echo '<form method="post" action="/index.php"><button type="submit" name="action" >REFUSER</button>';
+    echo '<input type="hidden" name="controllers" value="ControllerUser">';
+    echo '<input type="hidden" name="action" value="readRefuseSignup">';
+    echo '<input type="hidden" name="mail" value="'. $allValidation[$i]['mail'] . '">';
+    echo '</form>';
+    echo '</td>';
+
     echo '</tr>';
     echo '</div>';
 }

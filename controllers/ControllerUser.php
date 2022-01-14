@@ -1,7 +1,7 @@
 <?php
-require_once(dirname(__FILE__) . '/../models/Member.php');
-require_once(dirname(__FILE__) . '/../controllers/routeur.php');
-require_once(dirname(__FILE__) . '/../controllers/ControllerSession.php');
+require_once dirname(__FILE__) . '/../models/Member.php';
+require_once dirname(__FILE__) . '/../controllers/routeur.php';
+require_once dirname(__FILE__) . '/../controllers/ControllerSession.php';
 
 class ControllerUser
 {
@@ -15,7 +15,7 @@ class ControllerUser
         }
         else
         {
-            header("Location: ../views/login.php");
+            header("Location: ../views/admin_validation.php");
         }
     }
 
@@ -28,8 +28,21 @@ class ControllerUser
         }
         else
         {
-            echo "Votre inscription a bien été prise en compte, vous recevrez prochainement un mail de confirmation";
+            echo "Votre inscription a bien été prise en compte, vous recevrez prochainement un mail de confirmation"; // A FAIRE !!! Faire en sorte que le echo soit affiché avant la rediretion
             header("Location: ../views/login.php");
+        }
+    }
+
+    public function readRefuseSignup() {
+        $refus = Member::refuse_signup();
+
+        if ($refus == false)
+        {
+            header("Location: ../views/error.php");
+        }
+        else
+        {
+            header("Location: ../views/admin_validation.php");
         }
     }
 
@@ -56,9 +69,7 @@ class ControllerUser
         }
         else
         {
-            ControllerSession::OpenSession();
             header("Location: ../views/newEvent.php");
-
         }
     }
 
@@ -114,6 +125,17 @@ class ControllerUser
         $emailMessage .= 'Le mot de passe sera modifiable directement depuis le site, dans les paramètres de ton compte mais attention, ne le divulge à personne';
 
         $object = "E-Event.io: Confirmation d'inscription";
+        mail($mail, $object, utf8_decode($emailMessage));
+    }
+
+    public function sendEmailEchec($mail)
+    {
+        $emailMessage = 'Bonjour,' . "\n";
+        $emailMessage .= 'Tu as récemment fait une demande d\'inscription sur notre site.' . "\n";
+        $emailMessage .= 'Ta demande à d\'inscription n\'a pas aboutie ou a été refusée par un administrateur' . "\n";
+        $emailMessage .= 'Nous t\'invitons tout de même à te re-inscrire sur le site !' . "\n";
+
+        $object = "E-Event.io: Demande d'inscription refusée";
         mail($mail, $object, utf8_decode($emailMessage));
     }
 }
