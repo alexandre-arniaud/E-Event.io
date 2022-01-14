@@ -12,25 +12,16 @@
 }
 
 body {
-    /*background: linear-gradient(-45deg, var(--primary-color-100), var(--primary-color-200), var(--primary-color-300), var(--primary-color-400));*/
-    /*background-size: 400% 400%;*/
-    /*animation: gradient 12s ease infinite;*/
     background-image: url(../img/Moon.svg);
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-@keyframes gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
+
+
+ /*****
+ HEADER
+  *****/
 
 .header {
     height: 10vh;
@@ -70,6 +61,10 @@ body {
     transition: color 275ms ease;
 }
 
+/*****
+SIGNUP
+ *****/
+
 .signup {
     display: flex;
     flex-direction: column;
@@ -78,27 +73,39 @@ body {
     white-space: nowrap;
     max-width: max-content;
     margin: auto;
-    padding-top: 25vh;
+    padding-top: 15vh;
     color: var(--primary-text-color);
 
     transform: scale(1.1);
 }
 
+
 .signup-title {
-    font-family: Poppins;
+    font-family: Poppins, sans-serif;
     font-weight: bold;
     font-size: 2rem;
-
+    margin-bottom: 9vh;
 }
+
+.force-title {
+    font-family: Poppins, sans-serif;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
 
 p {
-    margin: 0 0 5em 0;
+    font-family: Poppins, sans-serif;
+    margin: 1em 0 5em 0;
 }
 
+
+
 .form-group > label {
-    font-family: Poppins;
+    font-family: Poppins, sans-serif;
     font-weight: bold;
 }
+
 
 .form-control {
     border: none;
@@ -114,10 +121,12 @@ p {
     border-bottom: 2px solid #dbdbdb;
 }
 
+
 .form-control::placeholder {
     color: lightgrey;
     font-family: Poppins, sans-serif;
 }
+
 
 .form-button {
     display: flex;
@@ -132,6 +141,7 @@ p {
     border: 0;
 
 }
+
 
 .form-button > button:first-child {
     cursor: pointer;
