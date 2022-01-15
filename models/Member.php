@@ -31,6 +31,7 @@ final class Member
         $contr = new ControllerUser();
         $password = $contr->generateRandomPass();
         $cryptpass = $contr->encryptPass($password);
+        $login = self::verifyLogin(strtolower(self::getFirstNameValidation()) . '.' . strtolower(self::getNameValidation()));
 
         $reqI = "INSERT INTO members (login, mail, lastname, firstname, password, role) VALUES (:nL, :nM, :nN, :nP, :nU, :nR);
                  DELETE FROM validation WHERE mail = :nM; ";
@@ -38,7 +39,7 @@ final class Member
         try {
             $req_prep = Model::getPDO()->prepare($reqI);
             $values = array(
-                "nL" => self::verifyLogin(strtolower(self::getFirstNameValidation()) . '.' . strtolower(self::getNameValidation())),
+                "nL" => $login,
                 "nM" => strtolower(self::getMailValidation()),
                 "nN" => (ucfirst(strtolower(self::getNameValidation()))),
                 "nP" => (ucfirst(strtolower(self::getFirstNameValidation()))),
@@ -49,7 +50,7 @@ final class Member
 
             if(password_verify($password, $cryptpass))
             {
-                $membre = new Member(null, ucfirst(strtolower(self::getNameValidation())), ucfirst(strtolower(self::getFirstNameValidation())), self::getMailValidation(), strtolower(self::getFirstNameValidation()) . '.' . strtolower(self::getNameValidation()), $password);
+                $membre = new Member(null, ucfirst(strtolower(self::getNameValidation())), ucfirst(strtolower(self::getFirstNameValidation())), self::getMailValidation(), $login, $password);
                 $inscription = new ControllerUser();
                 $inscription->sendEmail($membre); // Envoi du mail a l'utilisateur avec ses identifiants de connexion
                 return true;
