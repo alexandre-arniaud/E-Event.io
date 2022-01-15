@@ -2,6 +2,7 @@
 require_once dirname(__FILE__) . '/../models/Member.php';
 require_once dirname(__FILE__) . '/../controllers/routeur.php';
 
+
 class ControllerUser
 {
 
@@ -15,7 +16,8 @@ class ControllerUser
 
         if ($signup == false)
         {
-            header("Location: ../views/error.php");
+            echo "Erreur lors de l'inscription" ;
+            echo '<a class="navbar-infos-items" href="./views/signup.php">retour</a>';
         }
         else
         {
@@ -25,7 +27,8 @@ class ControllerUser
             }
             else
             {
-                header("Location: ../views/error.php");
+                echo "Erreur lors de l'inscription de l'administrateur";
+                echo '<a class="navbar-infos-items" href="./views/signup.php">retour</a>';
             }
         }
     }
@@ -40,7 +43,8 @@ class ControllerUser
 
         if ($validation == false)
         {
-            header("Location: ../views/error.php");
+            echo "Erreur lors de l'inscription, l'adresse mail est déjà associée à un autre compte.";
+            echo '<a class="navbar-infos-items" href="./views/signup.php">retour</a>';
         }
         else
         {
@@ -59,7 +63,9 @@ class ControllerUser
 
         if ($refus == false)
         {
-            header("Location: ../views/error.php");
+            echo 'erreur';
+            echo '<a class="navbar-infos-items" href="./views/admin_validation.php">retour</a>';
+
         }
         else
         {
@@ -70,6 +76,8 @@ class ControllerUser
             else
             {
                 header("Location: ../views/error.php");
+                echo '<a class="navbar-infos-items" href="./views/admin_validation.php">retour</a>';
+
             }
         }
     }
@@ -84,7 +92,8 @@ class ControllerUser
 
         if ($reset == false)
         {
-            header("Location: ../views/error.php");
+            echo "Erreur lors du changement de mot de passe, les mots de passe ne correspondent pas.";
+            echo '<a class="navbar-infos-items" href="./views/forgot_password.php">retour</a>';
         }
         else
         {
@@ -103,7 +112,8 @@ class ControllerUser
 
         if ($login == false)
         {
-            header("Location: ../views/error.php");
+            echo "Erreur lors de la connexion, les mots de passe ne correspondent pas.";
+            echo '<a class="navbar-infos-items" href="./views/login.php">retour</a>';
         }
         elseif ($_SESSION['is_pass_change'] == 0)
         {
@@ -126,7 +136,9 @@ class ControllerUser
         if ($change_pass == false)
         {
 
-            header("Location: ../views/error.php");
+            echo"Erreur, les mots de passe ne correspondent pas.";
+            echo '<a class="navbar-infos-items" href="./views/force_change_password.php">retour</a>';
+
         }
         else
         {
@@ -155,13 +167,20 @@ class ControllerUser
 
         if ($update == false)
         {
-            header("Location: ../views/error.php");
+            echo 'erreur';
+            echo '<a class="navbar-infos-items" href="./views/admin_validation.php">retour</a>';
+
         }
         else
         {
             header("Location: ../views/gestionnaire_role.php");
         }
     }
+
+
+
+
+
 
 
     /**
