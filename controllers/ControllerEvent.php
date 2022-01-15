@@ -30,7 +30,7 @@ class ControllerEvent
 
             }
             else{
-                echo 'erreur dans la création de la campagne';
+                echo 'Erreur dans la création de la campagne';
             }
         }
         else

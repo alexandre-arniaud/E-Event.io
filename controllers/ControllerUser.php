@@ -17,7 +17,7 @@ class ControllerUser
         if ($signup == false)
         {
             echo "Erreur lors de l'inscription" ;
-            echo '<a class="navbar-infos-items" href="./views/signup.php">retour</a>';
+            echo '<a class="navbar-infos-items" href="./views/admin_validation.php">retour</a>';
         }
         else
         {
@@ -28,7 +28,7 @@ class ControllerUser
             else
             {
                 echo "Erreur lors de l'inscription de l'administrateur";
-                echo '<a class="navbar-infos-items" href="./views/signup.php">retour</a>';
+                echo '<a class="navbar-infos-items" href="./views/admin_validation.php">retour</a>';
             }
         }
     }

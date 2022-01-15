@@ -38,7 +38,7 @@ final class Member
         try {
             $req_prep = Model::getPDO()->prepare($reqI);
             $values = array(
-                "nL" => (strtolower(self::getFirstNameValidation()) . '.' . strtolower(self::getNameValidation())),
+                "nL" => self::verifyLogin(strtolower(self::getFirstNameValidation()) . '.' . strtolower(self::getNameValidation())),
                 "nM" => strtolower(self::getMailValidation()),
                 "nN" => (ucfirst(strtolower(self::getNameValidation()))),
                 "nP" => (ucfirst(strtolower(self::getFirstNameValidation()))),
@@ -290,6 +290,31 @@ final class Member
         $mail = $_POST['mail'];
         return $mail;
     }
+
+
+    /**
+     * @description Méthode permettant de générer un login unique, même si deux personnes ont le même prénom et nom
+     * @author Alexandre Arniaud & Marius Garnier
+     */
+    public function verifyLogin($login){
+    $sql = "SELECT * FROM members WHERE login = '$login'";
+        try {
+            $req = Model::getPDO()->query($sql);
+            while ($req->fetch() > 0) {
+                $newLogin = $login . rand(0, 100);
+                self::verifyLogin($newLogin); // En considérant qu'il n'y aura pas plus de 100 personnes ayant le même prénom et nom
+                if (!$req) {
+                    break;
+                }
+            }
+            return $newLogin;
+        }
+        catch (PDOException $e) {
+            return NULL;
+        }
+        return $login;
+    }
+
 
     public function updateDefaultPoint(){
         $sql = 'UPDATE members SET nb_points = :p WHERE role = :r';

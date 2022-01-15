@@ -143,7 +143,7 @@ Accueil
 .adm-title {
     display: table;
     font-weight: bold;
-    margin-top: 7vh;
+    margin-top: 10vh;
     color: var(--primary-text-color);
 
     font-family: Poppins, sans-serif;
@@ -160,7 +160,7 @@ Accueil
     width: 100%;
     height: 50vh;
     margin: auto;
-    margin-top: 5vh;
+    margin-top: 2vh;
 
     font-weight: bold;
 }

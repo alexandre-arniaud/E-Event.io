@@ -26,7 +26,7 @@ final class Event
         $organizer = $_SESSION['prenom'] . ' ' . $_SESSION['nom'];
 
         $reqA = "INSERT INTO event (proj_name, organizer, location, description) VALUES (:nN, :nR, :nL, :nD)";
-        $reqB = "SELECT * FROM event WHERE organizer = '$organizer'";
+        $reqB = "SELECT * FROM event WHERE organizer = '$organizer' ORDER BY id DESC";
         $reqC = "INSERT INTO lineCampaign (id_camp, id_event) VALUES (:iC, :iE)";
         try {
             $req_prepA = Model::getPDO()->prepare($reqA);
@@ -47,7 +47,6 @@ final class Event
                 "iE" => $tabB['id']
             );
             $req_prepC->execute($IDs);
-            var_dump(Campaign::getCurrentCampaign() . ' ' . $tabB['id'] );
             return true;
         }
         catch (PDOException $e) {
