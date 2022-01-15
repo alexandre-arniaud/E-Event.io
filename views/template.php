@@ -36,10 +36,11 @@ function start_page($title)
             echo '<header class="header">
         <img src="../assets/img/logo.png" alt="Logo de E-event.io">
         <div class="navbar-infos">
-            <a class="navbar-infos-items" href="./accueil.php">Accueil</a>
-            <a class="navbar-infos-items" href="newEvent.php">Évènements</a>
-            <a class="navbar-infos-items" href="admin_validation.php">Validation</a>
-            <a class="navbar-infos-items" href="gestionnaire_role.php">Gestion des roles</a>
+            <a class="navbar-infos-items" href="/views/accueil.php">Accueil</a>
+            <a class="navbar-infos-items" href="/views/newEvent.php">Évènements</a>
+            <a class="navbar-infos-items" href="/views/admin_validation.php">Validation</a>
+            <a class="navbar-infos-items" href="/views/gestionnaire_role.php">Gestion des roles</a>
+            <a class="navbar-infos-items" href="/views/newCampaign.php">Création de campagne</a>
             <a class="navbar-infos-items">En savoir plus</a>';
 
             if (isset($_SESSION['nom'])) {

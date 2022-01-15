@@ -2,7 +2,7 @@
 include 'template.php';
 session_start();
 start_page('E-event.io | Ajouter un évènement');
-echo 'Ouesh ' . $_SESSION['prenom'] . ', ça va le couz ?';
+
 ?>
 
     <form class="newProj" action="/index.php?controllers=ControllerEvent&action=readAddEvent" method="post">

@@ -291,6 +291,16 @@ final class Member
         return $mail;
     }
 
+    public function updateDefaultPoint(){
+        $sql = 'UPDATE members SET nb_points = :p WHERE role = :r';
+        $rep = Model::getPDO()->prepare($sql);
+        $values = array("p" => $_POST['default_points'],
+            "r" => 'donateur',
+        );
+        $rep-> execute($values);
+        return true;
+    }
+
 
     /**
      * @param $id

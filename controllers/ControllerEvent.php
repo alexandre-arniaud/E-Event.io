@@ -1,5 +1,6 @@
 <?php
 require_once(dirname(__FILE__) . '/../models/Event.php');
+require_once(dirname(__FILE__) . '/../models/Campaign.php');
 require_once(dirname(__FILE__) . '/../controllers/routeur.php');
 
 class ControllerEvent
@@ -10,11 +11,32 @@ class ControllerEvent
 
         if ($project == false)
         {
-            header("Location: ../views/error.php");
+            echo 'L\'évènement n\'a pas été ajouté';
         }
         else
         {
             header("Location: ../views/login.php");
+        }
+    }
+
+    public function readAddCampaign() {
+        $campEnCours = Campaign::getCurrentCampaign();
+        if ($campEnCours == null){
+            $campaign = Campaign::addCampaign();
+            $default_point = Member::updateDefaultPoint();
+            if (($campaign == true) && ($default_point==true) )
+            {
+                header("Location: ../views/accueil.php");
+
+            }
+            else{
+                echo 'erreur dans la création de la campagne';
+            }
+        }
+        else
+        {
+            echo 'Une campagne est déjà en cours';
+
         }
     }
 
