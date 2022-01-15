@@ -14,13 +14,15 @@ start_page('E-event.io | Créer une campagne');
                     <input type="text" class="form-control" name="nomC" placeholder="Nom de la campagne" spellcheck="false" required>
                 </div>
 
-                <div>
-                    <label for="inputOrgName">Date de début : <?php echo date("Y-m-d") ?></label>
+                <div class="form-group">
+                    <label for="date">Date de début :</label>
+                    <span><?php echo date("Y-m-d") ?></span>
                 </div>
+
 
                 <div class="form-group">
                     <label for="inputOrgName">Date de fin</label>
-                    <input type="date" class="form-control" name="trip-end" value="2022-12-31" min="<?php echo date("Y-m-d");?>" max="<?php echo date("Y"); ?>-12-31" placeholder="12/01/2022" spellcheck="false" required>
+                    <input type="date" class="form-control" name="trip-end" min="<?php echo $date_deb = date("Y-m-d");?>" max="<?php echo $date = date_add($date_deb, new DateInterval(P1M))?>"  spellcheck="false" required>
                 </div>
 
                 <div class="form-group">

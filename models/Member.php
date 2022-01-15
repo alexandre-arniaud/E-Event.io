@@ -130,7 +130,7 @@ final class Member
      * @author Alexandre Arniaud
      */
     public function resetPass() {
-        $reqR = "UPDATE members SET password = :nP WHERE mail = :nM";
+        $reqR = "UPDATE members SET password = :nP, is_pass_change = 0 WHERE mail = :nM";
         try {
             $req_prep = Model::getPDO()->prepare($reqR);
             $password = (new ControllerUser)->generateRandomPass();

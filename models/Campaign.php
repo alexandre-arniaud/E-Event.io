@@ -1,6 +1,6 @@
 <?php
 
-require_once(dirname(__FILE__) . '/Model.php');
+require_once dirname(__FILE__) . '/Model.php';
 
 final class Campaign
 {
@@ -19,9 +19,12 @@ final class Campaign
 
     }
 
-
+    /**
+     * @description Methode permettant à l'administrateur de créer une nouvelle campagne
+     * @author Marius Ganier
+     */
     public function addCampaign() {
-        $reqI = "INSERT INTO `campaign` (`camp_name`,`date_start`, `date_end`,`default_points` ) VALUES (:cn, :ds, :de, :dp)";
+        $reqI = "INSERT INTO `campaign` (camp_name, date_start, date_end, default_points ) VALUES (:cn, :ds, :de, :dp)";
         try {
             $req_prep = Model::getPDO()->prepare($reqI);
             $values = array(
@@ -39,12 +42,22 @@ final class Campaign
             return false;
         }
     }
-//une campagne est deja en cours -> renvoie vraie
+
+    /**
+     * @description Methode permettant de savoir si une campagne est en cours ou non, en retournant l'id de la campagne actuelle, si elle existe
+     * @author Marius Ganier
+     */
     public function getCurrentCampaign(){
         $date = date("Y-m-d");
-        $rep = Model::getPDO()->query("SELECT * FROM campaign WHERE date_end > $date ");
-        try{
-            $tab = $rep->fetch();
+        $reqI = "SELECT * FROM campaign WHERE date_deb <= :dE AND date_end > :dE";
+        try {
+            $req_prep = Model::getPDO()->prepare($reqI);
+            $values = array(
+                "dE" => $date
+            );
+            $req_prep->execute($values);
+            $tab = $req_prep->fetch();
+
             return $tab['id_camp'];
         }
         catch (PDOException $e) {
@@ -52,6 +65,38 @@ final class Campaign
             return null;
         }
     }
+
+
+    /**
+     * @description Méthode permettant de récupérer tous les évènements de la campagne en cours
+     * @author Alexandre Arniaud
+     */
+    public function getAllEvents(){
+        $reqA = "SELECT `id_event` FROM `lineCampaign` INNER JOIN `event` ON `lineCampaign`.id_event = `event`.id WHERE `lineCampaign`.id_camp = :cC";
+        $reqB = "SELECT * FROM `event` WHERE `id` IN :cA";
+        try {
+            $req_prepA = Model::getPDO()->prepare($reqA);
+            $req_prepB = Model::getPDO()->prepare($reqB);
+            $valuesA = array(
+                "cC" => self::getCurrentCampaign()
+            );
+            $req_prepA->execute($valuesA);
+            $reqFA = $req_prepA->fetch();
+            var_dump($reqFA);
+
+            $valuesB = array(
+                "cA" => $reqFA
+            );
+            $req_prepB->execute($valuesB);
+            var_dump($req_prepB->fetch());
+            return $req_prepB->fetch();
+        }
+        catch (PDOException $e) {
+
+            return null;
+        }
+    }
+
 
     /**
      * @param $$id_camp

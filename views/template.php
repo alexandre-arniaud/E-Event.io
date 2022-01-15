@@ -13,8 +13,8 @@ function start_page($title)
         {
             print ('<link rel="stylesheet" type="text/css" href="../assets/css/login.css">');
         }
-        else if ($title == 'E-event.io | Inscription' || $title == 'E-event.io | Modification du mot de passe' || $title == 'E-event.io | Ajouter un évènement'
-        || $title == 'E-event.io | Modifiez votre mot de passe')
+        else if ($title == 'E-event.io | Inscription' || $title == 'E-event.io | Modification du mot de passe' || $title == 'E-event.io | Créer un évènement'
+        || $title == 'E-event.io | Modifiez votre mot de passe' || $title == 'E-event.io | Créer une campagne')
         {
             print ('<link rel="stylesheet" type="text/css" href="../assets/css/signup.css">');
         }

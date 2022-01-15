@@ -1,36 +1,50 @@
 <?php
 include 'template.php';
+require_once dirname(__FILE__) . '/../models/Campaign.php';
 session_start();
-start_page('E-event.io | Ajouter un évènement');
-
+start_page('E-event.io | Créer un évènement');
 ?>
 
-    <form class="newProj" action="/index.php?controllers=ControllerEvent&action=readAddEvent" method="post">
-        <span class="proj-title">Ajouter un nouvel évènement</span>
+    <form class="newProj" action="/index.php" method="post">
+        <span class="proj-title">Créer un nouvel évènement</span>
 
         <div class="container">
             <div class="container-child-1">
+
                 <div class="form-group">
-                    <label for="inputName">Nom de l'évènement</label>
-                    <input type="text" class="form-control" name="nomP" placeholder="Nom de l'évènement" spellcheck="false" required>
+                    <label for="orgName">Pour la campagne numéro </label>
+                    <span><?php echo Campaign::getCurrentCampaign()?></span>
                 </div>
 
                 <div class="form-group">
-                    <label for="inputOrgName">Numero Organisateur</label>
-                    <input type="text" class="form-control" name="numOrg" placeholder="Numero Organisateur" spellcheck="false" required>
+                    <label for="orgName">Organisateur :</label>
+                    <span><?php echo $_SESSION['prenom'] . ' ' . $_SESSION['nom'] ?></span>
                 </div>
 
+
+                <div class="form-group">
+                    <label for="name">Nom de l'évènement</label>
+                    <input type="text" class="form-control" name="name" placeholder="Nom de l'évènement" spellcheck="false" autocomplete="off" required>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="place">Lieu</label>
+                    <input type="text" class="form-control" name="place" placeholder="Lieu de l'évènement" spellcheck="false" autocomplete="off" required>
+                </div>
             </div>
 
             <div class="form-group">
-                <label for="inputDesc">Description</label>
-                <textarea rows="10" cols="20" class="form-control" name="description" placeholder="Description de l'évènement"></textarea>
+                <label for="desc">Description</label>
+                <textarea rows="10" cols="20" class="form-control" name="desc" placeholder="Description de l'évènement" spellcheck="false" autocomplete="off"></textarea>
             </div>
         </div>
 
 
         <div class="form-button">
             <button type="submit" name="action">SOUMETTRE LE PROJET</button>
+            <input type="hidden" name="controllers" value="ControllerEvent">
+            <input type="hidden" name="action" value="readAddEvent">
         </div>
 
     </form>

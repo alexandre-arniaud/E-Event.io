@@ -100,13 +100,6 @@ p {
 }
 
 
-
-.form-group > label {
-    font-family: Poppins, sans-serif;
-    font-weight: bold;
-}
-
-
 .form-control {
     border: none;
     display: block;
@@ -116,8 +109,6 @@ p {
     background: transparent;
     width: 25em;
     height: 3em;
-    margin-bottom: 2em;
-
     border-bottom: 2px solid #dbdbdb;
 }
 
@@ -139,7 +130,6 @@ p {
     height: 13vh;
     cursor: pointer;
     border: 0;
-
 }
 
 
@@ -201,6 +191,21 @@ p {
     resize: none;
     width: 31em;
     height: 16em;
+}
+
+.form-group {
+    margin-bottom: 2em;
+}
+
+.form-group > label {
+    font-family: Poppins, sans-serif;
+    font-weight: bold;
+}
+
+.form-group > span {
+    font-family: Poppins, sans-serif;
+    font-weight: bold;
+    padding-bottom: 5em;
 }
 
 .container-child-1 {

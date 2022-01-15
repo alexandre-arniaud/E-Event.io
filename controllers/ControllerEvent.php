@@ -15,7 +15,7 @@ class ControllerEvent
         }
         else
         {
-            header("Location: ../views/login.php");
+            header("Location: ../views/accueil.php");
         }
     }
 

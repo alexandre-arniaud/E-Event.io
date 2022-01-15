@@ -2,7 +2,7 @@
 
 require_once(dirname(__FILE__) . '/Model.php');
 
-final class Campaign
+final class lineCampaign
 {
     private $id_camp;
     private $id_event;

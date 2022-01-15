@@ -72,24 +72,17 @@ body {
 }
 
 .container {
-    margin: 28vh 0 0 2em;
+    margin: 28vh 15em 0 2em;
     display: grid;
     flex-direction: column;
 }
 
 .container > img {
-        width: 650px;
-        height: 150px;
+    width: 650px;
+    height: 150px;
 }
 
-span {
-    font-family: Poppins, sans-serif;
-    color: white;
-    font-size: x-large;
 
-    margin-left: 1.7em;
-
-}
 
 .form-button {
     display: flex;
@@ -131,4 +124,105 @@ span {
 .form-button > a:hover {
     cursor: pointer;
     transform: scale(1.2);
+}
+
+
+/****
+Accueil
+ ****/
+
+.bigContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.event-board {
+    justify-content: flex-end;
+}
+
+.adm-title {
+    display: table;
+    font-weight: bold;
+    margin-top: 7vh;
+    color: var(--primary-text-color);
+
+    font-family: Poppins, sans-serif;
+    font-size: x-large;
+}
+
+
+.tableau {
+    background-color: #6c7ae0;
+    color: var(--primary-text-color);
+    overflow: hidden;
+    border-radius: 20px 20px 10px 10px;
+
+    width: 100%;
+    height: 50vh;
+    margin: auto;
+    margin-top: 5vh;
+
+    font-weight: bold;
+}
+
+
+.tableau2{
+    background-color: white;
+    color: #BCBCBC;
+    overflow: hidden scroll;
+    border-radius: 0 0 10px 10px;
+
+    display: grid;
+
+    width: 100%;
+    height: 46vh;
+    margin: auto;
+
+    font-weight: bold;
+}
+
+.tableau3{
+    background-color: white;
+    color: #BCBCBC;
+    overflow: hidden scroll;
+    border-radius: 0 0 10px 10px;
+
+    width: 100%;
+    height: 46vh;
+    margin: auto;
+
+    font-weight: bold;
+}
+
+
+td {
+    border: 5px solid transparent;
+    width: 25%;
+    line-height: 3;
+    text-align: center;
+
+    color: black;
+}
+
+th {
+    padding-right: 4em;
+    padding-left: 4em;
+    width: 5%;
+    height: 5vh;
+    text-align: center;
+}
+
+td:nth-last-child(2) {
+    font-size: 0.9rem;
+}
+
+personne {
+    padding-right: 4em;
+    padding-left: 4em;
+    width: 5%;
+    height: 25%;
+    text-align: center;
+
+    background-color: white;
+    color: black;
 }

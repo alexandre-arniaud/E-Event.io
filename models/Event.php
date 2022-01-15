@@ -1,6 +1,7 @@
 <?php
 
 require_once(dirname(__FILE__) . '/Model.php');
+require_once dirname(__FILE__) . '/../models/Campaign.php';
 
 final class Event
 {
@@ -22,16 +23,31 @@ final class Event
     }
 
     public function addEvent() {
-        $reqI = "INSERT INTO event (proj_name, organizer, description) VALUES (:nN, :nR, :nD)";
-        try {
-            $req_prep = Model::getPDO()->prepare($reqI);
-            $values = array(
-                "nN" => $_POST['nomP'],
-                "nR" => $_POST['numOrg'], //session_id(),
-                "nD" => $_POST['description']
-            );
-            $req_prep->execute($values);
+        $organizer = $_SESSION['prenom'] . ' ' . $_SESSION['nom'];
 
+        $reqA = "INSERT INTO event (proj_name, organizer, location, description) VALUES (:nN, :nR, :nL, :nD)";
+        $reqB = "SELECT * FROM event WHERE organizer = '$organizer'";
+        $reqC = "INSERT INTO lineCampaign (id_camp, id_event) VALUES (:iC, :iE)";
+        try {
+            $req_prepA = Model::getPDO()->prepare($reqA);
+            $req_prepC = Model::getPDO()->prepare($reqC);
+            $values = array(
+                "nN" => $_POST['name'],
+                "nR" => $_SESSION['prenom'] . ' ' . $_SESSION['nom'],
+                "nL" => $_POST['place'],
+                "nD" => $_POST['desc'],
+            );
+            $req_prepA->execute($values);
+
+            $req_prepB = Model::getPDO()->query($reqB);
+            $tabB = $req_prepB->fetch();
+
+            $IDs = array(
+                "iC" => Campaign::getCurrentCampaign(),
+                "iE" => $tabB['id']
+            );
+            $req_prepC->execute($IDs);
+            var_dump(Campaign::getCurrentCampaign() . ' ' . $tabB['id'] );
             return true;
         }
         catch (PDOException $e) {
