@@ -49,7 +49,7 @@ final class Campaign
      */
     public function getCurrentCampaign(){
         $date = date("Y-m-d");
-        $reqI = "SELECT * FROM campaign WHERE date_deb <= :dE AND date_end > :dE";
+        $reqI = "SELECT * FROM campaign WHERE date_start <= :dE AND date_end > :dE";
         try {
             $req_prep = Model::getPDO()->prepare($reqI);
             $values = array(
@@ -72,24 +72,17 @@ final class Campaign
      * @author Alexandre Arniaud
      */
     public function getAllEvents(){
-        $reqA = "SELECT `id_event` FROM `lineCampaign` INNER JOIN `event` ON `lineCampaign`.id_event = `event`.id WHERE `lineCampaign`.id_camp = :cC";
-        $reqB = "SELECT * FROM `event` WHERE `id` IN :cA";
+        $req = "SELECT * FROM event WHERE id IN (SELECT id_event FROM lineCampaign WHERE id_camp = :cC )";
         try {
-            $req_prepA = Model::getPDO()->prepare($reqA);
-            $req_prepB = Model::getPDO()->prepare($reqB);
-            $valuesA = array(
+            $req_prep = Model::getPDO()->prepare($req);
+            $values = array(
                 "cC" => self::getCurrentCampaign()
             );
-            $req_prepA->execute($valuesA);
-            $reqFA = $req_prepA->fetch();
-            var_dump($reqFA);
+            $req_prep->execute($values);
+            $tab = $req_prep->fetchAll();
 
-            $valuesB = array(
-                "cA" => $reqFA
-            );
-            $req_prepB->execute($valuesB);
-            var_dump($req_prepB->fetch());
-            return $req_prepB->fetch();
+            return $tab;
+
         }
         catch (PDOException $e) {
 
