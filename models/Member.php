@@ -201,6 +201,7 @@ final class Member
     }
 
 
+
     /**
      * @description Méthode permettant de vérifier les identifiants de connexion puis de lancer la connexion et le démarrage de la $_SESSION
      * @author Alexandre Arniaud
@@ -298,7 +299,7 @@ final class Member
      * @author Alexandre Arniaud & Marius Garnier
      */
     public function verifyLogin($login){
-    $sql = "SELECT * FROM members WHERE login = '$login'";
+        $sql = "SELECT * FROM members WHERE login = '$login'";
         try {
             $req = Model::getPDO()->query($sql);
             while ($req->fetch() > 0) {
@@ -313,7 +314,6 @@ final class Member
         catch (PDOException $e) {
             return NULL;
         }
-        return $login;
     }
 
 
