@@ -22,6 +22,10 @@ function start_page($title)
         {
             print ('<link rel="stylesheet" type="text/css" href="../assets/css/validation.css">');
         }
+        else if ($title == 'E-event.io')
+        {
+            print ('<link rel="stylesheet" type="text/css" href="../assets/css/alerts.css">');
+        }
         else
         {
             print ('<link rel="stylesheet" type="text/css" href="../assets/css/style.css">');

@@ -2,6 +2,7 @@
 require_once(dirname(__FILE__) . '/../models/Event.php');
 require_once(dirname(__FILE__) . '/../models/Campaign.php');
 require_once(dirname(__FILE__) . '/../controllers/routeur.php');
+require_once dirname(__FILE__) . '/../controllers/ControllerAlerts.php';
 
 class ControllerEvent
 {
@@ -11,7 +12,7 @@ class ControllerEvent
 
         if ($project == false)
         {
-            echo 'L\'évènement n\'a pas été ajouté';
+            Alerts::addEventError();
         }
         else
         {
@@ -30,12 +31,12 @@ class ControllerEvent
 
             }
             else{
-                echo 'Erreur dans la création de la campagne';
+                Alerts::addCampaignError();
             }
         }
         else
         {
-            echo 'Une campagne est déjà en cours';
+            Alerts::campaignAlreadyExist();
 
         }
     }

@@ -1,6 +1,7 @@
 <?php
 require_once dirname(__FILE__) . '/../models/Member.php';
 require_once dirname(__FILE__) . '/../controllers/routeur.php';
+require_once dirname(__FILE__) . '/../controllers/ControllerAlerts.php';
 
 
 class ControllerUser
@@ -12,24 +13,23 @@ class ControllerUser
      */
     public function readSignup() {
         session_start();
-        $signup = Member::signup();
+        if ($_SESSION['role'] == 'admin')
+        {
+            $refus = Member::refuse_signup();
 
-        if ($signup == false)
-        {
-            echo "Erreur lors de l'inscription" ;
-            echo '<a class="navbar-infos-items" href="./views/admin_validation.php">retour</a>';
-        }
-        else
-        {
-            if ($_SESSION['role'] == 'admin')
+            if ($refus == false)
             {
-                header("Location: ../views/admin_validation.php");
+                Alerts::signupError();
+
             }
             else
             {
-                echo "Erreur lors de l'inscription de l'administrateur";
-                echo '<a class="navbar-infos-items" href="./views/admin_validation.php">retour</a>';
+                header("Location: ../views/admin_validation.php");
             }
+        }
+        else
+        {
+            Alerts::isNotAdmin();
         }
     }
 
@@ -43,12 +43,11 @@ class ControllerUser
 
         if ($validation == false)
         {
-            echo "Erreur lors de l'inscription, l'adresse mail est déjà associée à un autre compte.";
-            echo '<a class="navbar-infos-items" href="./views/signup.php">retour</a>';
+            Alerts::mailAlreadyUsed();
         }
         else
         {
-            header("Location: ../views/waitValidation.php");
+            Alerts::waitValidation();
         }
     }
 
@@ -59,26 +58,23 @@ class ControllerUser
      */
     public function readRefuseSignup() {
         session_start();
-        $refus = Member::refuse_signup();
-
-        if ($refus == false)
+        if ($_SESSION['role'] == 'admin')
         {
-            echo 'erreur';
-            echo '<a class="navbar-infos-items" href="./views/admin_validation.php">retour</a>';
+            $refus = Member::refuse_signup();
 
-        }
-        else
-        {
-            if ($_SESSION['role'] == 'admin')
+            if ($refus == false)
             {
-                header("Location: ../views/admin_validation.php");
+                Alerts::signupError();
+
             }
             else
             {
-                header("Location: ../views/error.php");
-                echo '<a class="navbar-infos-items" href="./views/admin_validation.php">retour</a>';
-
+                header("Location: ../views/admin_validation.php");
             }
+        }
+        else
+        {
+            Alerts::isNotAdmin();
         }
     }
 
@@ -92,8 +88,7 @@ class ControllerUser
 
         if ($reset == false)
         {
-            echo "Erreur lors du changement de mot de passe, les mots de passe ne correspondent pas.";
-            echo '<a class="navbar-infos-items" href="./views/forgot_password.php">retour</a>';
+            Alerts::resetPassError();
         }
         else
         {
@@ -112,8 +107,7 @@ class ControllerUser
 
         if ($login == false)
         {
-            echo "Erreur lors de la connexion, les mots de passe ne correspondent pas.";
-            echo '<a class="navbar-infos-items" href="./views/login.php">retour</a>';
+            Alerts::wrongIds();
         }
         elseif ($_SESSION['is_pass_change'] == 0)
         {
@@ -136,8 +130,7 @@ class ControllerUser
         if ($change_pass == false)
         {
 
-            echo"Erreur, les mots de passe ne correspondent pas.";
-            echo '<a class="navbar-infos-items" href="./views/force_change_password.php">retour</a>';
+            Alerts::notSamePass();
 
         }
         else
@@ -163,17 +156,24 @@ class ControllerUser
      * @author Marius Garnier
      */
     public function readUpdateRole(){
-        $update = Member::updateRole();
-
-        if ($update == false)
+        session_start();
+        if ($_SESSION['role'] == 'admin')
         {
-            echo 'erreur';
-            echo '<a class="navbar-infos-items" href="./views/admin_validation.php">retour</a>';
+            $update = Member::updateRole();
 
+            if ($update == false)
+            {
+                Alerts::updateRoleError();
+
+            }
+            else
+            {
+                header("Location: ../views/gestionnaire_role.php");
+            }
         }
         else
         {
-            header("Location: ../views/gestionnaire_role.php");
+            Alerts::isNotAdmin();
         }
     }
 

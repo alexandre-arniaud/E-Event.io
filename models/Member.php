@@ -218,6 +218,7 @@ final class Member
                 if (password_verify($_POST['password'], $resultat['password'])) {
                     session_start();
 
+                    $_SESSION['id_member'] = $resultat['id_member'];
                     $_SESSION['nom'] = $resultat['lastname'];
                     $_SESSION['prenom'] = $resultat['firstname'];
                     $_SESSION['mail'] = $resultat['mail'];

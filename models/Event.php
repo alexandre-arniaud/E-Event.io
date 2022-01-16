@@ -28,12 +28,14 @@ final class Event
         $reqA = "INSERT INTO event (proj_name, organizer, location, description) VALUES (:nN, :nR, :nL, :nD)";
         $reqB = "SELECT * FROM event WHERE organizer = '$organizer' ORDER BY id DESC";
         $reqC = "INSERT INTO lineCampaign (id_camp, id_event) VALUES (:iC, :iE)";
+        $reqD = "UPDATE members SET role = 'organisateur' WHERE id_member = :iiD";
         try {
             $req_prepA = Model::getPDO()->prepare($reqA);
             $req_prepC = Model::getPDO()->prepare($reqC);
+            $req_prepD = Model::getPDO()->prepare($reqD);
             $values = array(
                 "nN" => $_POST['name'],
-                "nR" => $_SESSION['prenom'] . ' ' . $_SESSION['nom'],
+                "nR" => $organizer,
                 "nL" => $_POST['place'],
                 "nD" => $_POST['desc'],
             );
@@ -42,11 +44,16 @@ final class Event
             $req_prepB = Model::getPDO()->query($reqB);
             $tabB = $req_prepB->fetch();
 
-            $IDs = array(
+            $camp = array(
                 "iC" => Campaign::getCurrentCampaign(),
                 "iE" => $tabB['id']
             );
-            $req_prepC->execute($IDs);
+            $req_prepC->execute($camp);
+
+            $id = array(
+                "iiD" => $_SESSION['id_member']
+            );
+            $req_prepD->execute($id);
             return true;
         }
         catch (PDOException $e) {
