@@ -1,7 +1,7 @@
 <?php
 include 'template.php';
 require_once '../controllers/ControllerAlerts.php';
-start_page('Mon compte');
+start_page('E-event.io');
 if(($_SESSION['role'] == 'admin') || ($_SESSION['role'] == 'organisateur') || ($_SESSION['role'] == 'jury') || ($_SESSION['role'] == 'donateur')){?>
 
     <div class="container">
