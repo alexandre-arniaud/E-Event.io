@@ -60,7 +60,6 @@ final class Member
             }
         }
         catch (PDOException $e) {
-            require_once ('../views/error.php'); // fichier error.php a créer pour répertorier toutes les erreurs
             return false;
         }
     }
@@ -230,7 +229,9 @@ final class Member
                     return false;
                 }
             }
+            else return false;
         }
+        else return false;
     }
 
     /**
@@ -288,7 +289,7 @@ final class Member
      * @description Méthode permettant de mettre à jour le rôle de l'utilisateur
      * @author Marius Garnier
      */
-    public function updateRole(){
+    public function updateRoleAdmin(){
         $sql = 'UPDATE members SET role = :ro WHERE mail = :m';
 
         $rep = Model::getPDO()->prepare($sql);
@@ -310,7 +311,6 @@ final class Member
 
             session_start();
             $_SESSION['role'] = $resultat['role'];
-            $_SESSION['points'] = $resultat['points'];
             return true;
         }
         catch (PDOException $e) {
@@ -374,12 +374,12 @@ final class Member
         $sql = "SELECT * FROM members WHERE login = '$login'";
         try {
             $req = Model::getPDO()->query($sql);
-            while ($req->fetch() > 0) {
+            if ($req->fetch() > 0) {
                 $newLogin = $login . rand(0, 100);
                 self::verifyLogin($newLogin); // En considérant qu'il n'y aura pas plus de 100 personnes ayant le même prénom et nom
-                if (!$req) {
-                    break;
                 }
+            else {
+                return $login;
             }
             return $newLogin;
         }

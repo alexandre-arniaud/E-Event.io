@@ -15,9 +15,9 @@ class ControllerUser
         session_start();
         if ($_SESSION['role'] == 'admin')
         {
-            $refus = Member::refuse_signup();
+            $accept = Member::signup();
 
-            if ($refus == false)
+            if ($accept == false)
             {
                 Alerts::signupError();
 
@@ -180,7 +180,7 @@ class ControllerUser
         session_start();
         if ($_SESSION['role'] == 'admin')
         {
-            $update = Member::updateRole();
+            $update = Member::updateRoleAdmin();
 
             if ($update == false)
             {
@@ -273,7 +273,7 @@ class ControllerUser
     {
         $emailMessage = 'Bonjour,' . "\n";
         $emailMessage .= 'Tu as récemment fait une demande d\'inscription sur notre site.' . "\n";
-        $emailMessage .= 'Ta demande à d\'inscription n\'a pas aboutie ou a été refusée par un administrateur' . "\n";
+        $emailMessage .= 'Ta demande d\'inscription n\'a malheureusement pas aboutie ' . "\n";
         $emailMessage .= 'Nous t\'invitons tout de même à te re-inscrire sur le site !' . "\n";
 
         $object = "E-Event.io: Demande d'inscription refusée";

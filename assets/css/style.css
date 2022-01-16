@@ -18,6 +18,8 @@ body {
     font-family: Poppins, sans-serif;
 }
 
+
+
 .header {
     height: 10vh;
 
@@ -105,7 +107,7 @@ Partie gauche Accueil
 
 
 .container {
-    margin: 28vh 15em 0 2em;
+    margin: auto 15em auto 2em;
     display: grid;
     flex-direction: column;
 }
@@ -199,6 +201,21 @@ Partie droite : Campagne en cours
 
     font-weight: bold;
 }
+
+.tableau::-webkit-scrollbar {
+    width: 6px; /* width of the entire scrollbar */
+}
+
+.tableau::-webkit-scrollbar-track {
+    background: transparent; /* color of the tracking area */
+}
+
+.tableau::-webkit-scrollbar-thumb {
+    background-color: white; /* color of the scroll thumb */
+    border-radius: 20px; /* roundness of the scroll thumb */
+    border: 3px solid transparent; /* creates padding around scroll thumb */
+}
+
 
 .tableau > .event:last-child {
     margin-bottom: 3vh;
