@@ -48,4 +48,24 @@ class ControllerEvent
             Alerts::isNotAuthorized();
         }
     }
+
+    /**
+     * @description Methode permettant de voter pour un évènement et donc de lui attribuer des points
+     * @author Karim Boudjaoui
+     */
+    public function readVote() {
+        session_start();
+        if ($_POST['points'] <= $_SESSION['points']) {
+            $vote = Event::addVote();
+
+            if ($vote == false) {
+                Alerts::addVoteError();
+
+            } else {
+                header("Location: ../views/accueil.php");
+            }
+        } else {
+            Alerts::NotEnoughPoint();
+        }
+    }
 }

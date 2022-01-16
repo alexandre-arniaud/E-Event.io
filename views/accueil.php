@@ -52,11 +52,16 @@ start_page('E-event.io | La fête ne fait que commencer');
                                                 echo '<div class="row-4">';
                                                 echo $allEvents[$i]['description'];
                                                 echo '</div>';
+                                                echo '<form method="post" action="/index.php">';
                                                 echo '<div class="vote">
-                                                        <input type="text" class="form-control" name="points_given" placeholder="Nombre de points a donner" spellcheck="false" autocomplete="off" required>
+                                                        <input type="number" step="1" min="1" class="form-control" name="points" placeholder="Nombre de points a donner" spellcheck="false" autocomplete="off" required>
                                                         <button type="submit" name="action">Voter</button>
-                                                    </div>';
-                                                ?>
+                                                        <input type="hidden" name="controllers" value="ControllerEvent">
+                                                        <input type="hidden" name="action" value="readVote">';
+                                                echo '<input type="hidden" name="id_event" value="'. $allEvents[$i]['id'] . '">';
+                                                echo '</form>'; ?>
+                                                    </div>
+
                                             </div>
 
                                         </div>

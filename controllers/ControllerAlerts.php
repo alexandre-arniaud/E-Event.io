@@ -95,4 +95,18 @@ class Alerts {
         echo '<button><a class="button_a" href="../views/accueil.php">Retour à l\'accueil</a></button>';
         echo '</div>';
     }
+
+    public function addVoteError() {
+        echo '<div class="confirm">';
+        echo '<span>Erreur dans l\'attribution des points, veuillez contacter un administrateur.</span>';
+        echo '<button><a class="button_a" href="../views/accueil.php">Continuer</a></button>';
+        echo '</div>';
+    }
+
+    public function NotEnoughPoint() {
+        echo '<div class="confirm">';
+        echo '<span>Vous n\'avez pas assez de points.</span>';
+        echo '<button><a class="button_a" href="../views/accueil.php">Continuer</a></button>';
+        echo '</div>';
+    }
 }

@@ -22,6 +22,10 @@ final class Event
         if (!is_null($comm)) { $this->comm = $comm; }
     }
 
+    /**
+     * @description Méthode permettant de d'ajouter un évènement dans la campagne en cours - Le créateur de l'évènement devient organisateur
+     * @author Alexandre Arniaud
+     */
     public function addEvent() {
         $organizer = $_SESSION['prenom'] . ' ' . $_SESSION['nom'];
 
@@ -62,6 +66,44 @@ final class Event
         }
     }
 
+    /**
+     * @description Méthode permettant de voter pour un évènement et donc de lui donner des points
+     * @author Karim Boudjaoui
+     */
+    public function addVote() {
+        $id = $_SESSION['id_member'];
+        $id_event = $_POST['id_event'];
+
+        $reqA = "SELECT * FROM event WHERE id = '$id_event'";
+        $reqB = "UPDATE event SET totalPoints = :P WHERE id = '$id_event'";
+        $reqC = "UPDATE members SET points = :M WHERE id_member = '$id'";
+
+        try {
+            $req_A = Model::getPDO()->query($reqA);
+            $tabA = $req_A->fetch();
+            $add_pts = $tabA['totalPoints'] + $_POST['points'];
+
+            $req_prepB = Model::getPDO()->prepare($reqB);
+            $increment = array(
+                "P" => $add_pts);
+            $req_prepB->execute($increment);
+
+            $sub_pts = $_SESSION['points'] - $_POST['points'];
+
+            $req_prepC = Model::getPDO()->prepare($reqC);
+            $decrement = array(
+                "M" => $sub_pts);
+            $req_prepC->execute($decrement);
+
+            $_SESSION['points'] = $_SESSION['points'] - $_POST['points'];
+
+            return true;
+        }
+        catch (PDOException $e) {
+
+            return false;
+        }
+    }
 
 
     /**
