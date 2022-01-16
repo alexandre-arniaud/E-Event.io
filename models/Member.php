@@ -239,7 +239,7 @@ final class Member
         $sql = 'UPDATE members SET role = :ro WHERE mail = :m';
         $rep = Model::getPDO()->prepare($sql);
         $values = array("ro" => $_POST['update'],
-            "m" => $_SESSION['mail']);
+            "m" => $_POST['mail']);
         echo $_POST['update'];
         $rep-> execute($values);
         return true;

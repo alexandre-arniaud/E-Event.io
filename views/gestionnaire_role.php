@@ -58,6 +58,7 @@ for ($i = 0; $i <= count($allMembers ) - 1; $i++)
     <input type="hidden" name="controllers" value="ControllerUser">
     <input type="hidden" name="action" value="readUpdateRole">
     ';
+    echo '<input type="hidden" name="mail" value="'. $allMembers[$i]['mail'] . '">';
 
     echo '</form>';
 
