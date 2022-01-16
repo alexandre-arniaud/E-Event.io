@@ -1,11 +1,13 @@
 <?php
 include 'template.php';
+require_once '../controllers/ControllerAlerts.php';
 require_once dirname(__FILE__) . '/../models/Campaign.php';
 session_start();
 start_page('E-event.io | Créer un évènement');
-?>
 
-    <form class="newProj" action="/index.php" method="post">
+    if (($_SESSION['role'] == 'admin') || ($_SESSION['role'] == 'donateur')){
+            ?>
+        <form class="newProj" action="/index.php" method="post">
         <span class="proj-title">Créer un nouvel évènement</span>
 
         <div class="container">
@@ -48,6 +50,11 @@ start_page('E-event.io | Créer un évènement');
         </div>
 
     </form>
-<?php
+        <?php
+    }
+    else{
+        Alerts::PermissionDenied();
+    }
+
 end_page();
 ?>

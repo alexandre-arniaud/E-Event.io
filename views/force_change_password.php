@@ -1,8 +1,9 @@
 <?php
 include 'template.php';
+require_once '../controllers/ControllerAlerts.php';
 start_page('E-event.io | Modifiez votre mot de passe');
-?>
 
+if(($_SESSION['role'] == 'admin') || ($_SESSION['role'] == 'donateur')){?>
     <form class="signup" action="/index.php" method="post">
         <span class="force-title">Dis donc ! C'est la première fois que vous vous connectez ?</span>
         <p>Par sécurité, modifiez votre mot de passe dès maintenant pour avoir accès pleinement au site</p>
@@ -24,7 +25,11 @@ start_page('E-event.io | Modifiez votre mot de passe');
             <input type="hidden" name="action" value="readChangePass">
         </div>
 
-    </form>
-<?php
+    </form><?php
+}
+else{
+    Alerts::PermissionDenied();
+}
+
 end_page();
 ?>

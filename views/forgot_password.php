@@ -1,6 +1,7 @@
 <?php
 include 'template.php';
 start_page('E-event.io | Modification du mot de passe');
+
 ?>
 
     <form class="signup" action="/index.php" method="post">

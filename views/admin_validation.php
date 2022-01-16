@@ -1,15 +1,17 @@
 <?php
 include 'template.php';
+require_once '../controllers/ControllerAlerts.php';
+
 require_once '../models/Model.php';
 require_once '../models/Member.php';
 start_page('Admin');
 
+if ($_SESSION['role'] == 'admin'){
+    echo '<span class="adm-title">Inscriptions en attente</span>';
 
-echo '<span class="adm-title">Inscriptions en attente</span>';
+    echo '<div class="tableau">';
 
-echo '<div class="tableau">';
-
-echo ' <table>
+    echo ' <table>
     <tbody>
         <tr>
             <th>Nom</th>
@@ -17,49 +19,54 @@ echo ' <table>
              <th>Mail</th>
           <th>Action</th>
         </tr>
-    </tbody>
-';
-echo '<table class="tableau3">';
+    </tbody>';
 
-echo '<tbody>';
-echo '<div class="Informations">';
+    echo '<table class="tableau3">';
 
-$allValidation = Member::getAllValidation();
-for ($i = 0; $i <= count($allValidation) - 1; $i++)
-{
-    echo '<div class="personne">';
-    echo '<tr>';
-    echo '<td>';
-    echo $allValidation[$i]['nom'];
-    echo '</td>';
-    echo '<td>';
-    echo $allValidation[$i]['prenom'];
-    echo '</td>';
-    echo '<td>';
-    echo $allValidation[$i]['mail'];
-    echo '</td>';
+    echo '<tbody>';
+    echo '<div class="Informations">';
 
-    echo '<td>';
-    echo '<form method="post" action="/index.php">';
-    echo '<button type="submit" name="action">ACCEPTER</button>';
-    echo '<input type="hidden" name="controllers" value="ControllerUser">';
-    echo '<input type="hidden" name="action" value="readSignup">';
-    echo '<input type="hidden" name="nom" value="' . $allValidation[$i]['nom'] . '">';
-    echo '<input type="hidden" name="prenom" value="' . $allValidation[$i]['prenom'] .'">';
-    echo '<input type="hidden" name="mail" value="'. $allValidation[$i]['mail'] . '">';
-    echo '</form>';
-    echo '<form method="post" action="/index.php"><button type="submit" name="action" >REFUSER</button>';
-    echo '<input type="hidden" name="controllers" value="ControllerUser">';
-    echo '<input type="hidden" name="action" value="readRefuseSignup">';
-    echo '<input type="hidden" name="mail" value="'. $allValidation[$i]['mail'] . '">';
-    echo '</form>';
-    echo '</td>';
+    $allValidation = Member::getAllValidation();
+    for ($i = 0; $i <= count($allValidation) - 1; $i++)
+    {
+        echo '<div class="personne">';
+        echo '<tr>';
+        echo '<td>';
+        echo $allValidation[$i]['nom'];
+        echo '</td>';
+        echo '<td>';
+        echo $allValidation[$i]['prenom'];
+        echo '</td>';
+        echo '<td>';
+        echo $allValidation[$i]['mail'];
+        echo '</td>';
 
-    echo '</tr>';
+        echo '<td>';
+        echo '<form method="post" action="/index.php">';
+        echo '<button type="submit" name="action">ACCEPTER</button>';
+        echo '<input type="hidden" name="controllers" value="ControllerUser">';
+        echo '<input type="hidden" name="action" value="readSignup">';
+        echo '<input type="hidden" name="nom" value="' . $allValidation[$i]['nom'] . '">';
+        echo '<input type="hidden" name="prenom" value="' . $allValidation[$i]['prenom'] .'">';
+        echo '<input type="hidden" name="mail" value="'. $allValidation[$i]['mail'] . '">';
+        echo '</form>';
+        echo '<form method="post" action="/index.php"><button type="submit" name="action" >REFUSER</button>';
+        echo '<input type="hidden" name="controllers" value="ControllerUser">';
+        echo '<input type="hidden" name="action" value="readRefuseSignup">';
+        echo '<input type="hidden" name="mail" value="'. $allValidation[$i]['mail'] . '">';
+        echo '</form>';
+        echo '</td>';
+
+        echo '</tr>';
+        echo '</div>';
+    }
     echo '</div>';
+    echo '</tbody>';
+    echo '</table>';
+    echo '</table>';
+    echo '</div>';
+
 }
-echo '</div>';
-echo '</tbody>';
-echo '</table>';
-echo '</table>';
-echo '</div>';
+else{
+    Alerts::PermissionDenied();
+}

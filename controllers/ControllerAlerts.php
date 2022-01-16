@@ -70,7 +70,12 @@ class Alerts {
         echo '<button><a class="button_a" href="../views/edit_Password.php">Retour</a></button>';
         echo '</div>';
     }
-
+    public function PermissionDenied() {
+        echo '<div class="confirm">';
+        echo '<span>Vous n\'êtes pas autorisé à accéder à cette page</span>';
+        echo '<button><a class="button_a" href="../views/accueil.php">Retour</a></button>';
+        echo '</div>';
+    }
 
 
     /* Partie Évènements / Campagnes */
@@ -109,4 +114,6 @@ class Alerts {
         echo '<button><a class="button_a" href="../views/accueil.php">Continuer</a></button>';
         echo '</div>';
     }
+
+
 }

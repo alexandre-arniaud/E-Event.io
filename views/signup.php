@@ -1,8 +1,13 @@
 <?php
 include 'template.php';
+require_once '../controllers/ControllerAlerts.php';
 start_page('E-event.io | Inscription');
-?>
 
+if(($_SESSION['role'] == 'jury') || ($_SESSION['role'] == 'donateur') || ($_SESSION['role'] == 'organisateur')){
+
+    Alerts::PermissionDenied();
+}
+else{?>
     <form class="signup" action="/index.php" method="post">
         <span class="signup-title">Inscription</span>
 
@@ -29,5 +34,7 @@ start_page('E-event.io | Inscription');
 
     </form>
 <?php
+}
+
 end_page();
 ?>

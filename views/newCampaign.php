@@ -1,8 +1,10 @@
 <?php
 include 'template.php';
+require_once '../controllers/ControllerAlerts.php';
 session_start();
 start_page('E-event.io | Créer une campagne');
-?>
+
+if($_SESSION['role'] == 'admin'){?>
 
     <form class="newProj" action="/index.php" method="post">
         <span class="proj-title">Créer une nouvelle campagne</span>
@@ -40,7 +42,12 @@ start_page('E-event.io | Créer une campagne');
             <input type="hidden" name="action" value="readAddCampaign">
         </div>
 
-    </form>
-<?php
+    </form><?php
+}
+else{
+    Alerts::PermissionDenied();
+}
+
+
 end_page();
 ?>
