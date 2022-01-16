@@ -25,50 +25,45 @@ start_page('E-event.io | La fête ne fait que commencer');
             ?>
         </div>
         <div class="event-board">
-            <span class="adm-title">Campagne d'évènementiel en cours</span>
-            <div class="tableau">
-                <table>
-                    <tbody>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Prenom</th>
-                        <th>Mail</th>
-                        <th>Role</th>
-                        <th>Action</th>
-                    </tr>
-                    </tbody>
-
-                    <table class="tableau2">
-                        <tbody>
-                            <div class="Informations">
+            <span class="adm-title">Campagne en cours</span>
+                <div class="tableau">
                                 <?php
                                 $allEvents = Campaign::getAllEvents();
                                 for ($i = 0; $i <= count($allEvents) - 1; $i++)
-                                {
-                                    echo '<div class="personne">';
-                                        echo '<tr>';
-                                            echo '<td>';
+                                {?>
+                                        <div class="event">
+                                            <img src="../assets/img/event_img.png" alt="Logo pour les events">
+                                            <div class="event-infos">
+                                                <?php
+                                                echo '<div class="row-1">';
+                                                echo '<p>';
                                                 echo $allEvents[$i]['proj_name'];
-                                            echo '</td>';
-                                            echo '<td>';
-                                                echo $allEvents[$i]['organizer'];
-                                            echo '</td>';
-                                            echo '<td>';
-                                                echo $allEvents[$i]['location'];
-                                            echo '</td>';
-                                            echo '<td>';
+                                                echo '</p>';
+                                                echo '<p>';
+                                                echo $allEvents[$i]['totalPoints'] . " points attribués";
+                                                echo '</p>';
+                                                echo '</div>';
+                                                echo '<div class="row-2">';
+                                                echo "Organisé par " . $allEvents[$i]['organizer'];
+                                                echo '</div>';
+                                                echo '<div class="row-3">';
+                                                echo "A " . $allEvents[$i]['location'];
+                                                echo '</div>';
+                                                echo '<div class="row-4">';
                                                 echo $allEvents[$i]['description'];
-                                            echo '</td>';
-                                        echo '</tr>';
-                                    echo '</div>';
-                                }?>
-                            </div>
-                        </tbody>
-                    </table>
-                </table>
-            </div>
-        </div>
+                                                echo '</div>';
+                                                echo '<div class="vote">
+                                                        <input type="text" class="form-control" name="points_given" placeholder="Nombre de points a donner" spellcheck="false" autocomplete="off" required>
+                                                        <button type="submit" name="action">Voter</button>
+                                                    </div>';
+                                                ?>
+                                            </div>
 
+                                        </div>
+
+                                <?php } ?>
+                </div>
+        </div>
     </div>
 
 
