@@ -223,6 +223,7 @@ final class Member
                     $_SESSION['prenom'] = $resultat['firstname'];
                     $_SESSION['mail'] = $resultat['mail'];
                     $_SESSION['role'] = $resultat['role'];
+                    $_SESSION['points'] = $resultat['points'];
                     $_SESSION['is_pass_change'] = $resultat['is_pass_change'];
                     return true;
                 } else {
@@ -233,18 +234,88 @@ final class Member
     }
 
     /**
+     * @description Methode permettant à l'utilisateur de changer son mot de passe a tout moment
+     * @author Alexandre Arniaud et Marius Garnier
+     */
+    public function ChangePass() {
+        session_start();
+
+        $req = "SELECT * FROM members WHERE mail = :mail";
+        $reqA = "UPDATE members SET password = :nP WHERE mail = :nM";
+
+        try {
+            $req_prep = Model::getPDO()->prepare($req);
+
+            $values = array(
+                "mail" => $_SESSION['mail']
+            );
+            $req_prep->execute($values);
+            $resultat = $req_prep->fetch();
+            var_dump($resultat['password']);
+
+            if (password_verify($_POST['ancienMdp'], $resultat['password'])) {
+                $new_Pass = $_POST['nouveauMdp'];
+                $confirm_New_pass = $_POST['confirmeMdp'];
+
+                if ($new_Pass != $confirm_New_pass) {
+                    return false;
+                }
+                else{
+                    $crypt = new ControllerUser();
+                    $encrypt_pass = $crypt->encryptPass($new_Pass);
+
+                    $req_prepA = Model::getPDO()->prepare($reqA);
+                    $valuesA = array(
+                        "nP" => $encrypt_pass,
+                        "nM" => $_SESSION['mail']
+                    );
+                    $req_prepA->execute($valuesA);
+                    $_SESSION['password'] = $new_Pass;
+                    return true;
+                }
+            }
+            else{
+                return false;
+            }
+
+        }
+        catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    /**
      * @description Méthode permettant de mettre à jour le rôle de l'utilisateur
      * @author Marius Garnier
      */
     public function updateRole(){
         $sql = 'UPDATE members SET role = :ro WHERE mail = :m';
+
         $rep = Model::getPDO()->prepare($sql);
         $values = array("ro" => $_POST['update'],
             "m" => $_POST['mail']);
         echo $_POST['update'];
         $rep-> execute($values);
         return true;
+    }
 
+
+    public function updateSessionValues() {
+        $login = $_SESSION['login'];
+        $req = Model::getPDO()->prepare('SELECT * FROM members WHERE login = :login');
+        try {
+            $req->execute(array(
+                'login' => $login));
+            $resultat = $req->fetch();
+
+            session_start();
+            $_SESSION['role'] = $resultat['role'];
+            $_SESSION['points'] = $resultat['points'];
+            return true;
+        }
+        catch (PDOException $e) {
+            return false;
+        }
     }
 
     /**

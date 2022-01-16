@@ -54,13 +54,15 @@ function start_page($title)
             }
             echo '</div>
     </header>';
-        } elseif (ControllerSession::is_jury()) {
+        }
+
+
+        elseif (ControllerSession::is_jury()) {
             echo '<header class="header">
                     <img src="../assets/img/logo.png" alt="Logo de E-event.io">
                     <div class="navbar-infos">
             <a class="navbar-infos-items" href="./accueil.php">Accueil</a>
-                        <a class="navbar-infos-items" href="newEvent.php">Évènements</a>
-                        <a class="navbar-infos-items">En savoir plus</a>';
+                        <a class="navbar-infos-items" href="newEvent.php">Évènements</a>';
             if (isset($_SESSION['nom'])) {
                 echo '<a class="navbar-infos-items" href="../index.php?controllers=ControllerUser&action=deleteSession">Se déconnecter</a>';
             } else {
@@ -68,13 +70,15 @@ function start_page($title)
             }
             echo '</div>
     </header>';
-        } elseif (ControllerSession::is_organisateur()) {
+        }
+
+
+        elseif (ControllerSession::is_organisateur()) {
             echo '<header class="header">
         <img src="../assets/img/logo.png" alt="Logo de E-event.io">
         <div class="navbar-infos">
             <a class="navbar-infos-items" href="./accueil.php">Accueil</a>
-            <a class="navbar-infos-items" href="newEvent.php">Évènements</a>
-            <a class="navbar-infos-items">En savoir plus</a>';
+            <a class="navbar-infos-items" href="newEvent.php">Évènements</a>';
 
             if (isset($_SESSION['nom'])) {
                 echo '<a class="navbar-infos-items" href="../index.php?controllers=ControllerUser&action=deleteSession">Se déconnecter</a>';
@@ -83,36 +87,41 @@ function start_page($title)
             }
             echo '</div>
     </header>';
-        } elseif (ControllerSession::is_donateur()) {
+        }
+
+
+        elseif (ControllerSession::is_donateur()) {
             echo '<header class="header">
         <img src="../assets/img/logo.png" alt="Logo de E-event.io">
         <div class="navbar-infos">
             <a class="navbar-infos-items" href="./accueil.php">Accueil</a>
-            <a class="navbar-infos-items" href="newEvent.php">Évènements</a>
-            <a class="navbar-infos-items">En savoir plus</a>';
+            <a class="navbar-infos-items" href="newEvent.php">Évènements</a>';
 
             if (isset($_SESSION['nom'])) {
-                echo '<a class="navbar-infos-items" href="../index.php?controllers=ControllerUser&action=deleteSession">Se déconnecter</a>';
+                echo '<li class="deroulant"><a class="deroulant-title">' . $_SESSION['prenom'] . '</a>
+                          <ul class="sous">
+                              <li><a href="../views/myAccount.php">Mon compte</a></li>
+                              <li><a href="../index.php?controllers=ControllerUser&action=deleteSession">Déconnexion</a></li>
+                          </ul>
+                      </li>';
             } else {
                 echo '<a class="navbar-infos-items" href="/views/login.php">Se connecter</a>';
             }
             echo '</div>
     </header>';
-        } else {
-            echo '<header class="header">
-        <img src="../assets/img/logo.png" alt="Logo de E-event.io">
-        <div class="navbar-infos">
-            <a class="navbar-infos-items" href="./accueil.php">Accueil</a>
-            <a class="navbar-infos-items" href="newEvent.php">Évènements</a>
-            <a class="navbar-infos-items">En savoir plus</a>';
+        }
 
-            if (isset($_SESSION['nom'])) {
-                echo '<a class="navbar-infos-items" href="../index.php?controllers=ControllerUser&action=deleteSession">Se déconnecter</a>';
-            } else {
-                echo '<a class="navbar-infos-items" href="/views/login.php">Se connecter</a>';
-            }
-            echo '</div>
-    </header>';
+
+        else {
+            echo '
+        <header class="header">
+            <img src="../assets/img/logo.png" alt="Logo de E-event.io">
+            <div class="navbar-infos">
+                <a class="navbar-infos-items" href="./accueil.php">Accueil</a>
+                <a class="navbar-infos-items" href="newEvent.php">Évènements</a>
+                <a class="navbar-infos-items" href="/views/login.php">Se connecter</a>
+            </div>
+        </header>';
         }
     }
 }

@@ -12,25 +12,8 @@
 }
 
 body {
-    /*background: linear-gradient(-45deg, var(--primary-color-100), var(--primary-color-200), var(--primary-color-300), var(--primary-color-400));*/
-    /*background-size: 400% 400%;*/
-    /*animation: gradient 12s ease infinite;*/
     background-image: url(../img/Moon.svg);
-    background-repeat: no-repeat;
     background-size: cover;
-
-}
-
-@keyframes gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
 }
 
 .header {
@@ -70,6 +53,54 @@ body {
     color: gold;
     transition: color 275ms ease;
 }
+
+.deroulant {
+    text-decoration: none;
+    color: white;
+    list-style-type: none;
+}
+
+.deroulant:hover {
+    padding-top: 6vh;
+ }
+
+.deroulant-title {
+    position: sticky;
+}
+
+.sous {
+    display: none;
+    background-color: transparent;
+
+    text-align: center;
+}
+
+.sous > li {
+    display: flex;
+    position: relative;
+}
+
+.sous > li > a {
+    text-decoration: none;
+    color: white;
+    align-items: center;
+
+    transition: 0.5s;
+}
+
+.sous > li > a:hover {
+    color: gold;
+}
+
+li:hover .sous{
+    display: inline;
+}
+
+
+/********************
+Partie gauche Accueil
+ ********************/
+
 
 .container {
     margin: 28vh 15em 0 2em;

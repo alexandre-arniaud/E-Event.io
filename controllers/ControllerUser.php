@@ -29,7 +29,7 @@ class ControllerUser
         }
         else
         {
-            Alerts::isNotAdmin();
+            Alerts::isNotAuthorized();
         }
     }
 
@@ -74,7 +74,7 @@ class ControllerUser
         }
         else
         {
-            Alerts::isNotAdmin();
+            Alerts::isNotAuthorized();
         }
     }
 
@@ -118,6 +118,27 @@ class ControllerUser
             header("Location: ../views/accueil.php");
         }
     }
+
+    /**
+     * @description Methode permettant à l'utilisateur de changer son mot de passe a tout moment et le redirige vers l'accueil
+     * @author Alexandre Arniaud et Marius Garnier
+     */
+    public function readChangeNewPass() {
+        session_start();
+        $change_pass = Member::ChangePass();
+
+        if ($change_pass == false)
+        {
+
+            Alerts::changePassError();
+
+        }
+        else
+        {
+            header("Location: ../views/accueil.php");
+        }
+    }
+
 
     /**
      * @description Methode permettant de vérifier que la connexion de l'utilisateur a été réalisée redirige vers le tableau de bord
@@ -173,7 +194,7 @@ class ControllerUser
         }
         else
         {
-            Alerts::isNotAdmin();
+            Alerts::isNotAuthorized();
         }
     }
 

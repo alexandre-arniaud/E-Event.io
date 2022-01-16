@@ -26,7 +26,7 @@ class Alerts {
     }
 
 
-    public function isNotAdmin() {
+    public function isNotAuthorized() {
         echo '<div class="confirm">';
         echo '<span>Erreur : Vous n\'êtes pas autorisé à effectuer cette action</span>';
         echo '<button><a class="button_a" href="../views/accueil.php">Retour à l\'accueil</a></button>';
@@ -63,6 +63,14 @@ class Alerts {
         echo '<button><a class="button_a" href="../views/force_change_password.php">Retour</a></button>';
         echo '</div>';
     }
+
+    public function changePassError() {
+        echo '<div class="confirm">';
+        echo '<span>Erreur : Les mots de passes ne correspondent pas ou, votre ancien mot de passe n\'est pas le bon, veuillez réessayer.</span>';
+        echo '<button><a class="button_a" href="../views/edit_Password.php">Retour</a></button>';
+        echo '</div>';
+    }
+
 
 
     /* Partie Évènements / Campagnes */

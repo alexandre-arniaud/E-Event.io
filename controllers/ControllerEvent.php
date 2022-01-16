@@ -8,38 +8,44 @@ class ControllerEvent
 {
 
     public function readAddEvent() {
-        $project = Event::addEvent();
+        session_start();
+        if ($_SESSION['role'] == 'donateur' || $_SESSION['role'] == 'admin') {
+            $project = Event::addEvent();
 
-        if ($project == false)
-        {
-            Alerts::addEventError();
-        }
-        else
-        {
-            header("Location: ../views/accueil.php");
+            if ($project == false) {
+                Alerts::addEventError();
+
+            } else {
+                header("Location: ../views/accueil.php");
+            }
+        } else {
+            Alerts::isNotAuthorized();
         }
     }
 
     public function readAddCampaign() {
-        $campEnCours = Campaign::getCurrentCampaign();
-        if ($campEnCours == null){
-            $campaign = Campaign::addCampaign();
-            $default_point = Member::updateDefaultPoint();
-            if (($campaign == true) && ($default_point==true) )
+        session_start();
+        if ($_SESSION['role'] == 'admin') {
+            $campEnCours = Campaign::getCurrentCampaign();
+            if ($campEnCours == null){
+                $campaign = Campaign::addCampaign();
+                $default_point = Member::updateDefaultPoint();
+                if (($campaign == true) && ($default_point==true) )
+                {
+                    header("Location: ../views/accueil.php");
+
+                }
+                else{
+                    Alerts::addCampaignError();
+                }
+            }
+            else
             {
-                header("Location: ../views/accueil.php");
+                Alerts::campaignAlreadyExist();
 
             }
-            else{
-                Alerts::addCampaignError();
-            }
-        }
-        else
-        {
-            Alerts::campaignAlreadyExist();
-
+        } else {
+            Alerts::isNotAuthorized();
         }
     }
-
-
 }
