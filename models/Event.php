@@ -95,7 +95,7 @@ final class Event
                 "M" => $sub_pts);
             $req_prepC->execute($decrement);
 
-            $_SESSION['points'] = $_SESSION['points'] - $_POST['points'];
+            $_SESSION['points'] = $_SESSION['points'] - $_POST['points']; // Mise a jour du nombre de points de l'utilisateur dans sa session
 
             return true;
         }

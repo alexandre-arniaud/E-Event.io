@@ -68,7 +68,7 @@ body {
 .tableau {
     background-color: #6c7ae0;
     color: var(--primary-text-color);
-    overflow: hidden;
+    /*overflow: hidden scroll;*/
     border-radius: 20px 20px 10px 10px;
 
     width: 65%;
@@ -80,7 +80,7 @@ body {
 }
 
 
-.tableau2{
+.tableau2, .tableau3{
     background-color: white;
     color: #BCBCBC;
     overflow: hidden scroll;
@@ -95,19 +95,19 @@ body {
     font-weight: bold;
 }
 
-.tableau3{
-    background-color: white;
-    color: #BCBCBC;
-    overflow: hidden scroll;
-    border-radius: 0 0 10px 10px;
-
-    width: 100%;
-    height: 46vh;
-    margin: auto;
-
-    font-weight: bold;
+.tableau2::-webkit-scrollbar, .tableau3::-webkit-scrollbar {
+    width: 10px; /* width of the entire scrollbar */
 }
 
+.tableau2::-webkit-scrollbar-track, .tableau3::-webkit-scrollbar-track {
+    background: transparent; /* color of the tracking area */
+}
+
+.tableau2::-webkit-scrollbar-thumb, .tableau3::-webkit-scrollbar-thumb {
+    background-color: darkgoldenrod; /* color of the scroll thumb */
+    border-radius: 20px; /* roundness of the scroll thumb */
+    border: 3px solid transparent; /* creates padding around scroll thumb */
+}
 
 td {
     border: 5px solid transparent;
