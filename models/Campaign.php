@@ -28,6 +28,7 @@ final class Campaign
     public function addCampaign() {
         $reqI = "INSERT INTO `campaign` (camp_name, date_start, date_end, default_points ) VALUES (:cn, :ds, :de, :dp);
                  UPDATE members SET role = 'donateur', points = :dp WHERE role NOT IN ('admin');";
+
         try {
             $req_prep = Model::getPDO()->prepare($reqI);
             $values = array(
@@ -36,11 +37,17 @@ final class Campaign
                 "de" => $_POST['trip-end'],
                 "dp" => $_POST['default_points'],
             );
-            $req_prep->execute($values);
-            return true;
+
+            if (($_POST['default_points']) <= 200){
+                $req_prep->execute($values);
+                return true;
+            }
+            else{
+                return false;
+            }
+
         }
         catch (PDOException $e) {
-
             return false;
         }
     }
@@ -97,7 +104,7 @@ final class Campaign
      * @author Marius Garnier & Anthony Ruiz
      */
     public function getMinPointsEvents(){
-        $req = "SELECT * FROM event WHERE id IN (SELECT id_event FROM lineCampaign WHERE id_camp IN (SELECT MAX(id_camp) FROM lineCampaign)) AND totalPoints >= '20' AND selected = '0' ORDER BY totalPoints DESC";
+        $req = "SELECT * FROM event WHERE id IN (SELECT id_event FROM lineCampaign WHERE id_camp IN (SELECT MAX(id_camp) FROM lineCampaign)) AND totalPoints >= '350' AND selected = '0' ORDER BY totalPoints DESC";
         try {
             $req_prep = Model::getPDO()->query($req);
             $tab = $req_prep->fetch();

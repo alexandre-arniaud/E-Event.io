@@ -30,7 +30,7 @@ if($_SESSION['role'] == 'admin'){?>
 
                 <div class="form-group">
                     <label for="inputOrgName">Points par défault</label>
-                    <input type="int" class="form-control" name="default_points" placeholder="100" spellcheck="false" required>
+                    <input type="nombre" class="form-control" name="default_points" placeholder="Max : 200 points" spellcheck="false" required>
                 </div>
 
             </div>
