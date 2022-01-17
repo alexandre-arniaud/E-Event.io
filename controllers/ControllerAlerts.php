@@ -115,5 +115,19 @@ class Alerts {
         echo '</div>';
     }
 
+    public function addContSupp() {
+        echo '<div class="confirm">';
+        echo '<span>Une erreur est survenue lors de la creation du contenu supplementair, contactez un administrateur.</span>';
+        echo '<button><a class="button_a" href="../views/accueil.php">Continuer</a></button>';
+        echo '</div>';
+    }
+
+    public function TooManyEvents() {
+        echo '<div class="confirm">';
+        echo '<span>Désolé ! La limite d\'évènements a déjà été atteinte pour cette campagne.</span>';
+        echo '<button><a class="button_a" href="../views/accueil.php">Continuer</a></button>';
+        echo '</div>';
+    }
+
 
 }

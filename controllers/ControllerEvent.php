@@ -12,11 +12,14 @@ class ControllerEvent
         if ($_SESSION['role'] == 'donateur' || $_SESSION['role'] == 'admin') {
             $project = Event::addEvent();
 
-            if ($project == false) {
+            if ($project == 'erreur') {
                 Alerts::addEventError();
-
-            } else {
+            }
+            elseif ($project == 'ok'){
                 header("Location: ../views/accueil.php");
+            }
+            elseif ($project =='limite'){
+                Alerts::TooManyEvents();
             }
         } else {
             Alerts::isNotAuthorized();

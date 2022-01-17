@@ -22,49 +22,67 @@ final class Event
         if (!is_null($comm)) { $this->comm = $comm; }
     }
 
+
     /**
      * @description Méthode permettant de d'ajouter un évènement dans la campagne en cours - Le créateur de l'évènement devient organisateur
+     * Nombre limité d'évènements par campagne a 10
      * @author Alexandre Arniaud
      */
     public function addEvent() {
-        $organizer = $_SESSION['prenom'] . ' ' . $_SESSION['nom'];
+            $organizer = $_SESSION['prenom'] . ' ' . $_SESSION['nom'];
+            $currentCampId = Campaign::getCurrentCampaign()['id_camp'];
 
-        $reqA = "INSERT INTO event (proj_name, organizer, location, description) VALUES (:nN, :nR, :nL, :nD)";
-        $reqB = "SELECT * FROM event WHERE organizer = '$organizer' ORDER BY id DESC";
-        $reqC = "INSERT INTO lineCampaign (id_camp, id_event) VALUES (:iC, :iE)";
-        $reqD = "UPDATE members SET role = 'organisateur' WHERE id_member = :iiD";
-        try {
-            $req_prepA = Model::getPDO()->prepare($reqA);
-            $req_prepC = Model::getPDO()->prepare($reqC);
-            $req_prepD = Model::getPDO()->prepare($reqD);
-            $values = array(
-                "nN" => $_POST['name'],
-                "nR" => $organizer,
-                "nL" => $_POST['place'],
-                "nD" => $_POST['desc'],
-            );
-            $req_prepA->execute($values);
+            $reqA = "INSERT INTO event (proj_name, organizer, location, description) VALUES (:nN, :nR, :nL, :nD)";
+            $reqB = "SELECT * FROM event WHERE organizer = '$organizer' ORDER BY id DESC";
+            $reqC = "INSERT INTO lineCampaign (id_camp, id_event) VALUES (:iC, :iE)";
+            $reqD = "UPDATE members SET role = 'organisateur' WHERE id_member = :iiD";
+            $reqE = "UPDATE members SET points = 0 WHERE id_member = :iiD";
 
-            $req_prepB = Model::getPDO()->query($reqB);
-            $tabB = $req_prepB->fetch();
+            try {
+                $req_prepL = Model::getPDO()->query("SELECT COUNT(*) as total FROM event JOIN lineCampaign ON event.id = lineCampaign.id_event WHERE lineCampaign.id_camp = '$currentCampId'");
+                $nbEvent = $req_prepL->fetch();
+                if ($nbEvent['total'] < 10) {
+                    $req_prepA = Model::getPDO()->prepare($reqA);
+                    $req_prepC = Model::getPDO()->prepare($reqC);
+                    $req_prepD = Model::getPDO()->prepare($reqD);
+                    $req_prepE = Model::getPDO()->prepare($reqE);
+                    $values = array(
+                        "nN" => $_POST['name'],
+                        "nR" => $organizer,
+                        "nL" => $_POST['place'],
+                        "nD" => $_POST['desc'],
+                    );
+                    $req_prepA->execute($values);
 
-            $camp = array(
-                "iC" => Campaign::getCurrentCampaign()['id_camp'],
-                "iE" => $tabB['id']
-            );
-            $req_prepC->execute($camp);
+                    $req_prepB = Model::getPDO()->query($reqB);
+                    $tabB = $req_prepB->fetch();
 
-            $id = array(
-                "iiD" => $_SESSION['id_member']
-            );
-            $req_prepD->execute($id);
-            return true;
+                    $camp = array(
+                        "iC" => $currentCampId,
+                        "iE" => $tabB['id']
+                    );
+                    $req_prepC->execute($camp);
+
+                    $id = array(
+                        "iiD" => $_SESSION['id_member']
+                    );
+                    $req_prepE->execute($id);
+
+                    if ($_SESSION['role'] == 'donateur') {
+                        $req_prepD->execute($id);
+                    }
+
+                    return 'ok';
+                }
+                else{
+                    return 'limite';
+                }
+            }
+            catch (PDOException $e) {
+
+                return 'erreur';
+            }
         }
-        catch (PDOException $e) {
-
-            return false;
-        }
-    }
 
     /**
      * @description Méthode permettant de voter pour un évènement et donc de lui donner des points
