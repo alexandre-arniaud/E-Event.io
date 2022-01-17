@@ -73,6 +73,22 @@ class ControllerEvent
     }
 
     /**
+     * @description Methode permettant d'en savoir plus sur un évènement
+     * @author Alexandre Arniaud
+     */
+    public function readExtraInfo() {
+
+        $info = Event::getEvent();
+
+        if ($info != null) {
+//                        echo 'ouesh';
+            header("Location: ../views/extraEvent.php");
+        } else {
+            Alerts::redirectEventError();
+        }
+    }
+
+    /**
      * @description Methode permettant de supprimer un évènement pour un jury
      * @author Marius Garnier & Anthony Ruiz
      */

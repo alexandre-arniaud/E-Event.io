@@ -81,13 +81,9 @@ final class Campaign
      * @author Alexandre Arniaud
      */
     public function getAllEvents(){
-        $req = "SELECT * FROM event WHERE id IN (SELECT id_event FROM lineCampaign WHERE id_camp = :cC ) ORDER BY totalPoints DESC";
+        $req = "SELECT * FROM event WHERE id IN (SELECT id_event FROM lineCampaign WHERE id_camp = '" . self::getCurrentCampaign()['id_camp'] . "' ) ORDER BY totalPoints DESC";
         try {
-            $req_prep = Model::getPDO()->prepare($req);
-            $values = array(
-                "cC" => self::getCurrentCampaign()['id_camp']
-            );
-            $req_prep->execute($values);
+            $req_prep = Model::getPDO()->query($req);
             $tab = $req_prep->fetchAll();
 
             return $tab;

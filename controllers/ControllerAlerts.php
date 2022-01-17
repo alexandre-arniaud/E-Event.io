@@ -87,6 +87,13 @@ class Alerts {
         echo '</div>';
     }
 
+    public function redirectEventError() {
+        echo '<div class="confirm">';
+        echo '<span>Erreur dans la redirection vers la page de l\'évènement, veuillez réessayer.</span>';
+        echo '<button><a class="button_a" href="../views/accueil.php">Retour</a></button>';
+        echo '</div>';
+    }
+
     public function addCampaignError() {
         echo '<div class="confirm">';
         echo '<span>Erreur dans la création de la campagne, veuillez réessayer.</span>';

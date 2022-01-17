@@ -200,10 +200,6 @@ class ControllerUser
 
 
 
-
-
-
-
     /**
      * @description Génère un mot de passe aléatoire lors de l'inscription
      * @return string Mot de passe alétoire non encrpyté

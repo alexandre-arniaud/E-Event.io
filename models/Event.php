@@ -124,7 +124,25 @@ final class Event
     }
 
 
+    /**
+     * @description Méthode permettant de récupérer les informations d'un évènement en particulier
+     * @author Alexandre Arniaud
+     */
+    public function getEvent($id) {
 
+        $reqA = "SELECT * FROM event WHERE id = '" . $id . "'";
+
+        try {
+            $req_A = Model::getPDO()->query($reqA);
+            $tabA = $req_A->fetch();
+
+            return array($tabA);
+        }
+        catch (PDOException $e) {
+
+            return null;
+        }
+    }
 
 
     /**

@@ -33,40 +33,32 @@ start_page('E-event.io | La fête ne fait que commencer');
                                 for ($i = 0; $i <= count($allEvents) - 1; $i++)
                                 {?>
                                         <div class="event">
-<!--                                            <a href="/views/about_event.php"> si on le met la , ca comprend l'image mais le css ne va pas -->
                                             <img src="../assets/img/event_img.png" alt="Logo pour les events">
-                                            <div class="event-infos"> <a href="/views/about_event.php">
-                                                <?php
-                                                echo '<div class="row-1">
-                                                        <p>';
-                                                echo $allEvents[$i]['proj_name'];
-                                                echo ' </p>
-                                                       <p>';
-                                                echo $allEvents[$i]['totalPoints'] . " points attribués";
-                                                echo '</p>
-                                                      </div>
-                                                      <div class="row-2">';
-                                                echo "Organisé par " . $allEvents[$i]['organizer'];
-                                                echo '</div>
-                                                      <div class="row-3">';
-                                                echo "A " . $allEvents[$i]['location'];
-                                                echo '</div>
-                                                      <div class="row-4">';
-                                                echo $allEvents[$i]['description'];
-                                                echo '</div>
-                                                </a>
-                                                <form method="post" action="/index.php">
-                                                    <div class="vote">
-                                                        <input type="number" step="1" min="1" class="form-control" name="points" placeholder="Nombre de points a donner" spellcheck="false" autocomplete="off" required>
-                                                        <button type="submit" name="action">Voter</button>
-                                                        <input type="hidden" name="controllers" value="ControllerEvent">
-                                                        <input type="hidden" name="action" value="readVote">';
-                                                echo '<input type="hidden" name="id_event" value="'. $allEvents[$i]['id'] . '">';
-                                                echo '</form>'; ?>
-                                                    </div>
+                                            <div class="event-infos">
+                                                    <a href="/views/extraEvent.php?id=<?php echo $allEvents[$i]['id']?>">
+                                                    <?php
+                                                    echo '<div class="row-1">
+                                                            <p>';
+                                                    echo $allEvents[$i]['proj_name'];
+                                                    echo ' </p>
+                                                           <p>';
+                                                    echo $allEvents[$i]['totalPoints'] . " points attribués";
+                                                    echo '</p>
+                                                          </div>
+                                                          <div class="row-2">';
+                                                    echo "Organisé par " . $allEvents[$i]['organizer'];
+                                                    echo '</div>
+                                                          <div class="row-3">';
+                                                    echo "A " . $allEvents[$i]['location'];
+                                                    echo '</div>
+                                                          <div class="row-4">';
+                                                    echo $allEvents[$i]['description'];
+                                                    echo '</div>
+                                                    <input type="hidden" name="theId" value="' . $allEvents[$i]['id'] . '">'; ?>
+                                                    </a>
+
 
                                             </div>
-
                                         </div>
 
                                 <?php } ?>
