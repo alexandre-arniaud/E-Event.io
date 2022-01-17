@@ -16,7 +16,7 @@ start_page('E-event.io | Créer un évènement');
 
                 <div class="form-group">
                     <label for="orgName">Pour la campagne numéro </label>
-                    <span><?php echo Campaign::getCurrentCampaign()?></span>
+                    <span><?php echo Campaign::getCurrentCampaign()['id_camp']?></span>
                 </div>
 
                 <div class="form-group">

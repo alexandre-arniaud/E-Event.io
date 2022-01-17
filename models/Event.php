@@ -49,7 +49,7 @@ final class Event
             $tabB = $req_prepB->fetch();
 
             $camp = array(
-                "iC" => Campaign::getCurrentCampaign(),
+                "iC" => Campaign::getCurrentCampaign()['id_camp'],
                 "iE" => $tabB['id']
             );
             $req_prepC->execute($camp);

@@ -1,6 +1,7 @@
 <?php
 
 require_once dirname(__FILE__) . '/Model.php';
+require_once dirname(__FILE__) . '/Campaign.php';
 
 final class Member
 {
@@ -33,18 +34,29 @@ final class Member
         $cryptpass = $contr->encryptPass($password);
         $login = self::verifyLogin(strtolower(self::getFirstNameValidation()) . '.' . strtolower(self::getNameValidation()));
 
-        $reqI = "INSERT INTO members (login, mail, lastname, firstname, password, role) VALUES (:nL, :nM, :nN, :nP, :nU, :nR);
+        $reqI = "INSERT INTO members (login, mail, lastname, firstname, password, role, points) VALUES (:nL, :nM, :nN, :nP, :nU, :nR, :nPo);
                  DELETE FROM validation WHERE mail = :nM; ";
 
         try {
             $req_prep = Model::getPDO()->prepare($reqI);
+            /* Vérification campagne en cours :
+            Oui → l'utilisateur se voit attribuer le nombre de points de la campagne
+            Non → l'utilisateur est créé avec 0 points
+            */
+            if (Campaign::getCurrentCampaign() == null) {
+               $points =  0;
+            }
+            else {
+                $points = Campaign::getCurrentCampaign()['default_points'];
+            }
             $values = array(
                 "nL" => $login,
                 "nM" => strtolower(self::getMailValidation()),
                 "nN" => (ucfirst(strtolower(self::getNameValidation()))),
                 "nP" => (ucfirst(strtolower(self::getFirstNameValidation()))),
                 "nU" => $cryptpass,
-                "nR" => 'donateur'
+                "nR" => 'donateur',
+                "nPo" => $points
             );
             $req_prep->execute($values);
 

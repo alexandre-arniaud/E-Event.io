@@ -10,12 +10,12 @@ if(($_SESSION['role'] == 'admin') || ($_SESSION['role'] == 'donateur')){?>
 
         <div class="form-group">
             <label for="inputName">Nouveau Mot de Passe</label>
-            <input type="text" class="form-control" name="mdp" placeholder="Renseignez votre nouveau mot de passe" spellcheck="false" required>
+            <input type="password" class="form-control" name="mdp" placeholder="Renseignez votre nouveau mot de passe" spellcheck="false" required>
         </div>
 
         <div class="form-group">
             <label for="inputFirstName">Confirmation Nouveau Mot de Passe</label>
-            <input type="text" class="form-control" name="mdp2" placeholder="Confirmez votre nouveau mot de passe" spellcheck="false" required>
+            <input type="password" class="form-control" name="mdp2" placeholder="Confirmez votre nouveau mot de passe" spellcheck="false" required>
         </div>
 
 

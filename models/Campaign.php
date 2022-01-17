@@ -4,27 +4,30 @@ require_once dirname(__FILE__) . '/Model.php';
 
 final class Campaign
 {
-    private $id_camp;
+    private $nom_camp;
     private $date_start;
     private $date_end;
-    private $id_proj;
+    private $nb_pts;
 
 
-    public function __construct($id_proj, $nom_proj, $date_end, $nb_pts)
+    public function __construct($nom_camp, $date_start, $date_end, $nb_pts)
     {
-        if (!is_null($id_proj)) { $this->id_camp = $id_proj ; }
-        if (!is_null($nom_proj)) { $this->date_start = $nom_proj; }
+        if (!is_null($nom_camp)) { $this->nom_camp = $nom_camp ; }
+        if (!is_null($date_start)) { $this->date_start = $date_start; }
         if (!is_null($date_end)) { $this->date_end = $date_end; }
-        if (!is_null($nb_pts)) { $this->id_proj = $nb_pts; }
+        if (!is_null($nb_pts)) { $this->nb_pts = $nb_pts; }
 
     }
 
     /**
      * @description Methode permettant à l'administrateur de créer une nouvelle campagne
+     * Tous les utilisateurs ayant le rôle organisateur a la précédente campagne redeviennent donateur ( mais peuvent reproposer une idée d'évènement )
+     * Tous les utilisateurs se voient attribuer le nombre de points par défault de la campagne
      * @author Marius Ganier
      */
     public function addCampaign() {
-        $reqI = "INSERT INTO `campaign` (camp_name, date_start, date_end, default_points ) VALUES (:cn, :ds, :de, :dp)";
+        $reqI = "INSERT INTO `campaign` (camp_name, date_start, date_end, default_points ) VALUES (:cn, :ds, :de, :dp);
+                 UPDATE members SET role = 'donateur', points = :dp WHERE role NOT IN ('admin');";
         try {
             $req_prep = Model::getPDO()->prepare($reqI);
             $values = array(
@@ -34,7 +37,6 @@ final class Campaign
                 "dp" => $_POST['default_points'],
             );
             $req_prep->execute($values);
-
             return true;
         }
         catch (PDOException $e) {
@@ -58,7 +60,8 @@ final class Campaign
             $req_prep->execute($values);
             $tab = $req_prep->fetch();
 
-            return $tab['id_camp'];
+            return $tab;
+            var_dump($tab);
         }
         catch (PDOException $e) {
 
@@ -76,7 +79,7 @@ final class Campaign
         try {
             $req_prep = Model::getPDO()->prepare($req);
             $values = array(
-                "cC" => self::getCurrentCampaign()
+                "cC" => self::getCurrentCampaign()['id_camp']
             );
             $req_prep->execute($values);
             $tab = $req_prep->fetchAll();
@@ -92,27 +95,27 @@ final class Campaign
 
 
     /**
-     * @param $$id_camp
+     * @param $nom_camp
      */
-    public function setid_camp($id_camp)
+    public function setNameCamp($nom_camp)
     {
-        $this->$id_camp = $id_camp;
+        $this->nom_camp = $nom_camp;
     }
 
 
     /**
-     * @return mixed $id
+     * @return mixed $nom_camp
      */
-    public function getid_camp()
+    public function getNameCamp()
     {
-        return $this->id_camp;
+        return $this->nom_camp;
     }
 
 
     /**
      * @param $date_start
      */
-    public function setdate_start($date_start)
+    public function setStart($date_start)
     {
         $this->date_start = $date_start;
     }
@@ -121,7 +124,7 @@ final class Campaign
     /**
      * @return mixed $nom
      */
-    public function getdate_start()
+    public function getStart()
     {
         return $this->date_start;
     }
@@ -130,7 +133,7 @@ final class Campaign
     /**
      * @param $date_end
      */
-    public function setdate_end($date_end)
+    public function setEnd($date_end)
     {
         $this->date_end = $date_end;
     }
@@ -139,26 +142,26 @@ final class Campaign
     /**
      * @return mixed $orga
      */
-    public function getdate_end()
+    public function getEnd()
     {
         return $this->date_end;
     }
 
 
     /**
-     * @param $id_proj
+     * @param $nb_pts
      */
-    public function setid_proj($id_proj)
+    public function setPoints($nb_pts)
     {
-        $this->id_proj = $id_proj;
+        $this->nb_pts = $nb_pts;
     }
 
 
     /**
      * @return mixed $nb_pts
      */
-    public function getIdproj()
+    public function getPoints()
     {
-        return $this->id_proj;
+        return $this->nb_pts;
     }
 }

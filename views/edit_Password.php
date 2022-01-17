@@ -9,17 +9,17 @@ start_page('E-event.io | Modifiez votre mot de passe');
 
         <div class="form-group">
             <label for="inputName">Ancien mot de passe</label>
-            <input type="text" class="form-control" name="ancienMdp" placeholder="Renseignez votre ancien mot de passe" spellcheck="false" required>
+            <input type="password" class="form-control" name="ancienMdp" placeholder="Renseignez votre ancien mot de passe" spellcheck="false" required>
         </div>
 
         <div class="form-group">
             <label for="inputName">Nouveau mot de passe</label>
-            <input type="text" class="form-control" name="nouveauMdp" placeholder="Renseignez votre nouveau mot de passe" spellcheck="false" required>
+            <input type="password" class="form-control" name="nouveauMdp" placeholder="Renseignez votre nouveau mot de passe" spellcheck="false" required>
         </div>
 
         <div class="form-group">
             <label for="inputName">Confirmer le nouveau mot de passe</label>
-            <input type="text" class="form-control" name="confirmeMdp" placeholder="Confirmer votre nouveau mot de passe" spellcheck="false" required>
+            <input type="password" class="form-control" name="confirmeMdp" placeholder="Confirmer votre nouveau mot de passe" spellcheck="false" required>
         </div>
 
         <div class="form-button">
