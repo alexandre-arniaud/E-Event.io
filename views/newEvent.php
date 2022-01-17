@@ -2,6 +2,7 @@
 include 'template.php';
 require_once '../controllers/ControllerAlerts.php';
 require_once dirname(__FILE__) . '/../models/Campaign.php';
+
 session_start();
 start_page('E-event.io | Créer un évènement');
 

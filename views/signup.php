@@ -1,6 +1,7 @@
 <?php
 include 'template.php';
 require_once '../controllers/ControllerAlerts.php';
+
 start_page('E-event.io | Inscription');
 
 if(($_SESSION['role'] == 'jury') || ($_SESSION['role'] == 'donateur') || ($_SESSION['role'] == 'organisateur')){

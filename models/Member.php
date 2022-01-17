@@ -83,7 +83,6 @@ final class Member
             return true;
         }
         catch (PDOException $e) {
-            require_once ('../views/error.php'); // fichier error.php a créer pour répertorier toutes les erreurs
             return false;
         }
     }
@@ -311,6 +310,7 @@ final class Member
 
             session_start();
             $_SESSION['role'] = $resultat['role'];
+            $_SESSION['points'] = $resultat['points'];
             return true;
         }
         catch (PDOException $e) {

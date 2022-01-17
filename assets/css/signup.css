@@ -60,6 +60,48 @@ body {
     transition: color 275ms ease;
 }
 
+.deroulant {
+    text-decoration: none;
+    color: white;
+    list-style-type: none;
+}
+
+.deroulant:hover {
+    padding-top: 6vh;
+}
+
+.deroulant-title {
+    position: sticky;
+}
+
+.sous {
+    display: none;
+    background-color: transparent;
+
+    text-align: center;
+}
+
+.sous > li {
+    display: flex;
+    position: relative;
+}
+
+.sous > li > a {
+    text-decoration: none;
+    color: white;
+    align-items: center;
+
+    transition: 0.5s;
+}
+
+.sous > li > a:hover {
+    color: gold;
+}
+
+li:hover .sous{
+    display: inline;
+}
+
 /*****
 SIGNUP
  *****/

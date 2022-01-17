@@ -6,9 +6,8 @@ require_once '../controllers/ControllerAlerts.php';
 start_page('Admin');
 
 if($_SESSION['role'] == 'admin'){
-    echo '<span class="adm-title">Gestion des rôles</span>';
-
-    echo '<div class="tableau">';
+    echo '<span class="adm-title">Gestion des rôles</span>
+               <div class="tableau">';
 
     echo ' <table>
     <tbody>
@@ -21,38 +20,35 @@ if($_SESSION['role'] == 'admin'){
         </tr>
     </tbody>
 ';
-    echo '<table class="tableau2">';
-
-    echo '<tbody>';
-    echo '<div class="Informations">';
+    echo '<table class="tableau2">
+        <tbody>
+        <div class="Informations">';
 
     $allMembers = Member::getAllMembers();
     for ($i = 0; $i <= count($allMembers ) - 1; $i++)
     {
-        echo '<div class="personne">';
-        echo '<tr>';
-        echo '<td>';
+        echo '<div class="personne">
+                <tr>
+                <td>';
         echo $allMembers[$i]['lastname'];
-        echo '</td>';
-        echo '<td>';
+        echo '</td>
+                <td>';
         echo $allMembers[$i]['firstname'];
-        echo '</td>';
-        echo '<td>';
+        echo '</td>
+               <td>';
         echo $allMembers[$i]['mail'];
-        echo '</td>';
-        echo '<td>';
+        echo '</td>
+              <td>';
         echo $allMembers[$i]['role'];
-        echo '</td>';
-
-        echo '<td>';
-
-        echo '<form method="post" action="/index.php">
-    <select name="update" id="role">
-        <option name ="role" value ="admin">admin</option>
-        <option name ="role" value ="jury">jury</option>
-        <option name ="role" value ="organisateur">organisateur</option>
-        <option name ="role" value ="donateur">donateur</option>
-    </select>
+        echo '</td>
+                <td>
+    <form method="post" action="/index.php">
+        <select name="update" id="role">
+            <option name ="role" value ="admin">admin</option>
+            <option name ="role" value ="jury">jury</option>
+            <option name ="role" value ="organisateur">organisateur</option>
+            <option name ="role" value ="donateur">donateur</option>
+        </select>
     
     
     <button type="submit" name="action">OK</button>
@@ -61,18 +57,16 @@ if($_SESSION['role'] == 'admin'){
     ';
         echo '<input type="hidden" name="mail" value="'. $allMembers[$i]['mail'] . '">';
 
-        echo '</form>';
-
-        echo '</td>';
-
-        echo '</tr>';
-        echo '</div>';
+        echo '</form>
+            </td>
+            </tr>
+            </div>';
     }
-    echo '</div>';
-    echo '</tbody>';
-    echo '</table>';
-    echo '</table>';
-    echo '</div>';
+    echo '</div>
+           </tbody>
+           </table>
+           </table>
+           </div>';
 }
 else{
     Alerts::PermissionDenied();

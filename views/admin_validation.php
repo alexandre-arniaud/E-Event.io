@@ -30,43 +30,47 @@ if ($_SESSION['role'] == 'admin'){
     for ($i = 0; $i <= count($allValidation) - 1; $i++)
     {
         echo '<div class="personne">';
-        echo '<tr>';
-        echo '<td>';
+        echo '<tr>
+              <td>';
         echo $allValidation[$i]['nom'];
-        echo '</td>';
-        echo '<td>';
+        echo '</td>
+              <td>';
         echo $allValidation[$i]['prenom'];
-        echo '</td>';
-        echo '<td>';
+        echo '</td>
+              <td>';
         echo $allValidation[$i]['mail'];
-        echo '</td>';
+        echo '</td>
 
-        echo '<td>';
-        echo '<form method="post" action="/index.php">';
-        echo '<button type="submit" name="action">ACCEPTER</button>';
-        echo '<input type="hidden" name="controllers" value="ControllerUser">';
-        echo '<input type="hidden" name="action" value="readSignup">';
+              <td>
+        <form method="post" action="/index.php">
+            <button type="submit" name="action">ACCEPTER</button>
+            <input type="hidden" name="controllers" value="ControllerUser">
+            <input type="hidden" name="action" value="readSignup">';
         echo '<input type="hidden" name="nom" value="' . $allValidation[$i]['nom'] . '">';
         echo '<input type="hidden" name="prenom" value="' . $allValidation[$i]['prenom'] .'">';
         echo '<input type="hidden" name="mail" value="'. $allValidation[$i]['mail'] . '">';
-        echo '</form>';
-        echo '<form method="post" action="/index.php"><button type="submit" name="action" >REFUSER</button>';
-        echo '<input type="hidden" name="controllers" value="ControllerUser">';
-        echo '<input type="hidden" name="action" value="readRefuseSignup">';
+        echo '</form>
+        <form method="post" action="/index.php"><button type="submit" name="action" >REFUSER</button>
+            <input type="hidden" name="controllers" value="ControllerUser">
+            <input type="hidden" name="action" value="readRefuseSignup">';
         echo '<input type="hidden" name="mail" value="'. $allValidation[$i]['mail'] . '">';
-        echo '</form>';
-        echo '</td>';
+        echo '</form>
+            </td>
 
-        echo '</tr>';
-        echo '</div>';
+            </tr>
+            </div>';
     }
-    echo '</div>';
-    echo '</tbody>';
-    echo '</table>';
-    echo '</table>';
-    echo '</div>';
+    echo '</div>
+        </tbody>
+        </table>
+        </table>
+        </div>';
 
 }
 else{
     Alerts::PermissionDenied();
 }
+
+end_page();
+?>
+

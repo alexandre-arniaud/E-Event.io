@@ -1,6 +1,7 @@
 <?php
 include 'template.php';
 require_once '../controllers/ControllerAlerts.php';
+
 session_start();
 start_page('E-event.io | Créer une campagne');
 

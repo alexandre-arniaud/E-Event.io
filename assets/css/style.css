@@ -202,6 +202,8 @@ Partie droite : Campagne en cours
     font-weight: bold;
 }
 
+
+
 .tableau::-webkit-scrollbar {
     width: 6px; /* width of the entire scrollbar */
 }
@@ -232,6 +234,17 @@ Partie droite : Campagne en cours
 
     border-radius: 20px;
     background-color: darkcyan;
+
+    transition: 0.5s;
+}
+
+.event:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.event:hover ~ .event:not(:hover) {
+    filter: grayscale(1);
 }
 
 .event > img {

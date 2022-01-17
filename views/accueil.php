@@ -2,6 +2,7 @@
 include 'template.php';
 require_once dirname(__FILE__) . '/../controllers/ControllerSession.php';
 require_once dirname(__FILE__) . '/../models/Campaign.php';
+
 start_page('E-event.io | La fête ne fait que commencer');
 ?>
     <div class = "bigContainer">
@@ -35,25 +36,25 @@ start_page('E-event.io | La fête ne fait que commencer');
                                             <img src="../assets/img/event_img.png" alt="Logo pour les events">
                                             <div class="event-infos">
                                                 <?php
-                                                echo '<div class="row-1">';
-                                                echo '<p>';
+                                                echo '<div class="row-1">
+                                                        <p>';
                                                 echo $allEvents[$i]['proj_name'];
-                                                echo '</p>';
-                                                echo '<p>';
+                                                echo ' </p>
+                                                       <p>';
                                                 echo $allEvents[$i]['totalPoints'] . " points attribués";
-                                                echo '</p>';
-                                                echo '</div>';
-                                                echo '<div class="row-2">';
+                                                echo '</p>
+                                                      </div>
+                                                      <div class="row-2">';
                                                 echo "Organisé par " . $allEvents[$i]['organizer'];
-                                                echo '</div>';
-                                                echo '<div class="row-3">';
+                                                echo '</div>
+                                                      <div class="row-3">';
                                                 echo "A " . $allEvents[$i]['location'];
-                                                echo '</div>';
-                                                echo '<div class="row-4">';
+                                                echo '</div>
+                                                      <div class="row-4">';
                                                 echo $allEvents[$i]['description'];
-                                                echo '</div>';
-                                                echo '<form method="post" action="/index.php">';
-                                                echo '<div class="vote">
+                                                echo '</div>
+                                                <form method="post" action="/index.php">
+                                                    <div class="vote">
                                                         <input type="number" step="1" min="1" class="form-control" name="points" placeholder="Nombre de points a donner" spellcheck="false" autocomplete="off" required>
                                                         <button type="submit" name="action">Voter</button>
                                                         <input type="hidden" name="controllers" value="ControllerEvent">
