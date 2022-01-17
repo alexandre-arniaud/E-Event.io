@@ -33,8 +33,9 @@ start_page('E-event.io | La fête ne fait que commencer');
                                 for ($i = 0; $i <= count($allEvents) - 1; $i++)
                                 {?>
                                         <div class="event">
+<!--                                            <a href="/views/about_event.php"> si on le met la , ca comprend l'image mais le css ne va pas -->
                                             <img src="../assets/img/event_img.png" alt="Logo pour les events">
-                                            <div class="event-infos">
+                                            <div class="event-infos"> <a href="/views/about_event.php">
                                                 <?php
                                                 echo '<div class="row-1">
                                                         <p>';
@@ -53,6 +54,7 @@ start_page('E-event.io | La fête ne fait que commencer');
                                                       <div class="row-4">';
                                                 echo $allEvents[$i]['description'];
                                                 echo '</div>
+                                                </a>
                                                 <form method="post" action="/index.php">
                                                     <div class="vote">
                                                         <input type="number" step="1" min="1" class="form-control" name="points" placeholder="Nombre de points a donner" spellcheck="false" autocomplete="off" required>

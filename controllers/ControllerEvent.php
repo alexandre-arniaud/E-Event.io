@@ -69,6 +69,11 @@ class ControllerEvent
         }
     }
 
+    /**
+     * @description Methode permettant de supprimer un évènement pour un jury
+     * @author Marius Garnier & Anthony Ruiz
+     */
+
     public function readDelete(){
         $deleted = Event::deleteEvents();
 
@@ -79,6 +84,11 @@ class ControllerEvent
             header("Location: ../views/choice_jury.php");
         }
     }
+
+    /**
+     * @description Methode permettant de garder un évènement pour un jury
+     * @author Marius Garnier & Anthony Ruiz
+     */
 
     public function readKeep(){
         $keep = Event::keepEvents();
