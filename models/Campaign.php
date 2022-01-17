@@ -61,7 +61,6 @@ final class Campaign
             $tab = $req_prep->fetch();
 
             return $tab;
-            var_dump($tab);
         }
         catch (PDOException $e) {
 
@@ -102,7 +101,7 @@ final class Campaign
         try {
             $req_prep = Model::getPDO()->prepare($req);
             $values = array(
-                "cC" => self::getCurrentCampaign()
+                "cC" => self::getCurrentCampaign()['id_camp']
             );
             $req_prep->execute($values);
             $tab = $req_prep->fetchAll();

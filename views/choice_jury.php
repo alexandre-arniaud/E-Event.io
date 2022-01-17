@@ -9,8 +9,8 @@ require_once dirname(__FILE__) . '/../models/Campaign.php';
 start_page('Jury');
 
 if(($_SESSION['role'] == 'admin') || ($_SESSION['role'] == 'jury')){
-?><div class="event-board">
-            <span class="adm-title">Top events</span>
+?><div class="jury-board">
+            <span class="adm-title">Évènements éligibles à la délibération</span>
                 <div class="tableau">
                                 <?php
                                 $allEvents = Campaign::getMinPointsEvents();

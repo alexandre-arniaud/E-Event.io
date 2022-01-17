@@ -10,7 +10,7 @@ if($_SESSION['role'] == 'admin'){?>
     <form class="newProj" action="/index.php" method="post">
         <span class="proj-title">Créer une nouvelle campagne</span>
 
-        <div class="container">
+        <div class="container-bis">
             <div class="container-child-1">
                 <div class="form-group">
                     <label for="inputName">Nom de la campagne </label>
