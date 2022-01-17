@@ -15,7 +15,7 @@ if(($_SESSION['role'] == 'admin') || ($_SESSION['role'] == 'organisateur') || ($
             <label>Prénom :</label>
             <span><?php echo $_SESSION['prenom']?></span>
         </div>
-        <div class="prenom">
+        <div class="nom">
             <label>Nom :</label>
             <span><?php echo $_SESSION['nom']?></span>
         </div>
@@ -33,7 +33,7 @@ if(($_SESSION['role'] == 'admin') || ($_SESSION['role'] == 'organisateur') || ($
         </div>
         <!--            LE BOUTTON EST A FAIRE-->
         <div class="button-mdp">
-            <form method="post" action="/myAccount.php"><button type="submit" name="action" >Modifier le mot de passe</button>
+            <form method="post" action="edit_Password.php"><button type="submit" name="action" >Modifier le mot de passe</button>
         </div>
     </div>
 

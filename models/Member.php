@@ -264,7 +264,6 @@ final class Member
             );
             $req_prep->execute($values);
             $resultat = $req_prep->fetch();
-            var_dump($resultat['password']);
 
             if (password_verify($_POST['ancienMdp'], $resultat['password'])) {
                 $new_Pass = $_POST['nouveauMdp'];
