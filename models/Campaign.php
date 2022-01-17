@@ -93,6 +93,29 @@ final class Campaign
         }
     }
 
+    /**
+     * @description Méthode permettant de récupérer tous les évènements de la campagne en cours superieur à N points
+     * @author Marius Garnier & Anthony Ruiz
+     */
+    public function getMinPointsEvents(){
+        $req = "SELECT * FROM event WHERE id IN (SELECT id_event FROM lineCampaign WHERE id_camp = :cC ) AND totalPoints >= '20' AND selected = '0' ORDER BY totalPoints DESC";
+        try {
+            $req_prep = Model::getPDO()->prepare($req);
+            $values = array(
+                "cC" => self::getCurrentCampaign()
+            );
+            $req_prep->execute($values);
+            $tab = $req_prep->fetchAll();
+
+            return $tab;
+
+        }
+        catch (PDOException $e) {
+
+            return null;
+        }
+    }
+
 
     /**
      * @param $nom_camp

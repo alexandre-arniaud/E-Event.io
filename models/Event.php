@@ -106,6 +106,51 @@ final class Event
     }
 
 
+
+
+
+    /**
+     * @description Méthode qui permet de supprimer les évènements éliminés par le jury
+     * @author garnier marius et anthony ruiz
+     */
+    public function deleteEvents(){
+        $req = "DELETE FROM lineCampaign WHERE id_event = :id;
+        DELETE FROM event WHERE id = :id "; //voir apres
+        try {
+            $req_prep = Model::getPDO()->prepare($req);
+            $values = array(
+                "id" => $_POST['id_event']
+            );
+            $req_prep->execute($values);
+            return true;
+        }
+        catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    /**
+     * @description Méthode qui permet de garder  les évènements choisi par le jury
+     * @author garnier marius et anthony ruiz
+     */
+
+    public function keepEvents(){
+        $req = "UPDATE event SET selected = '1' WHERE id = :id";
+
+        try {
+            $req_prep = Model::getPDO()->prepare($req);
+            $values = array(
+                "id" => $_POST['id_event']
+            );
+            $req_prep->execute($values);
+            return true;
+        }
+        catch (PDOException $e) {
+            return false;
+        }
+    }
+
+
     /**
      * @param $id
      */

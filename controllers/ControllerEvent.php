@@ -68,4 +68,28 @@ class ControllerEvent
             Alerts::NotEnoughPoint();
         }
     }
+
+    public function readDelete(){
+        $deleted = Event::deleteEvents();
+
+        if ($deleted == false){
+            Alerts::addVoteError();
+        }
+        else{
+            header("Location: ../views/choice_jury.php");
+        }
+    }
+
+    public function readKeep(){
+        $keep = Event::keepEvents();
+
+        if ($keep == false){
+            Alerts::addVoteError();
+        }
+        else{
+            header("Location: ../views/choice_jury.php");
+        }
+    }
+
+
 }
