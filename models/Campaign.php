@@ -138,6 +138,31 @@ final class Campaign
 
 
     /**
+     * @description Méthode permettant de réinitialiser les points de tous les utilisateurs à la fin d'une campagne
+     * @author Garnier Marius & Ruiz Anthony
+     */
+    public function resetPoints(){
+        $reqA = "UPDATE members SET points = '0'";
+        try {
+            $req_prep = Model::getPDO()->query($reqA);
+
+            if(self::getCurrentCampaign() == null){
+                $tab = $req_prep ->fetch();
+                return $tab;
+            }
+            else{
+                return null;
+            }
+
+        }
+        catch (PDOException $e) {
+
+            return null;
+        }
+    }
+
+
+    /**
      * @param $nom_camp
      */
     public function setNameCamp($nom_camp)

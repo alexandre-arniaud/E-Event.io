@@ -115,6 +115,10 @@ class ControllerUser
         }
         elseif ($_SESSION['is_pass_change'] == 1)
         {
+            if (Campaign::getCurrentCampaign() == null)
+            {
+                Campaign::resetPoints();
+            }
             header("Location: ../views/accueil.php");
         }
     }
