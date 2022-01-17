@@ -53,6 +53,7 @@ function start_page($title)
                                   <li><a href="../views/myAccount.php">Mon compte</a></li>
                                   <li><a class="navbar-infos-items" href="/views/admin_validation.php">Validation des inscriptions</a></li>
                                   <li><a class="navbar-infos-items" href="/views/gestionnaire_role.php">Gestion des roles</a></li>
+                                  <li><a class="navbar-infos-items" href="/views/event_win.php">Evènements gagnants</a></li>
                                   <li><a href="../index.php?controllers=ControllerUser&action=deleteSession">Déconnexion</a></li>
                               </ul>
                           </li>';

@@ -97,7 +97,25 @@ final class Campaign
      * @author Marius Garnier & Anthony Ruiz
      */
     public function getMinPointsEvents(){
-        $req = "SELECT * FROM event WHERE id IN (SELECT id_event FROM lineCampaign WHERE id_camp = :cC ) AND totalPoints >= '20' AND selected = '0' ORDER BY totalPoints DESC";
+        $req = "SELECT * FROM event WHERE id IN (SELECT id_event FROM lineCampaign WHERE id_camp IN (SELECT MAX(id_camp) FROM lineCampaign)) AND totalPoints >= '20' AND selected = '0' ORDER BY totalPoints DESC";
+        try {
+            $req_prep = Model::getPDO()->query($req);
+            $tab = $req_prep->fetch();
+            return array($tab);
+
+        }
+        catch (PDOException $e) {
+
+            return null;
+        }
+    }
+
+    /**
+     * @description Méthode permettant de récupérer tous les évènements choisis par les jurys
+     * @author Garnier Marius & Anthony Ruiz
+     */
+    public function getWinEvent(){
+        $req = "SELECT * FROM event WHERE id IN (SELECT id_event FROM lineCampaign WHERE id_camp = :cC ) AND selected = '1' ORDER BY totalPoints DESC";
         try {
             $req_prep = Model::getPDO()->prepare($req);
             $values = array(
