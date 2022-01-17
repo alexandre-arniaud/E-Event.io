@@ -245,6 +245,7 @@ final class Member
         else return false;
     }
 
+
     /**
      * @description Methode permettant à l'utilisateur de changer son mot de passe a tout moment
      * @author Alexandre Arniaud et Marius Garnier
@@ -295,6 +296,7 @@ final class Member
             return false;
         }
     }
+
 
     /**
      * @description Méthode permettant de mettre à jour le rôle de l'utilisateur

@@ -29,7 +29,7 @@ class ControllerSession
     }
 
     /**
-     * @description Methode permettant d'attribuer le rôle de la session en "jury" si l'utilisateur est un jury
+     * @description Methode permettant d'attribuer le rôle de la session en "organisateur" si l'utilisateur est un jury
      * @author Marius Garnier
      */
     public static function is_organisateur() {
@@ -48,19 +48,6 @@ class ControllerSession
     public static function is_donateur() {
         if (isset($_SESSION['role'])){
             if ($_SESSION['role'] == 'donateur')
-                return true;
-            return false;
-        }
-        return false;
-    }
-
-    /**
-     * @description Methode permettant d'attribuer le rôle de la session en "public" si l'utilisateur est un public
-     * @author Marius Garnier
-     */
-    public static function is_public() {
-        if (isset($_SESSION['role'])){
-            if ($_SESSION['role'] == 'public')
                 return true;
             return false;
         }
