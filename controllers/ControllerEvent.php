@@ -120,5 +120,24 @@ class ControllerEvent
         }
     }
 
+    /**
+     * @description Methode permettant d'ajouter un contenu supplémentaire pour un évènement
+     * @author Karim Boudjaoui
+     */
+    public function readContSupp(){
+        session_start();
+        if ($_SESSION['role'] == 'organisateur' || $_SESSION['role'] == 'admin') {
+            $contSupp = Event::addContSupp();
+
+            if ($contSupp == false) {
+                Alerts::addContSupp();
+
+            } else {
+                header("Location: ../views/accueil.php");
+            }
+        } else {
+            Alerts::isNotAuthorized();
+        }
+    }
 
 }

@@ -308,6 +308,13 @@ Partie droite : Campagne en cours
     padding: 1.5em;
 }
 
+.points {
+    color: white;
+    font-size: xx-large;
+    float: right;
+    padding: 2em;
+}
+
 /********
 USER INFOS
  ********/

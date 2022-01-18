@@ -96,7 +96,11 @@ final class Event
         $reqB = "UPDATE event SET totalPoints = :P WHERE id = '$id_event'";
         $reqC = "UPDATE members SET points = :M WHERE id_member = '$id'";
 
+        $reqD = "SELECT * FROM eventadd WHERE id_event = '$id_event'";
+        $reqE = "UPDATE eventadd SET isunlock = true WHERE id_add = :ida";
+
         try {
+
             $req_A = Model::getPDO()->query($reqA);
             $tabA = $req_A->fetch();
             $add_pts = $tabA['totalPoints'] + $_POST['points'];
@@ -113,9 +117,69 @@ final class Event
                 "M" => $sub_pts);
             $req_prepC->execute($decrement);
 
-            $_SESSION['points'] = $_SESSION['points'] - $_POST['points']; // Mise a jour du nombre de points de l'utilisateur dans sa session
+            //Verification des seuils des contenus supplementaire
+            $req_D = Model::getPDO()->query($reqD);
+
+            while($tabD = $req_D->fetch(PDO::FETCH_ASSOC)) {
+                $seuil = $tabD['threshold'];
+                $ida = array("ida" => $tabD['id_add']);
+                if ($add_pts >= $seuil) {
+                    $req_prepE = Model::getPDO()->prepare($reqE);
+                    $req_prepE->execute($ida);
+                }
+            }
+
+            // Mise a jour du nombre de points de l'utilisateur dans sa session
+            $_SESSION['points'] = $_SESSION['points'] - $_POST['points'];
 
             return true;
+        }
+        catch (PDOException $e) {
+
+            return false;
+        }
+    }
+
+    /**
+     * @description Méthode permettant d'ajouter un contenu supplémentaire pour un évènement
+     * @author Karim Boudjaoui
+     */
+    public function addContSupp() {
+
+        $reqA = "INSERT INTO eventadd (id_event, name, description, threshold) 
+                 VALUES (:nId, :nN, :nD, :nT)";
+
+        try {
+            $req_prepA = Model::getPDO()->prepare($reqA);
+            $values = array(
+                "nId" => $_POST['id_event'],
+                "nN" => $_POST['name'],
+                "nD" => $_POST['desc'],
+                "nT" => $_POST['threshold'],
+            );
+            $req_prepA->execute($values);
+
+            return true;
+        }
+        catch (PDOException $e) {
+
+            return false;
+        }
+    }
+
+    /**
+     * @description Méthode permettant d'avoir les informations des contenus débloquables par event
+     * @author Karim Boudjaoui
+     */
+    public function getContSupp($id) {
+
+        $reqA = "SELECT * FROM eventContent WHERE id_event = '" . $id . "'";
+
+        try {
+            $req_prepA = Model::getPDO()->query($reqA);
+            $tabA = $req_prepA->fetchAll(PDO::FETCH_ASSOC);
+
+            return $tabA;
         }
         catch (PDOException $e) {
 
