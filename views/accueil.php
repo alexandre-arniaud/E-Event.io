@@ -27,6 +27,7 @@ start_page('E-event.io | La fête ne fait que commencer');
         </div>
         <div class="event-board">
             <span class="adm-title">Campagne en cours <a>( cliquez sur l'évènement pour plus de détails )</a></span>
+            <span class="camp_date">Du <?php echo date('d/m/Y',strtotime(Campaign::getCurrentCampaign()['date_start'])) . ' au ' .  date('d/m/Y',strtotime(Campaign::getCurrentCampaign()['date_end']))?></span>
                 <div class="tableau">
                                 <?php
                                 $allEvents = Campaign::getAllEvents();

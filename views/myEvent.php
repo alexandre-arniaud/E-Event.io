@@ -13,7 +13,10 @@ if($_SESSION['role'] == 'organisateur'){?>
         $contents = Event::getContSupp($theEvent['id']);
         ?>
         <span class="adm-title">Mon évènement</span>
-        <a href="../views/updateEvent.php">Modifier</a>
+        <?php if ($theEvent['totalPoints'] == 0) {
+            echo '<a href="../views/updateEvent.php">Modifier</a>';
+        }?>
+
         <a href="../views/addContSupp.php?id=<?php echo $theEvent['id'];?>">Ajouter du contenu débloquable</a>
         <div class="tableau">
             <div class="event">

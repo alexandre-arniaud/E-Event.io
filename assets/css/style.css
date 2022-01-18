@@ -210,6 +210,10 @@ Partie droite : Campagne en cours
     font-size: x-large;
 }
 
+.camp_date {
+    color: white;
+}
+
 .evt-title {
     display: table;
     font-weight: bold;
