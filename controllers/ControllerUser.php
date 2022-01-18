@@ -240,7 +240,7 @@ class ControllerUser
         $emailMessage .= 'Voici tes identifiants afin de te connecter sur le site : ' . "\n";
         $emailMessage .= 'Identifiant : ' . $membre->getLogin() . "\n";
         $emailMessage .= 'Mot de passe : ' . $membre->getPass() . "\n";
-        $emailMessage .= 'Le mot de passe sera modifiable directement depuis le site, dans les paramètres de ton compte mais attention, ne le divulge à personne';
+        $emailMessage .= 'Le mot de passe sera modifiable directement depuis le site, dans la rubrique "Mon compte" mais attention, ne le divulge à personne';
 
         $object = "E-Event.io: Confirmation d'inscription";
         mail($membre->getEmail(), $object, utf8_decode($emailMessage));

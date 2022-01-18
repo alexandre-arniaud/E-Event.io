@@ -4,13 +4,11 @@ require_once '../controllers/ControllerAlerts.php';
 
 session_start();
 
-start_page('E-event.io');
+start_page('E-event.io - Mon compte');
 if(($_SESSION['role'] == 'admin') || ($_SESSION['role'] == 'organisateur') || ($_SESSION['role'] == 'jury')  || ($_SESSION['role'] == 'donateur')){?>
 
-    <div class="container">
-    <div class="container-child-1">
+    <div class="user-infos">
 
-    <div class="Infos">
         <div class="prenom">
             <label>Prénom :</label>
             <span><?php echo $_SESSION['prenom']?></span>
@@ -31,11 +29,7 @@ if(($_SESSION['role'] == 'admin') || ($_SESSION['role'] == 'organisateur') || ($
             <label>Mes points :</label>
             <span><?php echo $_SESSION['points']?></span>
         </div>
-        <!--            LE BOUTTON EST A FAIRE-->
-        <div class="button-mdp">
-            <form method="post" action="edit_Password.php"><button type="submit" name="action" >Modifier le mot de passe</button>
-        </div>
-    </div>
+        <form method="post" action="edit_Password.php"><button class="button-mdp" type="submit" name="action" >Modifier mon mot de passe</button>
 
     </div><?php
 }

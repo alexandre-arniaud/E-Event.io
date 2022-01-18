@@ -52,7 +52,7 @@ start_page('E-event.io | La fête ne fait que commencer');
                                                     echo "A " . $allEvents[$i]['location'];
                                                     echo '</div>
                                                           <div class="row-4">';
-                                                    echo $allEvents[$i]['description'];
+                                                    echo "Description : " . $allEvents[$i]['description'];
                                                     echo '</div>
                                                     <input type="hidden" name="theId" value="' . $allEvents[$i]['id'] . '">'; ?>
                                                     </a>
