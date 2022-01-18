@@ -8,13 +8,14 @@ start_page('E-event.io | La fête ne fait que commencer');
 
 if($_SESSION['role'] == 'organisateur'){?>
     <div class="event-board">
+        <?php
+        $theEvent = Event::getEventByOrganizer($_GET['organizer'])[0];
+        $contents = Event::getContSupp($theEvent['id']);
+        ?>
         <span class="adm-title">Mon évènement</span>
         <a href="../views/updateEvent.php">Modifier</a>
+        <a href="../views/addContSupp.php?id=<?php echo $theEvent['id'];?>">Ajouter du contenu débloquable</a>
         <div class="tableau">
-            <?php
-            $theEvent = Event::getEventByOrganizer($_GET['organizer'])[0];
-            $contents = Event::getContSupp($theEvent['id']);
-            ?>
             <div class="event">
                 <img src="../assets/img/event_img.png" alt="Logo pour les events">
                 <div class="event-infos">
@@ -40,7 +41,7 @@ if($_SESSION['role'] == 'organisateur'){?>
 
                 </div>
             </div>
-            <span class="separator">Contenus débloquables</span>
+            <span class="separator">↓  Contenus débloquables  ↓</span>
             <div class="contents-container">
                 <?php
                 for ($i = 0; $i <= count($contents) - 1; $i++)

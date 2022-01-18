@@ -144,8 +144,7 @@ final class Event
      * @author Karim Boudjaoui
      */
     public function addContSupp() {
-
-        $reqA = "INSERT INTO eventadd (id_event, name, description, threshold) 
+        $reqA = "INSERT INTO eventContent (id_event, name, description, threshold) 
                  VALUES (:nId, :nN, :nD, :nT)";
 
         try {

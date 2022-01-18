@@ -10,13 +10,15 @@ start_page('E-event.io | Créer un évènement');
             ?>
         <form class="newProj" action="/index.php" method="post">
         <span class="proj-title">Créer un nouvel évènement</span>
+            <p class="proj-titlep">Le contenu débloquable sera ajoutable par la suite dans votre rubrique "Mon Evenement"</p>
+
 
         <div class="container">
             <div class="container-child-1">
 
                 <div class="form-group">
                     <label for="orgName">Pour la campagne numéro </label>
-                    <span><?php echo Campaign::getCurrentCampaign()['id_camp']?></span>
+                    <span><?php echo Campaign::getCurrentCampaign()['id_camp'];?></span>
                 </div>
 
                 <div class="form-group">

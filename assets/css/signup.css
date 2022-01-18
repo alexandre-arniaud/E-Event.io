@@ -225,6 +225,13 @@ p {
     font-family: Poppins, sans-serif;
     font-weight: bold;
     font-size: 2rem;
+    margin: auto;
+}
+
+.proj-titlep {
+    font-family: Poppins, sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
     margin: 0 auto 2em auto;
 }
 
@@ -265,8 +272,6 @@ p {
     padding-bottom: 5em;
 }
 
-.container-child-1 {
-}
 
 /****
 ALERTS

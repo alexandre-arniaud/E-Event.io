@@ -133,7 +133,7 @@ class ControllerEvent
                 Alerts::addContSupp();
 
             } else {
-                header("Location: ../views/accueil.php");
+                header("Location: ../views/myEvent.php");
             }
         } else {
             Alerts::isNotAuthorized();

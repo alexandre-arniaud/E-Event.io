@@ -296,8 +296,9 @@ Partie droite : Campagne en cours
 .event-board > a {
     text-decoration: none;
     color: white;
-    font-size: x-large;
+    font-size: large;
     float: right;
+    padding-left: 2em;
     transition: 0.5s;
 }
 
@@ -320,8 +321,21 @@ Partie droite : Campagne en cours
     flex-direction: row;
 }
 
-.row-1 > p:last-child {
+.event-infos > .row-1 > p:last-child {
     margin-left: auto;
+}
+
+.content > .row-1 > p {
+    margin: 1vh auto 1vh auto;
+}
+
+.content > .row-2, .content > .row-3 {
+    padding-left: 1em;
+}
+
+.content > .row-4 {
+    width: max-content;
+    margin: auto;
 }
 
 .row-2, .row-3 {
@@ -387,6 +401,119 @@ USER INFOS
 .button-mdp:hover {
     cursor: pointer;
     transform: scale(1.4);
+}
+
+/*********
+EDIT EVENT
+**********/
+
+.editEvent {
+    display: grid;
+    flex-direction: column;
+    align-items: center;
+
+    white-space: nowrap;
+    max-width: 80%;
+    margin: auto;
+    margin-top: 8vh;
+    padding-top: 10vh;
+    border-radius: 3em;
+
+    color: var(--primary-text-color);
+    backdrop-filter: blur(5px) drop-shadow(4px 4px 10px black) brightness(85%);
+
+
+    transform: scale(1.1);
+    z-index: 1000;
+}
+
+.edit-title {
+    font-family: Poppins, sans-serif;
+    font-weight: bold;
+    font-size: 2rem;
+    margin: 0 auto 2em auto;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: auto;
+    gap: 22em;
+}
+
+.form-group > textarea{
+    resize: none;
+    width: 31em;
+    height: 16em;
+}
+
+.form-group {
+    margin-bottom: 2em;
+}
+
+.form-group > label {
+    font-family: Poppins, sans-serif;
+    font-weight: bold;
+}
+
+.form-group > span {
+    font-family: Poppins, sans-serif;
+    font-weight: bold;
+    padding-bottom: 5em;
+}
+
+.form-control {
+    border: none;
+    display: block;
+
+    font-family: Poppins, sans-serif;
+    color: var(--primary-text-color);
+    background: transparent;
+    width: 25em;
+    height: 3em;
+    border-bottom: 2px solid #dbdbdb;
+}
+
+
+.form-control::placeholder {
+    color: lightgrey;
+    font-family: Poppins, sans-serif;
+}
+
+
+.form-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    margin: 0 auto 2em auto;
+    gap: 1em;
+
+    height: 13vh;
+    cursor: pointer;
+    border: 0;
+}
+
+
+.form-button > button:first-child {
+    cursor: pointer;
+
+    font-family: Poppins, sans-serif;
+    font-weight: bold;
+    font-size: large;
+    text-align: center;
+    color: var(--primary-text-color);
+    background-color: var(--primary-color-accent);
+
+    border: none;
+    border-radius: 0.25rem;
+
+    transition: transform .2s;
+}
+
+.form-button > button:hover {
+    transform: scale(1.1);
 }
 
 /****

@@ -8,8 +8,8 @@ start_page('E-event.io | Modifier votre évènement');
 
 if (($_SESSION['role'] == 'admin') || ($_SESSION['role'] == 'organisateur')){
     ?>
-    <form class="newProj" action="/index.php" method="post">
-        <span class="proj-title">Modifier votre évènement</span>
+    <form class="editEvent" action="/index.php" method="post">
+        <span class="edit-title">Modifier votre évènement</span>
 
         <div class="container">
             <div class="container-child-1">
