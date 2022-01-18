@@ -140,4 +140,21 @@ class ControllerEvent
         }
     }
 
+    /**
+     * @description Methode permettant d'executer l'action pour modifier un evenement
+     * @author Marius Garnier
+     */
+
+    public function readUpdateEvent(){
+        $event = Event::updateEvent();
+
+        if ($event == false){
+            Alerts::addVoteError();
+        }
+        else{
+            header("Location: ../views/accueil.php");
+        }
+    }
+
+
 }

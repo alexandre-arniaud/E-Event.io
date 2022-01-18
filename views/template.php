@@ -45,7 +45,9 @@ function start_page($title)
             <a class="navbar-infos-items" href="../views/accueil.php">Accueil</a>
             <a class="navbar-infos-items" href="../views/newEvent.php">Créer un évènement</a>
             <a class="navbar-infos-items" href="../views/newCampaign.php">Créer une campagne</a>
-            <a class="navbar-infos-items" href="../views/choice_jury.php">Choix du jury</a>';
+            <a class="navbar-infos-items" href="../views/choice_jury.php">Choix du jury</a>
+            <a class="navbar-infos-items" href="../views/myEvent.php">Mon Evenement</a>';
+
 
             if (isset($_SESSION['nom'])) {
                 echo '<li class="deroulant"><a class="deroulant-title">' . $_SESSION['prenom'] . '</a>
@@ -94,7 +96,7 @@ function start_page($title)
         <img src="../assets/img/logo.png" alt="Logo de E-event.io">
         <div class="navbar-infos">
             <a class="navbar-infos-items" href="../views/accueil.php">Accueil</a>
-            <a class="navbar-infos-items" href="../views/newEvent.php">Créer un évènement</a>';
+            <a class="navbar-infos-items" href="../views/myEvent.php">Mon Evènement</a>';
 
             if (isset($_SESSION['nom'])) {
                 echo '<li class="deroulant"><a class="deroulant-title">' . $_SESSION['prenom'] . '</a>

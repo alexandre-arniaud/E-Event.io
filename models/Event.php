@@ -187,6 +187,30 @@ final class Event
         }
     }
 
+    /**
+     * @description Méthode qui permet de modifier son évènement
+     * @author Garnier Marius
+     */
+
+    public function updateEvent() {
+        $currentCampId = Campaign::getCurrentCampaign()['id_camp'];
+        $reqA = " UPDATE event SET proj_name =:nN, location =:nL, description=:nD ";
+        try {
+                $req_prepA = Model::getPDO()->prepare($reqA);
+                $values = array(
+                    "nN" => $_POST['name'],
+                    "nL" => $_POST['place'],
+                    "nD" => $_POST['desc'],
+                );
+                $req_prepA->execute($values);
+                return true;
+        }
+        catch (PDOException $e) {
+
+            return false;
+        }
+    }
+
 
     /**
      * @description Méthode permettant de récupérer les informations d'un évènement en particulier
@@ -200,6 +224,26 @@ final class Event
             $req_A = Model::getPDO()->query($reqA);
             $tabA = $req_A->fetch();
 
+            return array($tabA);
+        }
+        catch (PDOException $e) {
+
+            return null;
+        }
+    }
+
+    /**
+     * @description Méthode permettant de récupérer les informations d'un évènement en fonction de l'organisateur
+     * @author Garnier Marius
+     */
+    public function getEventByOrganizer($organizer) {
+
+        $organizer = $_SESSION['prenom']. ' ' .$_SESSION['nom'];
+        $reqA = "SELECT * FROM event WHERE organizer = '" . $organizer . "'";
+
+        try {
+            $req_A = Model::getPDO()->query($reqA);
+            $tabA = $req_A->fetch();
             return array($tabA);
         }
         catch (PDOException $e) {
