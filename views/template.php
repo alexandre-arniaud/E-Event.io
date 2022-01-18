@@ -16,6 +16,7 @@ function start_page($title)
     <head>
         <title><?php echo $title; ?></title>
         <meta charset="utf-8">
+        <link rel="icon" type="image/gif" href="/assets/img/favicon.ico" />
         <?php
         if ($title == 'E-event.io | Connexion')
         {

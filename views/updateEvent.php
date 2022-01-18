@@ -11,7 +11,7 @@ if (($_SESSION['role'] == 'admin') || ($_SESSION['role'] == 'organisateur')){
     <form class="editEvent" action="/index.php" method="post">
         <span class="edit-title">Modifier votre évènement</span>
 
-        <div class="container">
+        <div class="container4">
             <div class="container-child-1">
 
                 <div class="form-group">

@@ -321,7 +321,7 @@ Partie droite : Campagne en cours
     flex-direction: row;
 }
 
-.event-infos > .row-1 > p:last-child {
+.row-1 > p:last-child {
     margin-left: auto;
 }
 
@@ -435,6 +435,12 @@ EDIT EVENT
 }
 
 .container {
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+
+.container4 {
     display: flex;
     flex-direction: row;
     align-items: center;
