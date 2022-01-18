@@ -8,7 +8,7 @@ start_page('E-event.io | Modification du mot de passe');
         <span class="signup-title">Modification du mot de passe</span>
 
         <div class="form-group">
-            <label for="inputMail">Adresse mail</label>
+            <label>Adresse mail</label>
             <input type="email" class="form-control" name="mail" placeholder="Email" spellcheck="false" required>
         </div>
 

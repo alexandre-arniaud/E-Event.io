@@ -7,6 +7,10 @@ require_once dirname(__FILE__) . '/../controllers/ControllerAlerts.php';
 class ControllerEvent
 {
 
+    /**
+     * @description Controlleur permettant de créer un évènement
+     * @author Karim Boudjaoui
+     */
     public function readAddEvent() {
         session_start();
         if ($_SESSION['role'] == 'donateur' || $_SESSION['role'] == 'admin') {
@@ -26,6 +30,10 @@ class ControllerEvent
         }
     }
 
+    /**
+     * @description Controlleur permettant de créer une campagne
+     * @author Alexandre Arniaud
+     */
     public function readAddCampaign() {
         session_start();
         if ($_SESSION['role'] == 'admin') {
@@ -53,7 +61,7 @@ class ControllerEvent
     }
 
     /**
-     * @description Methode permettant de voter pour un évènement et donc de lui attribuer des points
+     * @description Controlleur permettant de voter pour un évènement et donc de lui attribuer des points
      * @author Karim Boudjaoui
      */
     public function readVote() {
@@ -73,7 +81,7 @@ class ControllerEvent
     }
 
     /**
-     * @description Methode permettant d'en savoir plus sur un évènement
+     * @description Controlleur permettant d'en savoir plus sur un évènement
      * @author Alexandre Arniaud
      */
     public function readExtraInfo() {
@@ -89,7 +97,7 @@ class ControllerEvent
     }
 
     /**
-     * @description Methode permettant de supprimer un évènement pour un jury
+     * @description Controlleur permettant de supprimer un évènement pour un jury
      * @author Marius Garnier & Anthony Ruiz
      */
 
@@ -105,7 +113,7 @@ class ControllerEvent
     }
 
     /**
-     * @description Methode permettant de garder un évènement pour un jury
+     * @description Controlleur permettant de garder un évènement pour un jury
      * @author Marius Garnier & Anthony Ruiz
      */
 
@@ -121,7 +129,7 @@ class ControllerEvent
     }
 
     /**
-     * @description Methode permettant d'ajouter un contenu supplémentaire pour un évènement
+     * @description Controlleur permettant d'ajouter un contenu supplémentaire pour un évènement
      * @author Karim Boudjaoui
      */
     public function readContSupp(){
@@ -141,7 +149,7 @@ class ControllerEvent
     }
 
     /**
-     * @description Methode permettant d'executer l'action pour modifier un evenement
+     * @description Controlleur permettant de modifier un evenement
      * @author Marius Garnier
      */
 
@@ -155,6 +163,4 @@ class ControllerEvent
             header("Location: ../views/accueil.php");
         }
     }
-
-
 }

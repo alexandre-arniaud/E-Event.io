@@ -191,7 +191,6 @@ final class Event
      */
 
     public function updateEvent() {
-        $currentCampId = Campaign::getCurrentCampaign()['id_camp'];
         $reqA = " UPDATE event SET proj_name =:nN, location =:nL, description=:nD WHERE organizer = '" . $_SESSION['prenom'] . ' ' . $_SESSION['nom'] .   "'";
         try {
                 $req_prepA = Model::getPDO()->prepare($reqA);

@@ -1,6 +1,5 @@
 <?php session_start();
 require_once dirname(__FILE__) . '/ControllerUser.php';
-require_once dirname(__FILE__) . '/ControllerLogin.php';
 require_once dirname(__FILE__) . '/ControllerEvent.php';
 require_once dirname(__FILE__) . '/ControllerAlerts.php';
 
@@ -15,9 +14,6 @@ if (isset($_POST['action'])) {
 elseif (isset($_GET['action'])) {
     $action = $_GET['action'];
 }
-else {
-    $action = 'index';
-}
 
 // On recupère le controleur dans l'URL
 
@@ -26,8 +22,6 @@ if (isset($_POST['controllers'])) {
 }
 elseif (isset($_GET['controllers'])){
     $controller = $_GET['controllers'];
-}else {
-    $controller = 'ControllerLogin';
 }
 
 

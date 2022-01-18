@@ -5,7 +5,7 @@ require_once dirname(__FILE__) . '/../models/Campaign.php';
 
 start_page('E-event.io | La fête ne fait que commencer');
 ?>
-    <div class = "bigContainer">
+    <div class="bigContainer">
         <div class="container">
             <img src="../assets/img/logo2.png" alt="Logo de E-event.io n°2">
         </div>
@@ -19,35 +19,25 @@ start_page('E-event.io | La fête ne fait que commencer');
                 <div class="event">
                     <img src="../assets/img/event_img.png" alt="Logo pour les events">
                     <div class="event-infos">
-                        <?php
-                        echo '<div class="row-1">
-                                                        <p>';
-                        echo $allEvents[$i]['proj_name'];
-                        echo ' </p>
-                                                       <p>';
-                        echo $allEvents[$i]['totalPoints'] . " points attribués";
-                        echo '</p>
-                                                      </div>
-                                                      <div class="row-2">';
-                        echo "Organisé par " . $allEvents[$i]['organizer'];
-                        echo '</div>
-                                                      <div class="row-3">';
-                        echo "A " .  $allEvents[$i]['location'];
-                        echo '</div>
-                                                      <div class="row-4">';
-                        echo $allEvents[$i]['description'];
-                        echo '</div>
-                            <div class="vote">';
-                        ?>
+                        <div class="row-1">
+                            <p><?php echo $allEvents[$i]['proj_name'];?></p>
+                            <p><?php echo $allEvents[$i]['totalPoints'] . " points attribués";?></p>
+                        </div>
+                        <div class="row-2">
+                            <?php echo "Organisé par " . $allEvents[$i]['organizer'];?>
+                        </div>
+                        <div class="row-3">
+                            <?php echo "A " .  $allEvents[$i]['location'];?>
+                        </div>
+                        <div class="row-4">
+                        <?php echo $allEvents[$i]['description'];?>
+                        </div>
                     </div>
-
                 </div>
+                <?php } ?>
             </div>
-
-            <?php } ?>
         </div>
     </div>
-
 
 <?php
 end_page();

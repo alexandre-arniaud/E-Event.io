@@ -13,17 +13,17 @@ else{?>
         <span class="signup-title">Inscription</span>
 
         <div class="form-group">
-            <label for="inputName">Nom</label>
+            <label>Nom</label>
             <input type="text" class="form-control" name="nom" placeholder="Nom" spellcheck="false" required>
         </div>
 
         <div class="form-group">
-            <label for="inputFirstName">Prénom</label>
+            <label>Prénom</label>
             <input type="text" class="form-control" name="prenom" placeholder="Prénom" spellcheck="false" required>
         </div>
 
         <div class="form-group">
-            <label for="inputMail">Adresse mail</label>
+            <label>Adresse mail</label>
             <input type="email" class="form-control" name="mail" placeholder="Email" spellcheck="false" required>
         </div>
 

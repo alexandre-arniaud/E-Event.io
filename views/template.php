@@ -11,7 +11,7 @@ function start_page($title)
         $_SESSION['points'] = Member::updateSession($_SESSION['id_member'])[1];
     }
 
-    ?> <!DOCTYPE html>
+    ?><!DOCTYPE html>
     <html lang="fr">
     <head>
         <title><?php echo $title; ?></title>
