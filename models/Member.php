@@ -313,21 +313,15 @@ final class Member
     }
 
 
-    public function updateSessionValues() {
-        $login = $_SESSION['login'];
-        $req = Model::getPDO()->prepare('SELECT * FROM members WHERE login = :login');
+    public function updateRoleSession($id) {
         try {
-            $req->execute(array(
-                'login' => $login));
+            $req = Model::getPDO()->query("SELECT * FROM members WHERE id_member = '" . $id . "'");
             $resultat = $req->fetch();
 
-            session_start();
-            $_SESSION['role'] = $resultat['role'];
-            $_SESSION['points'] = $resultat['points'];
-            return true;
+            return $resultat['role'];
         }
         catch (PDOException $e) {
-            return false;
+            return 'Une erreur produite';
         }
     }
 

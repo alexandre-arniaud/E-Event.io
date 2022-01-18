@@ -8,7 +8,7 @@ start_page('E-event.io | La fête ne fait que commencer');
 
         <span class="points">Mes points : <?php echo $_SESSION['points']?></span>
         <div class="event-board">
-            <span class="adm-title">Informations sur l'évènement</span>
+            <span class="evt-title">Informations sur l'évènement</span>
             <div class="tableau">
                 <?php
                  $theEvent = Event::getEvent($_GET['id'])[0];
@@ -44,9 +44,9 @@ start_page('E-event.io | La fête ne fait que commencer');
                             echo '<input type="hidden" name="id_event" value="'. $theEvent['id'] . '">';?>
                                                     </div>
                                                 </form>
-
                 </div>
             </div>
+            <span class="separator">Contenus débloquables</span>
             <div class="contents-container">
                 <?php
                 for ($i = 0; $i <= count($contents) - 1; $i++)
@@ -68,7 +68,8 @@ start_page('E-event.io | La fête ne fait que commencer');
                     if ($contents[$i]['isunlock'] == 1) {
                         echo "Ce contenu est débloqué ! ";
                     }
-                    echo '</div>';
+                    echo '</div>
+                    </div>';
 
                     } ?>
                 </div>

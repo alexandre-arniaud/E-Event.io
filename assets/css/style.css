@@ -209,10 +209,27 @@ Partie droite : Campagne en cours
     font-family: Poppins, sans-serif;
     font-size: x-large;
 }
+
+.evt-title {
+    display: table;
+    font-weight: bold;
+    margin-top: 5vh;
+    color: var(--primary-text-color);
+
+    font-family: Poppins, sans-serif;
+    font-size: x-large;
+}
+
+
 .adm-title > a {
     font-size: small;
 }
 
+.separator {
+    display: flex;
+    justify-content: center;
+    margin-top: 1vh;
+}
 
 
 .tableau {
@@ -276,6 +293,19 @@ Partie droite : Campagne en cours
     border-radius: 30px;
 }
 
+.event-board > a {
+    text-decoration: none;
+    color: white;
+    font-size: x-large;
+    float: right;
+    transition: 0.5s;
+}
+
+.event-board > a:hover {
+    color: gold;
+    cursor: pointer;
+}
+
 .event-infos {
     width: 78%;
 }
@@ -311,8 +341,16 @@ Partie droite : Campagne en cours
 .points {
     color: white;
     font-size: xx-large;
-    float: right;
-    padding: 2em;
+}
+
+.content {
+    width: 90%;
+    height: max-content;
+    margin: auto;
+    margin-top: 3vh;
+
+    border-radius: 20px;
+    background-color: steelblue;
 }
 
 /********

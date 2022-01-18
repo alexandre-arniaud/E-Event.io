@@ -1,4 +1,4 @@
-<?php
+<?php session_start();
 require_once dirname(__FILE__) . '/ControllerUser.php';
 require_once dirname(__FILE__) . '/ControllerLogin.php';
 require_once dirname(__FILE__) . '/ControllerEvent.php';
@@ -6,6 +6,7 @@ require_once dirname(__FILE__) . '/ControllerAlerts.php';
 
 $action = NULL;
 $controller = NULL;
+
 
 // On recupère l'action passée dans l'URL
 if (isset($_POST['action'])) {

@@ -1,10 +1,15 @@
 <?php
 require_once dirname(__FILE__) . '/../controllers/ControllerSession.php';
+require_once dirname(__FILE__) . '/../models/Member.php';
 
-session_start();
 
 function start_page($title)
 {
+    session_start();
+    if (isset($_SESSION['id_member'])) {
+        $_SESSION['role'] = Member::updateRoleSession($_SESSION['id_member']);
+    }
+
     ?> <!DOCTYPE html>
     <html lang="fr">
     <head>
