@@ -10,7 +10,7 @@ start_page('E-event.io | La fête ne fait que commencer');
             <img src="../assets/img/logo2.png" alt="Logo de E-event.io n°2">
         </div>
         <div class="event-board">
-            <span class="adm-title">Evènements selectionnés par le jury</span>
+            <span class="adm-title">Evènements validés par le jury lors de la dernière campagne</span>
             <div class="tableau">
                 <?php
                 $allEvents = Campaign::getWinEvent();

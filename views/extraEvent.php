@@ -5,8 +5,10 @@ require_once dirname(__FILE__) . '/../models/Event.php';
 
 start_page('E-event.io | La fête ne fait que commencer');
 ?>
+        <?php if (isset($_SESSION['id_member'])) {
+            echo '<span class="points">Mes points : ' . $_SESSION['points'] . '</span>';
+        }?>
 
-        <span class="points">Mes points : <?php echo $_SESSION['points']?></span>
         <div class="event-board">
             <span class="evt-title">Informations sur l'évènement</span>
             <div class="tableau">
@@ -34,16 +36,19 @@ start_page('E-event.io | La fête ne fait que commencer');
                             echo '</div>
                                                       <div class="row-4">';
                             echo $theEvent['description'];
-                            echo '</div>
-                                                <form method="post" action="/index.php">
+                            echo '</div>';
+                            if (isset($_SESSION['id_member'])) {
+                                echo '<form method="post" action="/index.php">
                                                     <div class="vote">
                                                         <input type="number" step="1" min="1" class="form-control" name="points" placeholder="Nombre de points a donner" spellcheck="false" autocomplete="off" required>
                                                         <button type="submit" name="action">Voter</button>
                                                         <input type="hidden" name="controllers" value="ControllerEvent">
                                                         <input type="hidden" name="action" value="readVote">';
-                            echo '<input type="hidden" name="id_event" value="'. $theEvent['id'] . '">';?>
-                                                    </div>
-                                                </form>
+                                echo '<input type="hidden" name="id_event" value="'. $theEvent['id'] . '">
+                                </div>
+                                </form>';
+                            } ?>
+
                 </div>
             </div>
             <span class="separator">Contenus débloquables</span>

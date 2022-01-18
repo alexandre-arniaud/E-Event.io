@@ -7,7 +7,8 @@ function start_page($title)
 {
     session_start();
     if (isset($_SESSION['id_member'])) {
-        $_SESSION['role'] = Member::updateRoleSession($_SESSION['id_member']);
+        $_SESSION['role'] = Member::updateSession($_SESSION['id_member'])[0];
+        $_SESSION['points'] = Member::updateSession($_SESSION['id_member'])[1];
     }
 
     ?> <!DOCTYPE html>
@@ -51,7 +52,8 @@ function start_page($title)
             <a class="navbar-infos-items" href="../views/newEvent.php">Créer un évènement</a>
             <a class="navbar-infos-items" href="../views/newCampaign.php">Créer une campagne</a>
             <a class="navbar-infos-items" href="../views/choice_jury.php">Choix du jury</a>
-            <a class="navbar-infos-items" href="../views/myEvent.php">Mon Evenement</a>';
+            <a class="navbar-infos-items" href="../views/myEvent.php">Mon Evenement</a>
+            <a class="navbar-infos-items" href="../views/event_win.php">Evènements gagnants</a>';
 
 
             if (isset($_SESSION['nom'])) {
@@ -60,7 +62,6 @@ function start_page($title)
                                   <li><a href="../views/myAccount.php">Mon compte</a></li>
                                   <li><a class="navbar-infos-items" href="../views/admin_validation.php">Validation des inscriptions</a></li>
                                   <li><a class="navbar-infos-items" href="../views/gestionnaire_role.php">Gestion des roles</a></li>
-                                  <li><a class="navbar-infos-items" href="../views/event_win.php">Evènements gagnants</a></li>
                                   <li><a href="../index.php?controllers=ControllerUser&action=deleteSession">Déconnexion</a></li>
                               </ul>
                           </li>';
@@ -77,8 +78,9 @@ function start_page($title)
                     <img src="../assets/img/logo.png" alt="Logo de E-event.io">
                     <div class="navbar-infos">
                         <a class="navbar-infos-items" href="../views/accueil.php">Accueil</a>
-                        <a class="navbar-infos-items" href="../views/newEvent.php">Créer un évènement</a>
-                        <a class="navbar-infos-items" href="../views/choice_jury.php">Choix du jury</a>';
+                        <a class="navbar-infos-items" href="../views/choice_jury.php">Choix du jury</a>
+                        <a class="navbar-infos-items" href="../views/event_win.php">Evènements gagnants</a>';
+
 
 
             if (isset($_SESSION['nom'])) {
@@ -101,7 +103,8 @@ function start_page($title)
         <img src="../assets/img/logo.png" alt="Logo de E-event.io">
         <div class="navbar-infos">
             <a class="navbar-infos-items" href="../views/accueil.php">Accueil</a>
-            <a class="navbar-infos-items" href="../views/myEvent.php">Mon Evènement</a>';
+            <a class="navbar-infos-items" href="../views/myEvent.php">Mon Evènement</a>
+            <a class="navbar-infos-items" href="../views/event_win.php">Evènements gagnants</a>';
 
             if (isset($_SESSION['nom'])) {
                 echo '<li class="deroulant"><a class="deroulant-title">' . $_SESSION['prenom'] . '</a>
@@ -123,7 +126,8 @@ function start_page($title)
         <img src="../assets/img/logo.png" alt="Logo de E-event.io">
         <div class="navbar-infos">
             <a class="navbar-infos-items" href="../views/accueil.php">Accueil</a>
-            <a class="navbar-infos-items" href="../views/newEvent.php">Créer un évènement</a>';
+            <a class="navbar-infos-items" href="../views/newEvent.php">Créer un évènement</a>
+            <a class="navbar-infos-items" href="../views/event_win.php">Evènements gagnants</a>';
 
             if (isset($_SESSION['nom'])) {
                 echo '<li class="deroulant"><a class="deroulant-title">' . $_SESSION['prenom'] . '</a>
@@ -146,22 +150,12 @@ function start_page($title)
             <img src="../assets/img/logo.png" alt="Logo de E-event.io">
             <div class="navbar-infos">
                 <a class="navbar-infos-items" href="/views/accueil.php">Accueil</a>
-                <a class="navbar-infos-items" href="/views/newEvent.php">Créer un évènement</a>';
-
-                if (isset($_SESSION['nom'])) {
-                    echo '<li class="deroulant"><a class="deroulant-title">' . $_SESSION['prenom'] . '</a>
-                              <ul class="sous">
-                                  <li><a href="../views/myAccount.php">Mon compte</a></li>
-                                  <li><a href="../index.php?controllers=ControllerUser&action=deleteSession">Déconnexion</a></li>
-                              </ul>
-                          </li>';
-                } else {
-                    echo '<a class="navbar-infos-items" href="/views/login.php">Se connecter</a>';
+                <a class="navbar-infos-items" href="../views/event_win.php">Evènements gagnants</a>
+                <a class="navbar-infos-items" href="/views/login.php">Se connecter</a>';
                 }
             echo '</div>
         </header>';
         }
-    }
 }
 ?>
 

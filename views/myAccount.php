@@ -5,7 +5,7 @@ require_once '../controllers/ControllerAlerts.php';
 session_start();
 
 start_page('E-event.io - Mon compte');
-if(($_SESSION['role'] == 'admin') || ($_SESSION['role'] == 'organisateur') || ($_SESSION['role'] == 'jury')  || ($_SESSION['role'] == 'donateur')){?>
+if(isset($_SESSION['id_member'])){?>
 
     <div class="user-infos">
 

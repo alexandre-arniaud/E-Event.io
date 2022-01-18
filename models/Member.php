@@ -141,30 +141,36 @@ final class Member
      * @author Alexandre Arniaud
      */
     public function resetPass() {
+        $reqA = "SELECT * FROM members WHERE mail = '" . $_POST['mail'] . "'";
         $reqR = "UPDATE members SET password = :nP, is_pass_change = 0 WHERE mail = :nM";
-        try {
-            $req_prep = Model::getPDO()->prepare($reqR);
-            $password = (new ControllerUser)->generateRandomPass();
-            $encrypt_pass = (new ControllerUser()) -> encryptPass($password);
-            $values = array(
-                "nP" => $encrypt_pass,
-                "nM" => $_POST['mail']
-            );
-            $req_prep->execute($values);
-            if(password_verify($password, $encrypt_pass))
-            {
-                $inscription = new ControllerUser();
-                $inscription->sendEmailReset($_POST['mail'], $password); // Envoi du mail a l'utilisateur avec son nouveau mot de passe
-                return true;
+        $req_A = Model::getPDO()->query($reqA);
+        if ($req_A->fetch() !== false) {
+            try {
+                $req_prep = Model::getPDO()->prepare($reqR);
+                $password = (new ControllerUser)->generateRandomPass();
+                $encrypt_pass = (new ControllerUser()) -> encryptPass($password);
+                $values = array(
+                    "nP" => $encrypt_pass,
+                    "nM" => $_POST['mail']
+                );
+                $req_prep->execute($values);
+                if(password_verify($password, $encrypt_pass))
+                {
+                    $inscription = new ControllerUser();
+                    $inscription->sendEmailReset($_POST['mail'], $password); // Envoi du mail a l'utilisateur avec son nouveau mot de passe
+                    return true;
+                }
+                else {
+                    return false;
+                }
+
             }
-            else {
+            catch (PDOException $e) {
                 return false;
             }
+        }
+        else Alerts::isNotAuthorized();
 
-        }
-        catch (PDOException $e) {
-            return false;
-        }
     }
 
 
@@ -313,12 +319,12 @@ final class Member
     }
 
 
-    public function updateRoleSession($id) {
+    public function updateSession($id) {
         try {
             $req = Model::getPDO()->query("SELECT * FROM members WHERE id_member = '" . $id . "'");
             $resultat = $req->fetch();
 
-            return $resultat['role'];
+            return array($resultat['role'], $resultat['points']);
         }
         catch (PDOException $e) {
             return 'Une erreur produite';

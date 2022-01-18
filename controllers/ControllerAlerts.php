@@ -10,6 +10,7 @@ class Alerts {
         echo '</div>';
     }
 
+
     public function updateRoleError() {
         echo '<div class="confirm">';
         echo '<span>Erreur dans la mise à jour du rôle de l\'utilisateur, veuillez réessayer</span>';

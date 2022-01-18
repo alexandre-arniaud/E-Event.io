@@ -103,8 +103,8 @@ final class Campaign
         $req = "SELECT * FROM event WHERE id IN (SELECT id_event FROM lineCampaign WHERE id_camp IN (SELECT MAX(id_camp) FROM lineCampaign)) AND totalPoints >= '350' AND selected = '0' ORDER BY totalPoints DESC";
         try {
             $req_prep = Model::getPDO()->query($req);
-            $tab = $req_prep->fetch();
-            return array($tab);
+            $tab = $req_prep->fetchAll(PDO::FETCH_ASSOC);
+            return $tab;
 
         }
         catch (PDOException $e) {
@@ -118,15 +118,10 @@ final class Campaign
      * @author Garnier Marius & Anthony Ruiz
      */
     public function getWinEvent(){
-        $req = "SELECT * FROM event WHERE id IN (SELECT id_event FROM lineCampaign WHERE id_camp = :cC ) AND selected = '1' ORDER BY totalPoints DESC";
+        $req = "SELECT * FROM event WHERE id IN (SELECT id_event FROM lineCampaign WHERE id_camp IN (SELECT MAX(id_camp) FROM lineCampaign)) AND selected = '1' ORDER BY totalPoints DESC";
         try {
-            $req_prep = Model::getPDO()->prepare($req);
-            $values = array(
-                "cC" => self::getCurrentCampaign()['id_camp']
-            );
-            $req_prep->execute($values);
-            $tab = $req_prep->fetchAll();
-
+            $req_prep = Model::getPDO()->query($req);
+            $tab = $req_prep->fetchAll(PDO::FETCH_ASSOC);
             return $tab;
 
         }

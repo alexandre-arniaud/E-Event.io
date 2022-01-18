@@ -96,8 +96,7 @@ final class Event
         $reqB = "UPDATE event SET totalPoints = :P WHERE id = '$id_event'";
         $reqC = "UPDATE members SET points = :M WHERE id_member = '$id'";
 
-        $reqD = "SELECT * FROM eventadd WHERE id_event = '$id_event'";
-        $reqE = "UPDATE eventadd SET isunlock = true WHERE id_add = :ida";
+        $reqE = "UPDATE eventContent SET isunlock = true WHERE id_add = :ida";
 
         try {
 
@@ -118,7 +117,7 @@ final class Event
             $req_prepC->execute($decrement);
 
             //Verification des seuils des contenus supplementaire
-            $req_D = Model::getPDO()->query($reqD);
+            $req_D = Model::getPDO()->query("SELECT * FROM eventContent WHERE id_event = '$id_event'");
 
             while($tabD = $req_D->fetch(PDO::FETCH_ASSOC)) {
                 $seuil = $tabD['threshold'];
@@ -189,12 +188,12 @@ final class Event
 
     /**
      * @description Méthode qui permet de modifier son évènement
-     * @author Garnier Marius
+     * @author Alexandre Arniaud & Garnier Marius
      */
 
     public function updateEvent() {
         $currentCampId = Campaign::getCurrentCampaign()['id_camp'];
-        $reqA = " UPDATE event SET proj_name =:nN, location =:nL, description=:nD ";
+        $reqA = " UPDATE event SET proj_name =:nN, location =:nL, description=:nD WHERE organizer = '" . $_SESSION['prenom'] . ' ' . $_SESSION['nom'] .   "'";
         try {
                 $req_prepA = Model::getPDO()->prepare($reqA);
                 $values = array(
